@@ -22,6 +22,7 @@ int main() {
     string userInput = "";
 
     cout << "Please enter some text: ";
-    cin >> userInput;
+    getline(cin, userInput);
+
     makeBox(userInput);
 }
