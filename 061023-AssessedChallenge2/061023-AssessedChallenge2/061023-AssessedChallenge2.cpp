@@ -19,7 +19,8 @@ void inputs() {
     cin >> age;
 
     cout << "\nPlayer details:\n";
-    cout << "Name: [" << clanTag << "]" << username << "\n";
+    cout << "Name: " << name << "\n";
+    cout << "Username: [" << clanTag << "]" << username << "\n";
     cout << "Age: " << age << "\n";
 }
 
