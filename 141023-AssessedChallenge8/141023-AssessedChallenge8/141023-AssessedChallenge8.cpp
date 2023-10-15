@@ -23,8 +23,18 @@ int main() {
 	string userPrompt = "";
 	cin >> userPrompt;
 
-	string command = userPrompt.substr(0, userPrompt.find(' '));
-	string indexInput = (userPrompt.substr(userPrompt.find(' ') + 1));
+	string command = "";
+	string indexInput = "";
+	
+	if (userPrompt.find(" ") == true) {
+		cout << "true";
+		string command = userPrompt.substr(0, userPrompt.find(' '));
+		string indexInput = (userPrompt.substr(userPrompt.find(' ')));
+	}
+	else {
+		cout << "false";
+		string command = userPrompt;
+	}
 
 	cout << command << "\n" << indexInput;
 
