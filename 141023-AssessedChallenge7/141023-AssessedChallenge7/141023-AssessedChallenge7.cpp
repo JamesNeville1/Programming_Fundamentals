@@ -56,7 +56,7 @@ int main() {
 	#pragma region Output
 	cout << "\nPlayer Details: \n"
 		<< "Name: " << myPlayer.name << "\n"
-		<< "Race: " << myPlayer.race << "\n"
-		<< "Class: " << myPlayer.class_ << "\n";
+		<< "Race: " << playerRace[myPlayer.race] << "\n"
+		<< "Class: " << playerClass[myPlayer.class_] << "\n";
 	#pragma endregion
 }
