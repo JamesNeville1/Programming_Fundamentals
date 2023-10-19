@@ -1,17 +1,31 @@
 #include <iostream>
+#include "main.h"
 
 using namespace std;
 
 int userInput() {
-    int userGuess = 0;
+    string userGuess = "";
+    string validatedGuess = "";
     cout << "Enter a guess: ";
     cin >> userGuess;
-    return userGuess;
+    bool validated;
+    while (validated) {
+        for (size_t i = 0; i < userGuess.length(); i++) {
+            if (isalpha(userGuess[i]) == 0) {
+                validatedGuess += userGuess[i];
+            }
+        }
+        if (validatedGuess == "") {
+            cout << "That is an invalid input, please input numbers, guess again \n ";
+            cin >> userGuess;
+        }
+    }
+    return stoi(validatedGuess);
 }
 
 void numGuesser() {
     srand((unsigned)time(NULL)); //Generate random number between 0 - 100
-    int randNum = 50;
+    int randNum = rand() % 101;
 
     int userGuess = userInput();
 
