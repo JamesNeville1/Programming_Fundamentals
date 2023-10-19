@@ -1,33 +1,77 @@
 #include <iostream>
+#include <string>
 
-void main()
-{
-    //Using structs and arrays, build a character class and name selection system
-    //for a text-based game. The program should firstly prompt the user for a class
-    //using a numbered menu system. For example:
+using namespace std;
 
-    // Please choose a character class below:
-    // 1. Spearman
-    // 2. Knight
-    // 3. Archer
-    //
-    // > 3
-    // - You have selected the Archer character class.
+string playerRace[3] = { "Acid Spitter", "Dragonborn", "Ice Elemental" };
 
-    //The character class names and amount are up to you, but should make 
-    //use of an array so the solution can be easily extended. Invalid menu choices
-    //should also be handled.
+string playerClass[3] = { "Knight", "Archer", "Wizard" };
 
-    //The user should then be prompted for their in-game name, and then their
-    //player details should be shown. These details should be stored in a struct,
-    //so player details can be a) easily extended to encompass more player detail
-    //types in the future and b) logically exist in one structure.
-    
-    //The prompt should be shown like below:
+class player {
+public:
+	string name = "";
+	int race = 0;
+	int class_ = 0;
+};
 
-    // Please enter your name: ben
-    //
-    // Player details:
-    // - Name: ben
-    // - Class: Knight
+bool validate(int input, int max) {
+	if (input > max || input < 0) return false;
+	else return true;
+}
+
+int selectRace() {
+	bool validated = false;
+	string inputRaw = "";
+	int input = 0;
+
+	while (!validated) {
+		cout << "\nPlease choose a character race below: \n";
+
+		for (int i = 0; i < sizeof(playerRace) / sizeof(string); i++) {
+			cout << i + 1 << " " << playerRace[i] << "\n";
+		}
+		cout << ">>> ";
+		cin >> inputRaw;
+
+		input--;
+		cout << "\n";
+		
+		validated = validate(input, sizeof(playerRace) / sizeof(string) - 1);
+
+		if (!validated) {
+			system("CLS");
+			cout << "*Error: Please enter a number between 1 and " << sizeof(playerRace) / sizeof(string) << "*\n";
+		}
+	}
+	return input;
+}
+
+int selectClass() {
+	int input = 0;
+	cout << "Please choose a character class below: \n";
+	for (int i = 0; i < sizeof(playerClass) / sizeof(string); i++) {
+		cout << i + 1<< " " << playerClass[i] << "\n";
+	}
+	cout << ">>> ";
+	cin >> input;
+	cout << "\n";
+	return input - 1;
+}
+
+int main() {
+	player myPlayer;
+
+#pragma region Input
+	myPlayer.race = selectRace();
+	myPlayer.class_ = selectClass();
+	cout << "What is your name: ";
+	cin >> myPlayer.name;
+#pragma endregion
+
+#pragma region Output
+	cout << "\nPlayer Details: \n"
+		<< "Name: " << myPlayer.name << "\n"
+		<< "Race: " << playerRace[myPlayer.race] << "\n"
+		<< "Class: " << playerClass[myPlayer.class_] << "\n";
+#pragma endregion
 }

@@ -8,8 +8,6 @@
 using namespace std;
 
 int userInput() {
-    char gay[] = "2";
-    //if (isdigit(gay[0])) cout << "aaaaaaaa";
     string userGuess = "";
     string validatedGuess = "";
     
@@ -19,7 +17,6 @@ int userInput() {
     while (!validated) {
         for (int i = 0; i < userGuess.length(); i++) {
             if (isdigit(userGuess[i])) {
-                //cout << "true";
                 validatedGuess += userGuess[i];
                 validated = true;
             }
@@ -33,13 +30,10 @@ int userInput() {
 }
 
 void numGuesser() {
-    srand((unsigned)time(NULL)); //Generate random number between 0 - 100
-    int randNum = rand() % 101;
+    int randNum = random(0,100);
     int tries = 0;
 
     int userGuess = userInput();
-
-    cout << randNum;
 
     while (userGuess != randNum) {
         int dif = abs(userGuess - randNum);
@@ -55,7 +49,7 @@ void numGuesser() {
         userGuess = userInput();
         tries++;
     }
-    cout << "You got it! The number is " << randNum << ", you got it in " << tries << " tries";
+    cout << "You got it! The number is " << randNum << ", you got it in " << tries + 1 << " tries";
 }
 
 int main() {
