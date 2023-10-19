@@ -1,54 +1,60 @@
 #include <iostream>
-#include <map>
 #include <string>
 
 using namespace std;
 
-map <int, string> playerRace ={
-	{ 1, "Acid Spitter"		},
-	{ 2, "Dragonborn"		},
-	{ 3, "Ice Elemental"	}
-};
+string playerRace[3] = { "Acid Spitter", "Dragonborn", "Ice Elemental" };
 
-map <int, string> playerClass ={
-	{ 1, "Knight"			},
-	{ 2, "Archer"			},
-	{ 3, "Wizard"			}
-};
+string playerClass[3] = { "Knight", "Archer", "Wizard" };
 
 class player {
 	public:
-		string name;
-		int race;
-		int class_;
+		string name = "";
+		int race = 0;
+		int class_ = 0;
 };
+
+bool validate(int input, int max) {
+	if (input > max) return false;
+	else return true;
+}
+
+int selectRace() {
+	bool validated = false;
+
+	while (!validate) {
+		int input = 0;
+		cout << "Please choose a character race below: \n";
+
+		for (int i = 0; i < sizeof(playerRace) / sizeof(string); i++) {
+			cout << i + 1 << " " << playerRace[i] << "\n";
+		}
+		cout << ">>> ";
+		cin >> input;
+		cout << "\n";
+		validated = validate(input - 1, sizeof(playerRace) / sizeof(string));
+		return input - 1;
+	}
+}
+
+int selectClass() {
+	int input = 0;
+	cout << "Please choose a character class below: \n";
+	for (int i = 0; i < sizeof(playerClass) / sizeof(string); i++) {
+		cout << i << " " << playerClass[i] << "\n";
+	}
+	cout << ">>> ";
+	cin >> input;
+	cout << "\n";
+	return input - 1;
+}
 
 int main() {
 	player myPlayer;
-	cout << "Please choose a character race below: \n";
 
-	map<int, string>::iterator i;
-	
-	#pragma region Input - Race
-	for (i = playerRace.begin(); i != playerRace.end(); i++) {
-		cout << i->first << " " << i->second << "\n";
-	}
-	cout << ">>> ";
-	cin >> myPlayer.race;
-	cout << "\n";
-	#pragma endregion
-
-	#pragma region Input - Class
-	cout << "Please choose a character class below: \n";
-	for (i = playerClass.begin(); i != playerClass.end(); i++) {
-		cout << i->first << " " << i->second << "\n";
-	}
-	cout << ">>> ";
-	cin >> myPlayer.class_;
-	cout << "\n";
-	#pragma endregion
-
-	#pragma region Input - Name
+	#pragma region Input
+	myPlayer.race = selectRace();
+	myPlayer.class_ = selectClass();
 	cout << "What is your name: ";
 	cin >> myPlayer.name;
 	#pragma endregion
@@ -57,6 +63,6 @@ int main() {
 	cout << "\nPlayer Details: \n"
 		<< "Name: " << myPlayer.name << "\n"
 		<< "Race: " << playerRace[myPlayer.race] << "\n"
-		<< "Class: " << playerClass[myPlayer.class_] << "\n";
+		<< "Class: " << playerClass[myPlayer.class_]  << "\n";
 	#pragma endregion
 }
