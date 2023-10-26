@@ -3,75 +3,48 @@
 
 using namespace std;
 
-string playerRace[3] = { "Acid Spitter", "Dragonborn", "Ice Elemental" };
-
-string playerClass[3] = { "Knight", "Archer", "Wizard" };
-
-class player {
-public:
-	string name = "";
-	int race = 0;
-	int class_ = 0;
+struct classTemp {
+	string className;
+	int health;
+	int damageMaxRoll;
+	bool ranged;
 };
 
-bool validate(int input, int max) {
-	if (input > max || input < 0) return false;
-	else return true;
-}
+classTemp characterClasses[3] = {
+	{"Knight", 25, 6, false},
+	{"Archer", 18, 8, true},
+	{"Wizard", 10, 12, true}
+};
 
-int selectRace() {
-	bool validated = false;
-	string inputRaw = "";
-	int input = 0;
+struct player {
+	string name;
+	int playerClass;
+};
 
-	while (!validated) {
-		cout << "\nPlease choose a character race below: \n";
-
-		for (int i = 0; i < sizeof(playerRace) / sizeof(string); i++) {
-			cout << i + 1 << " " << playerRace[i] << "\n";
+void classSelect() {
+	bool isInvalid = true;
+	int playerInput;
+	int sizeOfClasses = sizeof(characterClasses) / sizeof(characterClasses[0]);
+	while (isInvalid) {
+		cout << "Choose a class from below (ensure your answer is within the range):" << endl;
+		for (int i = 0; i < sizeOfClasses; i++) {
+			cout << i + 1 << " " << characterClasses[i].className << endl;
 		}
-		cout << ">>> ";
-		cin >> inputRaw;
-
-		input--;
-		cout << "\n";
-		
-		validated = validate(input, sizeof(playerRace) / sizeof(string) - 1);
-
-		if (!validated) {
-			system("CLS");
-			cout << "*Error: Please enter a number between 1 and " << sizeof(playerRace) / sizeof(string) << "*\n";
+		cin >> playerInput;
+		if (playerInput > 0 && playerInput <= sizeOfClasses) {
+			isInvalid = false;
 		}
+		else cout << "That input was invalid, try again." << endl;
 	}
-	return input;
-}
-
-int selectClass() {
-	int input = 0;
-	cout << "Please choose a character class below: \n";
-	for (int i = 0; i < sizeof(playerClass) / sizeof(string); i++) {
-		cout << i + 1<< " " << playerClass[i] << "\n";
-	}
-	cout << ">>> ";
-	cin >> input;
 	cout << "\n";
-	return input - 1;
+	cout << "You selected the " << characterClasses[playerInput - 1].className << " class" << endl;
+	cout << "You have " << characterClasses[playerInput - 1].health << " health" << endl;
+	cout << "You have " << characterClasses[playerInput - 1].damageMaxRoll << " max damage" << endl;
+	cout << "Ranged class: ";
+	if (characterClasses[playerInput - 1].ranged) cout << "True" << endl;
+	else cout << "False" << endl;
 }
 
 int main() {
-	player myPlayer;
-
-#pragma region Input
-	myPlayer.race = selectRace();
-	myPlayer.class_ = selectClass();
-	cout << "What is your name: ";
-	cin >> myPlayer.name;
-#pragma endregion
-
-#pragma region Output
-	cout << "\nPlayer Details: \n"
-		<< "Name: " << myPlayer.name << "\n"
-		<< "Race: " << playerRace[myPlayer.race] << "\n"
-		<< "Class: " << playerClass[myPlayer.class_] << "\n";
-#pragma endregion
+	classSelect();
 }
