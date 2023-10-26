@@ -23,26 +23,37 @@ struct player {
 
 void classSelect() {
 	bool isInvalid = true;
-	int playerInput;
+	string playerInputRaw = "";
+	int playerInput = 0;
 	int sizeOfClasses = sizeof(characterClasses) / sizeof(characterClasses[0]);
+
 	while (isInvalid) {
 		cout << "Choose a class from below (ensure your answer is within the range):" << endl;
 		for (int i = 0; i < sizeOfClasses; i++) {
 			cout << i + 1 << " " << characterClasses[i].className << endl;
 		}
-		cin >> playerInput;
-		if (playerInput > 0 && playerInput <= sizeOfClasses) {
-			isInvalid = false;
+
+		cin >> playerInputRaw;
+		cout << playerInputRaw.length() << endl;
+		for (int i = 0; i < playerInputRaw.length(); i++) {
+			if (isdigit(playerInputRaw[i]))
+				playerInput += playerInputRaw[i];
 		}
-		else cout << "That input was invalid, try again." << endl;
 	}
-	cout << "\n";
-	cout << "You selected the " << characterClasses[playerInput - 1].className << " class" << endl;
-	cout << "You have " << characterClasses[playerInput - 1].health << " health" << endl;
-	cout << "You have " << characterClasses[playerInput - 1].damageMaxRoll << " max damage" << endl;
-	cout << "Ranged class: ";
-	if (characterClasses[playerInput - 1].ranged) cout << "True" << endl;
-	else cout << "False" << endl;
+	cout << playerInput << endl;
+
+	if (playerInput > 0 && playerInput <= sizeOfClasses) {
+		isInvalid = false;
+	}
+	else cout << "That input was invalid, try again." << endl;
+}
+cout << "\n";
+cout << "You selected the " << characterClasses[playerInput - 1].className << " class" << endl;
+cout << "You have " << characterClasses[playerInput - 1].health << " health" << endl;
+cout << "You have " << characterClasses[playerInput - 1].damageMaxRoll << " max damage" << endl;
+cout << "Ranged class: ";
+if (characterClasses[playerInput - 1].ranged) cout << "True" << endl;
+else cout << "False" << endl;
 }
 
 int main() {
