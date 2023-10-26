@@ -39,21 +39,21 @@ void classSelect() {
 			if (isdigit(playerInputRaw[i]))
 				playerInput += playerInputRaw[i];
 		}
+		cout << playerInput << endl;
 	}
-	cout << playerInput << endl;
 
 	if (playerInput > 0 && playerInput <= sizeOfClasses) {
 		isInvalid = false;
 	}
 	else cout << "That input was invalid, try again." << endl;
-}
-cout << "\n";
-cout << "You selected the " << characterClasses[playerInput - 1].className << " class" << endl;
-cout << "You have " << characterClasses[playerInput - 1].health << " health" << endl;
-cout << "You have " << characterClasses[playerInput - 1].damageMaxRoll << " max damage" << endl;
-cout << "Ranged class: ";
-if (characterClasses[playerInput - 1].ranged) cout << "True" << endl;
-else cout << "False" << endl;
+
+	cout << "\n";
+	cout << "You selected the " << characterClasses[playerInput - 1].className << " class" << endl;
+	cout << "You have " << characterClasses[playerInput - 1].health << " health" << endl;
+	cout << "You have " << characterClasses[playerInput - 1].damageMaxRoll << " max damage" << endl;
+	cout << "Ranged class: ";
+	if (characterClasses[playerInput - 1].ranged) cout << "True" << endl;
+	else cout << "False" << endl;
 }
 
 int main() {
