@@ -1,11 +1,10 @@
 #pragma once
 
+struct Vector2 {
+	float x;
+	float y;
+};
 
-
-//TODO: Build Vector2 structure
-//TODO: Write function to return distance between two Vector2s called GetDistanceBetweenPoints.
-
-//You will need the Euclidean distance formula to complete this task. It is
-//given in the article:
-//
-// - https://en.wikipedia.org/wiki/Euclidean_distance
+float GetDistanceBetweenPoints(Vector2 startPos, Vector2 endPos) {
+	return sqrt((pow(endPos.x - startPos.x, 2) + pow(endPos.y - startPos.y, 2)));
+}
