@@ -56,7 +56,8 @@ struct playerTemp {
 };
 
 struct npc {
-	string name;
+	string name = "";
+	bool isMale = true;
 	struct salesman {
 
 	};
@@ -65,12 +66,13 @@ struct npc {
 	};
 };
 
-struct event {
+struct eventTemp {
 	struct dialogue {
-
+		npc npc;
 	};
 	struct scenic {
-
+		vector<string> prompts;
+		
 	};
 	struct combat {
 
@@ -78,68 +80,94 @@ struct event {
 };
 
 class utils {
-	public:static int validateInt(string raw) {
-		bool valid = false;
-		string rawValidated = "";
+	public: class core {
+		public: static int validateInt(string raw) {
+			bool valid = false;
+			string rawValidated = "";
 
-		for (int i = 0; i < raw.length(); i++) {
-			if (isdigit(raw[i])) rawValidated += raw[i];
+			for (int i = 0; i < raw.length(); i++) {
+				if (isdigit(raw[i])) rawValidated += raw[i];
+			}
+
+			if (rawValidated != "") return stoi(rawValidated);
+			else return -1;
 		}
 
-		if (rawValidated != "") return stoi(rawValidated);
-		else return -1;
-	}
+		public: static int promptUserOptions(vector<string> prompts) {
+			bool valid = false;
+			int validInt = 0;
 
-	public:static int promptUserOptions(vector<string> prompts) {
-		bool valid = false;
-		int validInt = 0;
+			while (!valid) {
+				for (int i = 0; i < prompts.size(); i++) {
+					cout << prompts[i] << endl;
+				}
 
-		while (!valid) {
+				string rawInput = "";
+				getline(cin, rawInput);
+				cout << endl;
+
+				validInt = validateInt(rawInput) - 1;
+
+				if (validInt >= 0 && validInt < prompts.size() - 1) valid = true;
+				else cout << "Error: Please ensure you input is valid" << endl;
+			}
+			return validInt;
+		}
+
+		public: static string promptUserString(string prompt) {
+			cout << prompt << " ";
+
+			string input = "";
+			getline(cin, input);
+
+			return input;
+		}
+
+		public: static void promptNoInput(vector<string> prompts) {
 			for (int i = 0; i < prompts.size(); i++) {
 				cout << prompts[i] << endl;
 			}
-
-			string rawInput = "";
-			getline(cin, rawInput);
-			cout << endl;
-
-			validInt = validateInt(rawInput) - 1;
-
-			if (validInt >= 0 && validInt < prompts.size() - 1) valid = true;
-			else cout << "Error: Please ensure you input is valid" << endl;
 		}
-		return validInt;
-	}
-
-	public:static string promptUserString(string prompt){
-		cout << prompt << " ";
-
-		string input = "";
-		getline(cin, input);
-
-		return input;
-	}
-
-	public:static void promptNoInput(vector<string> prompts){
-		for (int i = 0; i < prompts.size(); i++) {
-			cout << prompts[i] << endl;
-		}
-	}
-
-	public:static bool yesOrNoPrompt() {
-		//bool confirmed = false;
-
-		while (true) { //check if bad?
-			string input = promptUserString("Confirm: (y/n):");
-
-			if (input == "y" || input == "Y") {
+		public: static bool yesOrNoPrompt() {
+			//bool confirmed = false;
+			while (true) { //check if bad?
 				cout << endl;
-				return true;
-			}
-			else if (input == "n" || input == "N") {
-				cout << endl;
-				return false;
+				string input = promptUserString("Confirm: (y/n)");
+
+				if (input == "y" || input == "Y") {
+					cout << endl;
+					return true;
+				}
+				else if (input == "n" || input == "N") {
+					cout << endl;
+					return false;
+				}
 			}
 		}
-	}
+	};
+	public: class information {
+		public:static vector<string> raceInfo(int chosenRaceInt) {
+			vector<string> info;
+			if (raceData[chosenRaceInt].opinionModifier > 0) {
+				info.push_back("> This race is viewed highly by most, you're kind are often view as protectors and worshipped as gods.");
+			}
+			else if (raceData[chosenRaceInt].opinionModifier < 0) {
+				info.push_back("> This race is disrespected by the masses, you're kind are often viewed as viel and are pushed to the fringe of society.");
+			}
+			else {
+				info.push_back("> This race is accepted by most. Most will be impartial to you");
+			}
+			info.push_back("> This race will add an additional " + to_string(raceData[chosenRaceInt].raceHealth) + " health");
+			return info;
+		}
+
+		public:static vector<string> classInfo(int chosenClassInt) {
+			vector<string> info;
+			if (classData[chosenClassInt].isRangedClass) info.push_back("> If you chose this class, you will be more effective at a distance.");
+			else info.push_back("> If you choose this class, you will be more effective in close quaters.");
+			info.push_back("> This class will add an additional " + to_string(classData[chosenClassInt].health) + " health");
+			info.push_back("> You roll a d" + to_string(classData[chosenClassInt].maxDamageRoll) + " when rolling damage");
+			return info;
+		}
+	};
 };

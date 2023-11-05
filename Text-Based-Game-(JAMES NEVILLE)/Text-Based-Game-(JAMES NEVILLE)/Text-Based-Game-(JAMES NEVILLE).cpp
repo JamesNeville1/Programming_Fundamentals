@@ -5,75 +5,49 @@
 
 using namespace std;
 
-int getPlayerRace() {
-	vector<string> prompts = { "Select your characters race:" };
-	for (int i = 0; i < sizeof(raceData) / sizeof(raceData[0]); i++) {
-		string option = "> [" + to_string(i+1) + "] " + raceData[i].displayName;
-		prompts.push_back(option);
+int getPlayerTemps(bool getRace) {
+	vector<string> prompts = { "Select your " };
+	int loopFor = 0;
+
+	if (getRace) {
+		prompts[0] += "race";
+		loopFor = sizeof(raceData) / sizeof(raceData[0]);
+		for (int i = 0; i < loopFor; i++) {
+			string option = "> [" + to_string(i + 1) + "] " + raceData[i].displayName;
+			prompts.push_back(option);
+		}
+	}
+	else {
+		prompts[0] += "class";
+		loopFor = sizeof(classData) / sizeof(classData[0]);
+		for (int i = 0; i < loopFor; i++) {
+			string option = "> [" + to_string(i + 1) + "] " + classData[i].displayName;
+			prompts.push_back(option);
+		}
 	}
 
-	bool chosen = false;
-	int chosenRace = 0;
-	vector<string> raceInfo;
+	bool hasChosen = false;
+	int chosenTemp = 0;
+	vector<string> info;
 
-	while (!chosen) {
-		chosenRace = utils::promptUserOptions(prompts);
+	while (!hasChosen) {
+		chosenTemp = utils::core::promptUserOptions(prompts);
 
-		if (raceData[chosenRace].opinionModifier > 0) {
-			raceInfo.push_back("> This race is viewed highly by most, you're kind are often view as protectors and worshipped as gods.");
-		}
-		else if (raceData[chosenRace].opinionModifier < 0) {
-			raceInfo.push_back("> This race is disrespected by the masses, you're kind are often viewed as viel and are pushed to the fringe of society.");
-		}
-		else {
-			raceInfo.push_back("> This race is accepted by most. Most will be impartial to you");
-		}
+		if (getRace) info = utils::information::raceInfo(chosenTemp);
+		else info = utils::information::classInfo(chosenTemp);
 
-		//raceInfo.push_back("> Picking this race will make your weapon attacks do: " + raceData[chosenRace].raceDamageType);
-		raceInfo.push_back("> Picking this race will increase your max health by: " + to_string(raceData[chosenRace].raceHealth));
-
-		//cout << raceInfo[2] << endl;
-
-		utils::promptNoInput(raceInfo);
-		if (utils::yesOrNoPrompt()) chosen = true;
+		utils::core::promptNoInput(info);
+		if (utils::core::yesOrNoPrompt()) hasChosen = true;
 	}
 
-	return chosenRace;
-}
-
-int getPlayerClass() {
-	vector<string> prompts = { "Select your characters class:" };
-	for (int i = 0; i < sizeof(classData) / sizeof(classData[0]); i++) {
-		string option = "> [" + to_string(i+1) + "] " + classData[i].displayName;
-		prompts.push_back(option);
-	}
-
-	bool chosen = false;
-	int chosenClass = 0;
-
-	while (!chosen) {
-		chosenClass = utils::promptUserOptions(prompts);
-
-		cout << classData[chosenClass].displayName << "s are ";
-
-		if (classData[chosenClass].isRangedClass) {
-			cout << " ranged character, you will be stronger at a distance, and weaker in close quaters";
-		}
-		else {
-			cout << " melee character, you will be stronger in close quaters, and weaker at a distance";
-		}
-
-		if (utils::yesOrNoPrompt()) chosen = true;
-	}
-
-	return chosenClass;
+	return chosenTemp;
 }
 
 playerTemp createPlayerCharacter() {
 	playerTemp playersCharacter = {
-		utils::promptUserString("Enter your characters name:"),
-		getPlayerRace(),
-		getPlayerClass()
+		utils::core::promptUserString("Enter your characters name:"),
+		getPlayerTemps(true),
+		getPlayerTemps(false)
 	};
 
 	cout << "Character Details:" << endl
