@@ -1,21 +1,24 @@
 #include <iostream>
+#include <string>
+#include <vector>
 
-void main()
-{
-    //Add code to build a grade calculator for the module. This should:
-    //
-    // - Prompt the user for input, for the grade of each component of assessment 1
-    // - Prompt the user for input, for the grade of each component of assessment 2
-    // - Provide a detailed breakdown of:
-    //      - List the overall percentage of each assessment
-    //      - Their overall grade after percentage weighting
-    //      - Output which CRG band they fit into, for each criterion
+using namespace std;
 
-    //Invalid input should be detected and handled after prompting. For example,
-    //if the input grade "-1" is given, the user should be reprompted to enter the
-    //grade again.
+struct elementTemp {
+	string name = "";
+	int pointsAvailable = 0;
+};
 
-    //Furthermore, please use structs and arrays where appropriate to model
-    //the different assessment components.
-    //..
+struct assessmentTemp {
+	string name = "";
+	vector<elementTemp> challenges;
+	vector<elementTemp> otherElements;
+};
+
+assessmentTemp assessmentOne = {
+	"Assessment 1", {"1", 10}
+}
+
+void main() {
+
 }
