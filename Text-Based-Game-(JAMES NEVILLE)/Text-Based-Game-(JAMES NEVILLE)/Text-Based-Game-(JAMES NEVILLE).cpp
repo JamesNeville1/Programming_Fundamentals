@@ -13,7 +13,7 @@ int getPlayerTemps(bool getRace) {
 		prompts[0] += "race";
 		loopFor = sizeof(raceData) / sizeof(raceData[0]);
 		for (int i = 0; i < loopFor; i++) {
-			string option = "> [" + to_string(i + 1) + "] " + raceData[i].displayName;
+			string option = raceData[i].displayName;
 			prompts.push_back(option);
 		}
 	}
@@ -21,7 +21,7 @@ int getPlayerTemps(bool getRace) {
 		prompts[0] += "class";
 		loopFor = sizeof(classData) / sizeof(classData[0]);
 		for (int i = 0; i < loopFor; i++) {
-			string option = "> [" + to_string(i + 1) + "] " + classData[i].displayName;
+			string option = classData[i].displayName;
 			prompts.push_back(option);
 		}
 	}
@@ -60,4 +60,7 @@ playerTemp createPlayerCharacter() {
 
 int main() {
 	playerTemp playersCharacter = createPlayerCharacter();
+
+	int outcomes[2] = {1,2};
+	utils::eventSpecific::eventFunc(eventData[0], outcomes);
 }

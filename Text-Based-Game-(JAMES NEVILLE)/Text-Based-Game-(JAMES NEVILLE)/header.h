@@ -67,16 +67,19 @@ struct npc {
 };
 
 struct eventTemp {
-	struct dialogue {
-		npc npc;
-	};
-	struct scenic {
-		vector<string> prompts;
-		
-	};
-	struct combat {
+	vector<string> prompts;
+};
 
-	};
+eventTemp eventData[] = {
+	{
+		{"Do you go left or right?","Left","Right"},
+	},
+	{
+		{"You find a big monster", "Attack!", "Go back"},
+	},
+	{
+		{"You find a treasure chest", "Open it", "Go back"},
+	}
 };
 
 class utils {
@@ -98,8 +101,9 @@ class utils {
 			int validInt = 0;
 
 			while (!valid) {
-				for (int i = 0; i < prompts.size(); i++) {
-					cout << prompts[i] << endl;
+				cout << prompts[0] << endl;
+				for (int i = 1; i < prompts.size(); i++) {
+					cout << "> [" + to_string(i) + "] " << prompts[i] << endl;
 				}
 
 				string rawInput = "";
@@ -168,6 +172,18 @@ class utils {
 			info.push_back("> This class will add an additional " + to_string(classData[chosenClassInt].health) + " health");
 			info.push_back("> You roll a d" + to_string(classData[chosenClassInt].maxDamageRoll) + " when rolling damage");
 			return info;
+		}
+	};
+	public: class eventSpecific {
+		public: static void eventFunc(eventTemp eventInfo, int outcomes[]) {
+			int input = utils::core::promptUserOptions(eventInfo.prompts);
+			
+			int i[2] = { 1,2 };
+			switch (input) {
+				case 1:eventFunc(eventData[1], i);
+					break;
+				case 2:eventFunc(eventData[2], i);
+			}
 		}
 	};
 };
