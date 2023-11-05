@@ -66,19 +66,27 @@ struct npc {
 	};
 };
 
+struct descision {
+	string option;
+	int eventID;
+};
 struct eventTemp {
-	vector<string> prompts;
+	string prompt;
+	descision de[10];
 };
 
 eventTemp eventData[] = {
 	{
-		{"Do you go left or right?","Left","Right"},
+		{"Do you go left or right?"},
+		{{"Left", 1}, "Right", 2}
 	},
 	{
-		{"You find a big monster", "Attack!", "Go back"},
+		{"You find a big monster"},
+		{{"Fight!", 2}, {"Flee!", 0}}
 	},
 	{
-		{"You find a treasure chest", "Open it", "Go back"},
+		{"You find a treasure chest"},
+		{{"Open", 1}, {"Don't risk it!", 0}}
 	}
 };
 
@@ -175,14 +183,18 @@ class utils {
 		}
 	};
 	public: class eventSpecific {
-		public: static void eventFunc(eventTemp eventInfo, int outcomes[]) {
-			int input = utils::core::promptUserOptions(eventInfo.prompts);
-			
-			int i[2] = { 1,2 };
-			switch (input) {
-				case 1:eventFunc(eventData[1], i);
-					break;
-				case 2:eventFunc(eventData[2], i);
+		public: static void eventFunc() {
+			int currentEvent = 0;
+			while (true) {
+
+				vector<string> prints;
+				prints.push_back(eventData[0].prompt);
+
+				for (int i = 0; i < sizeof(eventData[0].de); i++){
+					prints.push_back(eventData[currentEvent].de[i].option);
+				}
+
+				int input = utils::core::promptUserOptions(prints);
 			}
 		}
 	};

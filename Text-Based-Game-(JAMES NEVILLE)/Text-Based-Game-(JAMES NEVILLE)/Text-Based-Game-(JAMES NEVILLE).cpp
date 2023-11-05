@@ -61,6 +61,5 @@ playerTemp createPlayerCharacter() {
 int main() {
 	playerTemp playersCharacter = createPlayerCharacter();
 
-	int outcomes[2] = {1,2};
-	utils::eventSpecific::eventFunc(eventData[0], outcomes);
+	utils::eventSpecific::eventFunc();
 }
