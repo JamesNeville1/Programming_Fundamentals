@@ -190,7 +190,7 @@ class utils {
 				vector<string> prints;
 				prints.push_back(eventData[0].prompt);
 
-				for (int i = 0; i < sizeof(eventData[0].de); i++){
+				for (int i = 0; i < sizeof(eventData[0].de) / sizeof(eventData[0].de[0]); i++){
 					prints.push_back(eventData[currentEvent].de[i].option);
 				}
 
