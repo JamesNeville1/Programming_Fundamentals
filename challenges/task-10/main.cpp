@@ -7,8 +7,8 @@ using namespace std;
 struct elementTemp {
 	string elementName = "";
 	int points = 0;
-	int totalAchieved = 0;
 	float percentModif = 1;
+	int totalAchieved = 0;
 };
 struct assessmentTemp {
 	vector<vector<elementTemp>> modules = vector<vector<elementTemp>>();
@@ -127,12 +127,17 @@ void main() {
 	for (int i = 0; i < sizeof(user.assessmentsInfo) / sizeof(user.assessmentsInfo[0]); i++) { //Loop through assessments
 		int overallScore = 0;
 		for (int x = 0; x < user.assessmentsInfo[i].modules.size(); x++) { //Loop through modules
-			int overalllScorePerModule = 0;
+			float percantageTest = 0.0f;
+			int test = 0;
+			float overallPercentage = 0.0f;
 			for (int y = 0; y < user.assessmentsInfo[i].modules[x].size(); y++) { //Loop through elements
-				overalllScorePerModule += user.assessmentsInfo[i].modules[x][y].totalAchieved;
+				percantageTest += user.assessmentsInfo[i].modules[x][y].percentModif;
+				test += user.assessmentsInfo[i].modules[x][y].totalAchieved;
 			}
-			cout << "You got " << overalllScorePerModule << endl;
+			overallPercentage = percantageTest * test;
+			overallScore += overallPercentage;
 		}
+		cout << "You got " << to_string(overallScore) << "% for Assessment " << i + 1 << endl;
 	}
 
 	//cout << "You got " << user.assessmentsResults[0].modules[0][5].points;
