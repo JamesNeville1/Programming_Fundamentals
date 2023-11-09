@@ -15,10 +15,10 @@ struct assessmentTemp {
 };
 struct userScoresTemp {
 	assessmentTemp assessmentsInfo[2];
+	vector<int> bands;
 	int totalPoints;
 	int totalPercent;
 };
-
 userScoresTemp SetTemps(){
 	userScoresTemp userToPass = userScoresTemp();
 	userToPass.assessmentsInfo[0] = {
@@ -55,16 +55,14 @@ userScoresTemp SetTemps(){
 		},
 	};
 
-	//for (int i = 0; i < sizeof(userToPass.assessmentsInfo) / sizeof(userToPass.assessmentsInfo[0]); i++) { //Loop through assessments
-	//	//cout << "assessment " << i + 1 << endl;
-	//	for (int x = 0; x < userToPass.assessmentsInfo[i].modules.size(); x++) { //Loop through modules
-	//		//cout << "assessment " << i + 1 << " has " << x + 1 << " module(s)" << endl;
-	//		for (int y = 0; y < userToPass.assessmentsInfo[i].modules[x].size(); y++) { //Loop through elements
-	//			//cout << "assessment " << i + 1 << " has " << x + 1 << " module(s)" << " with " << y+1 << " elements" << endl;
-	//			//userToPass.assessmentsInfo[i].totalWorth = userToPass.assessmentsInfo[i].modules[x][y].points;
-	//		}
-	//	}
-	//}
+	userToPass.bands = {
+		70,
+		60,
+		50,
+		40,
+		30,
+		0
+	};
 
 	return userToPass;
 }
@@ -104,7 +102,22 @@ int takeInput(string prompt, int max) {
 				cout << "*ERROR*: Enter a number between 0 and " << max << " " << endl << endl;
 			}
 		}
+		else {
+			cout << "*ERROR*: Input must be a number" << endl << endl;
+		}
 	}
+}
+
+int amountOfChars = 3;
+string floatToString(float rawFloat) {
+	string rawFloatString = to_string(rawFloat);
+
+	string validFloatToOutput;
+	for (int i = 0; i < amountOfChars; i++) {
+		validFloatToOutput += rawFloatString[i];
+	}
+
+	return validFloatToOutput;
 }
 
 void main() {
@@ -124,21 +137,42 @@ void main() {
 		}
 	}
 
+	float overallScore = 0;
 	for (int i = 0; i < sizeof(user.assessmentsInfo) / sizeof(user.assessmentsInfo[0]); i++) { //Loop through assessments
-		int overallScore = 0;
+		float overallScorePerAssessment = 0;
 		for (int x = 0; x < user.assessmentsInfo[i].modules.size(); x++) { //Loop through modules
 			float percantageTest = 0.0f;
-			int test = 0;
+			int moduleScore = 0;
 			float overallPercentage = 0.0f;
 			for (int y = 0; y < user.assessmentsInfo[i].modules[x].size(); y++) { //Loop through elements
 				percantageTest += user.assessmentsInfo[i].modules[x][y].percentModif;
-				test += user.assessmentsInfo[i].modules[x][y].totalAchieved;
+				moduleScore += user.assessmentsInfo[i].modules[x][y].totalAchieved;
 			}
-			overallPercentage = percantageTest * test;
-			overallScore += overallPercentage;
+			overallPercentage = percantageTest * moduleScore;
+			cout << "You got " << floatToString(overallPercentage) << "% for module " << x+1 << ", " << "Assessment " << i+1 << endl;
+			overallScorePerAssessment += overallPercentage;
+			
+			int bandAchieved = -1;
+
+			int looper = 0;
+			while (bandAchieved < 0) {
+
+				if (moduleScore >= user.bands[looper]) {
+					bandAchieved = looper;
+					if (bandAchieved  == user.bands.size() -1) {
+						cout << "You did not meet the requirements for a band on module, you will have to redo this module" << endl << endl;
+					}
+					else {
+						cout << "You achieved CRG band " << user.bands.size() - bandAchieved - 1 << " (Out of " << user.bands.size() - 1 << ")" << endl << endl;
+					}
+				}
+
+				looper++;
+			}
 		}
-		cout << "You got " << to_string(overallScore) << "% for Assessment " << i + 1 << endl;
+		cout << "You got " << floatToString(overallScorePerAssessment) << "% for Assessment " << i + 1 << endl << endl;
+		overallScore += overallScorePerAssessment;
 	}
 
-	//cout << "You got " << user.assessmentsResults[0].modules[0][5].points;
+	cout << "Overall you got: " << floatToString(overallScore / 2) << "%" << endl;
 }
