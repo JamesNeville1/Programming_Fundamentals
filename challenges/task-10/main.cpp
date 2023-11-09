@@ -7,54 +7,67 @@ using namespace std;
 struct elementTemp {
 	string elementName = "";
 	int points = 0;
+	int totalAchieved = 0;
+	float percentModif = 1;
 };
-struct assessmentOneTemp {
-	string assessmentName = "";
-	elementTemp challenges[10];
-	elementTemp reflectiveJournal;
+struct assessmentTemp {
+	vector<vector<elementTemp>> modules = vector<vector<elementTemp>>();
 };
-struct assessmentTwoTemp {
-	string assessmentName = "";
-	elementTemp challenges[1];
-	elementTemp criteria[2];
-};
-
-assessmentOneTemp assessmentOne = {
-	"Assessment 1",
-	{
-		{"Challenge 1", 5},
-		{"Challenge 2", 5},
-		{"Challenge 3", 5},
-		{"Challenge 4", 10},
-		{"Challenge 5", 10},
-		{"Challenge 6", 10},
-		{"Challenge 7", 10},
-		{"Challenge 8", 15},
-		{"Challenge 9", 15},
-		{"Challenge 10", 15}
-	},
-	{
-		{"Reflective Journal", 30}
-	}
-};
-
-assessmentTwoTemp assessmentTwo = {
-	"Assessment 2",
-	{
-		{"Text-Based Game", 60}
-	},
-	{
-		{"Code Quality & Best Practices", 20},
-		{"Domonstration of programming techniques and applicability of learned techniques", 20}
-	}
-};
-
 struct userScoresTemp {
-	assessmentOneTemp myAssessmentOne = assessmentOne;
-	assessmentTwoTemp myAssessmentTwo = assessmentTwo;
+	assessmentTemp assessmentsInfo[2];
 	int totalPoints;
 	int totalPercent;
 };
+
+userScoresTemp SetTemps(){
+	userScoresTemp userToPass = userScoresTemp();
+	userToPass.assessmentsInfo[0] = {
+		{
+			{
+				{"Challenge 1", 5, .07f},
+				{"Challenge 2", 5, .07f},
+				{"Challenge 3", 5, .07f},
+				{"Challenge 4", 10, .07f},
+				{"Challenge 5", 10, .07f},
+				{"Challenge 6", 10, .07f},
+				{"Challenge 7", 10, .07f},
+				{"Challenge 8", 15, .07f},
+				{"Challenge 9", 15, .07f},
+				{"Challenge 10", 15, .07f}
+			},
+			{
+				{"Reflective Journal", 100, .3f}
+			}
+		},
+	};
+
+	userToPass.assessmentsInfo[1] = {
+		{
+			{
+				{"Text-Based Game Artefact", 100, .6f}
+			},
+			{
+				{"Code Quality and Best Practices", 100, .2f}
+			},
+			{
+				{"Demonstation of skills and techniques", 100, .2f}
+			}
+		},
+	};
+
+	//for (int i = 0; i < sizeof(userToPass.assessmentsInfo) / sizeof(userToPass.assessmentsInfo[0]); i++) { //Loop through assessments
+	//	//cout << "assessment " << i + 1 << endl;
+	//	for (int x = 0; x < userToPass.assessmentsInfo[i].modules.size(); x++) { //Loop through modules
+	//		//cout << "assessment " << i + 1 << " has " << x + 1 << " module(s)" << endl;
+	//		for (int y = 0; y < userToPass.assessmentsInfo[i].modules[x].size(); y++) { //Loop through elements
+	//			//cout << "assessment " << i + 1 << " has " << x + 1 << " module(s)" << " with " << y+1 << " elements" << endl;
+	//			//userToPass.assessmentsInfo[i].totalWorth = userToPass.assessmentsInfo[i].modules[x][y].points;
+	//		}
+	//	}
+	//}
+
+	return userToPass;
+}
 
 int validateInt(string raw) {
 	bool valid = false;
@@ -69,11 +82,11 @@ int validateInt(string raw) {
 }
 
 int takeInput(string prompt, int max) {
-	bool valid = false;
+	//bool valid = false;
 	string inputRaw = "";
 
 	while (true) {
-		cout << prompt;
+		cout << prompt << " ";
 		getline(cin, inputRaw);
 		cout << endl;
 
@@ -82,30 +95,45 @@ int takeInput(string prompt, int max) {
 			if (isdigit(inputRaw[i])) inputString += inputRaw[i];
 		}
 
-		
-		if (inputString != "") return stoi(inputString);
+		if (inputString != "") {
+			int validInt = stoi(inputString);
+			if (validInt >= 0 && validInt <= max) {
+				return validInt;
+			}
+			else {
+				cout << "*ERROR*: Enter a number between 0 and " << max << " " << endl << endl;
+			}
+		}
 	}
 }
 
 void main() {
-	userScoresTemp userScores;
-	string inputRaw = "";
-	string prompt = "";
+	userScoresTemp user = SetTemps();
+	int input = 0;
 
-	for (int i = 0; i < sizeof(assessmentOne.challenges) / sizeof(assessmentOne.challenges[0]); i++) {
-		prompt = "What did you get for " + assessmentOne.challenges[i].elementName + " (MAX " + to_string(assessmentOne.challenges[i].points) + "): ";
-		userScores.myAssessmentOne.challenges[i].points = takeInput(prompt, assessmentOne.challenges[i].points);
+	//cout << user.assessmentsResults[0].modules[0][5].elementName;
+
+	for (int i = 0; i < sizeof(user.assessmentsInfo) / sizeof(user.assessmentsInfo[0]); i++) { //Loop through assessments
+		for (int x = 0; x < user.assessmentsInfo[i].modules.size(); x++) { //Loop through modules
+			for (int y = 0; y < user.assessmentsInfo[i].modules[x].size(); y++) { //Loop through elements
+				string prompt = "What did this user achieve for Assessment " + to_string(i + 1) + ", " + user.assessmentsInfo[i].modules[x][y].elementName 
+					+ " (Max " + to_string(user.assessmentsInfo[i].modules[x][y].points) + "): ";
+				input = takeInput(prompt, user.assessmentsInfo[i].modules[x][y].points);
+				user.assessmentsInfo[i].modules[x][y].totalAchieved = input;
+			}
+		}
 	}
 
-	prompt = "What did you get for " + assessmentOne.reflectiveJournal.elementName + "(Max " + to_string(assessmentOne.reflectiveJournal.points) + "): ";
-	userScores.myAssessmentOne.reflectiveJournal.points = takeInput(prompt, assessmentOne.reflectiveJournal.points);
-
-	int a = 0;
-	for (int i = 0; i < sizeof(userScores.myAssessmentOne.challenges) / sizeof(userScores.myAssessmentOne.challenges[0]); i++) {
-		a += userScores.myAssessmentOne.challenges[i].points;
+	for (int i = 0; i < sizeof(user.assessmentsInfo) / sizeof(user.assessmentsInfo[0]); i++) { //Loop through assessments
+		int overallScore = 0;
+		for (int x = 0; x < user.assessmentsInfo[i].modules.size(); x++) { //Loop through modules
+			int overalllScorePerModule = 0;
+			for (int y = 0; y < user.assessmentsInfo[i].modules[x].size(); y++) { //Loop through elements
+				overalllScorePerModule += user.assessmentsInfo[i].modules[x][y].totalAchieved;
+			}
+			cout << "You got " << overalllScorePerModule << endl;
+		}
 	}
-	a += userScores.myAssessmentOne.reflectiveJournal.points;
 
-	cout << "your score is: " << a;
-	cout << "What did you get for " << assessmentOne.reflectiveJournal.elementName; //<< "(Max " << to_string(assessmentOne.reflectiveJournal.points) << "): ";
+	//cout << "You got " << user.assessmentsResults[0].modules[0][5].points;
 }
