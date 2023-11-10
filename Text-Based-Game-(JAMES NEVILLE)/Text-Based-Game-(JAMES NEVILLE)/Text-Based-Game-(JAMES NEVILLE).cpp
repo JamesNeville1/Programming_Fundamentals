@@ -43,23 +43,24 @@ int getPlayerTemps(bool getRace) {
 	return chosenTemp;
 }
 
-playerTemp createPlayerCharacter() {
-	playerTemp playersCharacter = {
-		utils::core::promptUserString("Enter your characters name:"),
-		getPlayerTemps(true),
-		getPlayerTemps(false)
-	};
+class playerTemp {
+public:
+	string name;
+	int playerRaceID;
+	int playerClassID;
+	playerTemp() {
+		this->name = utils::core::promptUserString("Enter your characters name:");
+		this->playerRaceID = getPlayerTemps(true);
+		this->playerClassID = getPlayerTemps(false);
+	}
+};
 
+int main() {
+	playerTemp playersCharacter = playerTemp();
 	cout << "Character Details:" << endl
 		<< playersCharacter.name << endl
 		<< raceData[playersCharacter.playerRaceID].displayName << endl
 		<< classData[playersCharacter.playerClassID].displayName << endl;
-
-	return playersCharacter;
-}
-
-int main() {
-	playerTemp playersCharacter = createPlayerCharacter();
 
 	utils::eventSpecific::eventFunc();
 }

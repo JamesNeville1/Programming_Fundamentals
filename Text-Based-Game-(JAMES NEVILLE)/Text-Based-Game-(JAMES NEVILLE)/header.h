@@ -49,12 +49,6 @@ classTemp classData[] = {
 	{"Warlock", 7, 20, magic, true, true},
 };
 
-struct playerTemp {
-	string name;
-	int playerRaceID;
-	int playerClassID;
-};
-
 struct npc {
 	string name = "";
 	bool isMale = true;
