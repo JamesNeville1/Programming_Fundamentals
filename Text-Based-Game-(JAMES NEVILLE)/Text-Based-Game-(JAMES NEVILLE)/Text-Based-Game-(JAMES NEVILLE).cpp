@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <cstring>
 #include "header.h"
+#include <windows.h> 
 
 using namespace std;
 
@@ -54,7 +55,8 @@ raceTemp raceData[] = {
 #pragma endregion
 #pragma region Class
 //The class object template
-struct classTemp {
+class classTemp {
+	public:
 	string displayName = "";
 	int classHealth = 0;
 	int maxDamageRoll = 0;
@@ -148,7 +150,7 @@ public: static int promptUserOptions(vector<string> prompts) {
 	}
 	return validInt;
 }
-public: static string promptUserString(string prompt) {
+public: static string promptUserOptions(string prompt) {
 	cout << prompt << " ";
 
 	string input = "";
@@ -165,7 +167,7 @@ public: static bool yesOrNoPrompt() {
 	//bool confirmed = false;
 	while (true) { //check if bad?
 		cout << endl;
-		string input = promptUserString("Confirm: (y/n)");
+		string input = promptUserOptions("Confirm: (y/n)");
 
 		if (input == "y" || input == "Y") {
 			cout << endl;
@@ -177,6 +179,21 @@ public: static bool yesOrNoPrompt() {
 		}
 	}
 }
+public: static void slowPrint(string rawText, float waitFor) {
+	for (int i = 0; i < rawText.length(); i++) {
+		cout << rawText[i];
+		Sleep(waitFor * 1000);
+	}
+	cout << endl;
+}
+public: static void slowPrint(string rawText) {
+	float waitFor = 0.01f;
+	for (int i = 0; i < rawText.length(); i++) {
+		cout << rawText[i];
+		Sleep(waitFor * 1000);
+	}
+	cout << endl;
+}
 private: static string dialogueboxBounds(string prompt) {
 	string output = "";
 	for (int i = 0; i < prompt.length(); i++) {
@@ -185,23 +202,14 @@ private: static string dialogueboxBounds(string prompt) {
 	output += "************";
 	return output;
 }
-private: static string dialogueboxSpace(string prompt) {
-	string output = "*";
-	for (int i = 1; i < prompt.length(); i++) {
-		output += " ";
-	}
-	output += "           *";
-	return output;
-}
-public: static void dialogueBox(string prompt, char colour) {
-	
-	system("Color 1");
-	cout << dialogueboxBounds(prompt) << endl;
+public: static void dialogueBox(string prompt, int colour) {
+	float waitFor = 0.02f;
+	slowPrint(dialogueboxBounds(prompt));
 	//cout << dialogueboxSpace(prompt) << endl;
-	cout << "*     " << prompt << "     *" << endl;
+	slowPrint("*     " + prompt + "     *", waitFor);
 	//cout << dialogueboxSpace(prompt) << endl;
-	cout << dialogueboxBounds(prompt) << endl << endl;
-	system("Color 7");
+	slowPrint(dialogueboxBounds(prompt));
+	cout << endl;
 }
 };
 public: class information {
@@ -316,7 +324,7 @@ public:
 	int playerRaceID;
 	int playerClassID;
 	playerTemp() {
-		this->name = utils::core::promptUserString("Enter your characters name:");
+		this->name = utils::core::promptUserOptions("Enter your characters name:");
 		this->playerRaceID = getPlayerTemps(true);
 		this->playerClassID = getPlayerTemps(false);
 		this->health = raceData[playerRaceID].raceHealth + classData[playerClassID].classHealth;
@@ -337,8 +345,9 @@ public:
 int main() {
 	//cout << ReturnTitle() << endl;
 
-	//playerTemp playersCharacter = playerTemp();
-	//playersCharacter.characterDetails();
+	playerTemp playersCharacter = playerTemp();
+	playersCharacter.characterDetails();
+	
 
 	utils::core::dialogueBox("Hey, you're finally awake", 1);
 	utils::core::dialogueBox("You were trying to cross the border, right?", 2);

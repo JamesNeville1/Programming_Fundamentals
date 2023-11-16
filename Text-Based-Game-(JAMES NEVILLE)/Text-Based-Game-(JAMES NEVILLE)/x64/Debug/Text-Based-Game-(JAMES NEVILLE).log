@@ -1,2 +1,4 @@
 ﻿  Text-Based-Game-(JAMES NEVILLE).cpp
-  Text-Based-Game-(JAMES NEVILLE).vcxproj -> C:\Users\n013403n.STUDENT\Documents\GitHub\Programming_Fundamentals\Text-Based-Game-(JAMES NEVILLE)\x64\Debug\Text-Based-Game-(JAMES NEVILLE).exe
+C:\Users\n013403n\Documents\GitHub\Programming_Fundamentals\Text-Based-Game-(JAMES NEVILLE)\Text-Based-Game-(JAMES NEVILLE)\Text-Based-Game-(JAMES NEVILLE).cpp(185,17): warning C4244: 'argument': conversion from 'float' to 'DWORD', possible loss of data
+C:\Users\n013403n\Documents\GitHub\Programming_Fundamentals\Text-Based-Game-(JAMES NEVILLE)\Text-Based-Game-(JAMES NEVILLE)\Text-Based-Game-(JAMES NEVILLE).cpp(193,17): warning C4244: 'argument': conversion from 'float' to 'DWORD', possible loss of data
+  Text-Based-Game-(JAMES NEVILLE).vcxproj -> C:\Users\n013403n\Documents\GitHub\Programming_Fundamentals\Text-Based-Game-(JAMES NEVILLE)\x64\Debug\Text-Based-Game-(JAMES NEVILLE).exe
