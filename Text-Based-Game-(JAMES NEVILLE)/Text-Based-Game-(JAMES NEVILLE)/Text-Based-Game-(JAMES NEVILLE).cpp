@@ -8,7 +8,12 @@
 #include <windows.h> 
 
 using namespace std;
-
+enum gameState {
+	exploring,
+	combat,
+	dialogue,
+	dead,
+};
 #pragma region Type
 //Damage types for both character and enemies
 enum damageType {
@@ -91,8 +96,8 @@ struct npc {
 //The decision object template
 struct descision {
 	string option;
-	int eventID;
-	string result;
+	int result;
+	string resultText;
 };
 //The event object template
 struct eventTemp {
@@ -105,7 +110,7 @@ struct eventTemp {
 eventTemp eventData[] = {
 	{
 		{"Do you go left or right?"},
-		{{"Left", 1, "You go left"}, {"Right", 2, "You go right"}}
+		{{"Left", 0, "You go left"}, {"Right", 2, "You go right"}}
 	},
 	{
 		{"You find a big monster"},
@@ -253,9 +258,7 @@ public:static vector<string> classInfo(int chosenClassInt) {
 }
 };
 public: class eventSpecific {
-	public: static void eventFunc() {
-		int currentEvent = 0;
-		while (true) {
+	public: static int dialogueEvent(int currentEvent) {
 			vector<string> eventDataPasser;
 			
 			eventDataPasser = {
@@ -267,9 +270,12 @@ public: class eventSpecific {
 
 			int playerChoice = utils::core::promptUserOptions(eventDataPasser);
 			cout << eventData[currentEvent].de[playerChoice].result << endl << endl;
-			currentEvent = eventData[currentEvent].de[playerChoice].eventID;
-		}
+
+			return eventData[currentEvent].de[playerChoice].result;
 	}
+	//public: static int combatEvent(vector<>) {
+
+	//}
 };
 };
 #pragma endregion
@@ -358,18 +364,61 @@ public:
 			<< typeToString.find(classData[this->playerClassID].classDamageType)->second << " "
 			<< typeToString.find(raceData[this->playerRaceID].raceDamageType)->second << endl << endl;
 	}
+	void takeDamage(int damage) {
+		this->health -= damage;
+		cout << "You took " << damage << " damage" << endl
+			<< "You now have " << health << " health" << endl;
+	}
+};
+#pragma endregion
+#pragma region Enemy
+class enemy {
+	public:
+	string name = "";
+	vector<damageType> weakness;
+	virtual void attack(playerTemp& player) = 0;
+};
+class goblin : public enemy {
+	public: 
+	goblin() {
+		name = "Goblin";
+		weakness = {
+			slashing
+		};
+	}
+	void attack(playerTemp& player) override {
+		player.takeDamage(10);
+	}
+};
+class zombie : public enemy {
+	public: 
+	zombie() {
+		name = "Zombie";
+		weakness = {
+			fire
+		};
+	}
+	void attack(playerTemp& player) override {
+		player.takeDamage(20);
+	}
 };
 #pragma endregion
 
 int main() {
 	//cout << ReturnTitle() << endl;
 
-	//playerTemp playersCharacter = playerTemp();
-	//playersCharacter.characterDetails();
+	playerTemp playersCharacter = playerTemp();
+	playersCharacter.characterDetails();
 	
 	//utils::core::dialogueBox("Hey, you're finally awake", 1);
 	//utils::core::dialogueBox("You were trying to cross the border, right?", 2);
 	//utils::core::dialogueBox("Walked right into that Imperial ambush, same as me?", 3);
 
-	utils::eventSpecific::eventFunc();
+	cout << utils::eventSpecific::dialogueEvent(1);
+
+	/*goblin gob;
+	zombie zom;
+
+	gob.attack(playersCharacter);
+	zom.attack(playersCharacter);*/
 }
