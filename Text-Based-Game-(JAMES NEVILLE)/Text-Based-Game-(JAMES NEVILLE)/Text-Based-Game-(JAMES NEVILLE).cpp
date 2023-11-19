@@ -92,25 +92,28 @@ struct npc {
 struct descision {
 	string option;
 	int eventID;
+	string result;
 };
 //The event object template
 struct eventTemp {
 	string prompt;
 	descision de[10];
+
+	//add item drop or something
 };
 //The array to store the event's data
 eventTemp eventData[] = {
 	{
 		{"Do you go left or right?"},
-		{{"Left", 1}, "Right", 2}
+		{{"Left", 1, "You go left"}, {"Right", 2, "You go right"}}
 	},
 	{
 		{"You find a big monster"},
-		{{"Fight!", 2}, {"Flee!", 0}}
+		{{"Fight!", 2, "You Fight!"}, {"Flee!", 0, "You run like a little baby"}}
 	},
 	{
 		{"You find a treasure chest"},
-		{{"Open", 1}, {"Don't risk it!", 0}}
+		{{"Open", 1, "You open the chest, I mean, what's the worst that can happen?"}, {"Don't risk it!", 0, "I'm not going to be greedy, better to be cautious"}}
 	}
 };
 #pragma endregion
@@ -151,12 +154,25 @@ public: static int promptUserOptions(vector<string> prompts) {
 	return validInt;
 }
 public: static string promptUserOptions(string prompt) {
-	cout << prompt << " ";
+	while (true) {
+		cout << prompt << " ";
 
-	string input = "";
-	getline(cin, input);
+		string input = "";
+		getline(cin, input);
+		
+		string validInput = "";
+		for (int i = 0; i < input.length(); i++) {
+			if (isalpha(input[i])) {
+				validInput += input[i];
+			}
+		}
+		
+		if (validInput.length() <= 0)
+			cout << "Error: The string must be comprised of letters, the input had none." << endl;
+		else return validInput;
+	}
 
-	return input;
+
 }
 public: static void promptNoInput(vector<string> prompts) {
 	for (int i = 0; i < prompts.size(); i++) {
@@ -237,20 +253,23 @@ public:static vector<string> classInfo(int chosenClassInt) {
 }
 };
 public: class eventSpecific {
-public: static void eventFunc() {
-	int currentEvent = 0;
-	while (true) {
+	public: static void eventFunc() {
+		int currentEvent = 0;
+		while (true) {
+			vector<string> eventDataPasser;
+			
+			eventDataPasser = {
+				eventData[currentEvent].prompt,
+				eventData[currentEvent].de[0].option,
+				eventData[currentEvent].de[1].option
+			};
 
-		vector<string> prints;
-		prints.push_back(eventData[0].prompt);
 
-		for (int i = 0; i < sizeof(eventData[0].de) / sizeof(eventData[0].de[0]); i++) {
-			prints.push_back(eventData[currentEvent].de[i].option);
+			int playerChoice = utils::core::promptUserOptions(eventDataPasser);
+			cout << eventData[currentEvent].de[playerChoice].result << endl << endl;
+			currentEvent = eventData[currentEvent].de[playerChoice].eventID;
 		}
-
-		int input = utils::core::promptUserOptions(prints);
 	}
-}
 };
 };
 #pragma endregion
@@ -345,13 +364,12 @@ public:
 int main() {
 	//cout << ReturnTitle() << endl;
 
-	playerTemp playersCharacter = playerTemp();
-	playersCharacter.characterDetails();
+	//playerTemp playersCharacter = playerTemp();
+	//playersCharacter.characterDetails();
 	
+	//utils::core::dialogueBox("Hey, you're finally awake", 1);
+	//utils::core::dialogueBox("You were trying to cross the border, right?", 2);
+	//utils::core::dialogueBox("Walked right into that Imperial ambush, same as me?", 3);
 
-	utils::core::dialogueBox("Hey, you're finally awake", 1);
-	utils::core::dialogueBox("You were trying to cross the border, right?", 2);
-	utils::core::dialogueBox("Walked right into that Imperial ambush, same as me?", 3);
-
-	//utils::eventSpecific::eventFunc();
+	utils::eventSpecific::eventFunc();
 }
