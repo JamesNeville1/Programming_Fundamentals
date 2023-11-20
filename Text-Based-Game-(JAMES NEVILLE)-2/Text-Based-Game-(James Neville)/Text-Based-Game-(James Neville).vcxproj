@@ -132,6 +132,7 @@
   <ItemGroup>
     <ClInclude Include="enemy.h" />
     <ClInclude Include="event.h" />
+    <ClInclude Include="items.h" />
     <ClInclude Include="npc.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="utility.h" />

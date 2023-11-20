@@ -42,7 +42,10 @@ int dialogueEvent(int currentEvent) {
 	}
 
 	int input = utils::promptUserOptions(eventDataPasser);
-
+	
+	for (int i = 0; i < eventData[currentEvent].options[input]->options.size(); i++) {
+		cout << eventData[currentEvent].options[input]->options[i];
+	}
 
 	return input;
 }

@@ -131,6 +131,7 @@ public:
 	int health;
 	int playerRaceID;
 	int playerClassID;
+	array<item*, 8> inventory = array<item*, 8>();
 	playerTemp() {
 		this->name = utils::promptUserOptions("Enter your characters name:");
 		this->playerRaceID = getPlayerTemps(true);
@@ -151,5 +152,36 @@ public:
 		this->health -= damage;
 		cout << "You took " << damage << " damage" << endl
 			<< "You now have " << health << " health" << endl;
+	}
+	int findFirstAvaliableSlot() {
+		for (int i = 0; i < inventory.size(); i++) {
+			if (inventory[i] == NULL) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	void printInventoryContents() {
+		cout << "Inventory:" << endl;
+		for (int i = 0; i < inventory.size(); i++) {
+			cout << "Slot [" << i << "]: ";
+			if (inventory[i] == NULL) {
+				cout << "is empty";
+			}
+			else {
+				cout << items[i].name;
+			}
+			cout << endl;
+		}
+		cout << endl;
+	}
+	bool addItem(item* itemToAdd) {
+		int slotPos = findFirstAvaliableSlot();
+
+		if (slotPos != -1) {
+			inventory[slotPos] = itemToAdd;
+			return true;
+		}
+		return false;
 	}
 };

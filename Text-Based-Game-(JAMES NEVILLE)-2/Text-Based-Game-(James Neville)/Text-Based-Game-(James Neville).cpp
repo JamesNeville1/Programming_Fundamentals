@@ -8,6 +8,7 @@
 //Mine
 #include "utility.h"
 #include "event.h"
+#include "items.h"
 #include "player.h"
 #include "enemy.h"
 #include "npc.h"
@@ -50,10 +51,15 @@ int main() {
 
 	//cout << ReturnTitle() << endl;
 
-	playerTemp playersCharacter = playerTemp();
-	playersCharacter.characterDetails();
+	//playerTemp playersCharacter = playerTemp();
+	//playersCharacter.characterDetails();
 
-	utils::dialogueBox("Hey, you're finally awake", 1);
+	//playersCharacter.printInventoryContents();
+	//item* toAdd = &items[2];
+	//playersCharacter.addItem(toAdd);
+	//playersCharacter.printInventoryContents();
+
+	//utils::dialogueBox("Hey, you're finally awake", 1);
 	//utils::dialogueBox("You were trying to cross the border, right?", 2);
 	//utils::dialogueBox("Walked right into that Imperial ambush, same as me?", 3);
 
