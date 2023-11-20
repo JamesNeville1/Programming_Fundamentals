@@ -93,34 +93,24 @@ struct npc {
 };
 #pragma endregion
 #pragma region Events
-//The decision object template
-struct descision {
-	string option;
-	int result;
-	string resultText;
-};
 //The event object template
-struct eventTemp {
-	string prompt;
-	descision de[10];
-
+class eventTemp{
+	public:
+	string promptText;
+	string whatHappensText;
+	vector<eventTemp*> options;
 	//add item drop or something
-};
-//The array to store the event's data
-eventTemp eventData[] = {
-	{
-		{"Do you go left or right?"},
-		{{"Left", 0, "You go left"}, {"Right", 2, "You go right"}}
-	},
-	{
-		{"You find a big monster"},
-		{{"Fight!", 2, "You Fight!"}, {"Flee!", 0, "You run like a little baby"}}
-	},
-	{
-		{"You find a treasure chest"},
-		{{"Open", 1, "You open the chest, I mean, what's the worst that can happen?"}, {"Don't risk it!", 0, "I'm not going to be greedy, better to be cautious"}}
+
+	void setEvent(string promptText, string whatHappensText) {
+		this->promptText = promptText;
+		this->whatHappensText = whatHappensText;
+	}
+	void setOptions(vector<eventTemp*> options) {
+		this->options = options;
 	}
 };
+//The array to store the event's data
+vector<eventTemp> eventData;
 #pragma endregion
 #pragma region Utils
 //My utils class, holding all important functions that I will reuse time and time again
@@ -258,22 +248,34 @@ public:static vector<string> classInfo(int chosenClassInt) {
 }
 };
 public: class eventSpecific {
+	public: static void setEvents() {
+		vector<eventTemp*> options;
+
+		eventData.resize(6);
+		eventData[0].setEvent("Null", "You awaken in a strange place, you see a door");
+		eventData[1].setEvent("I entre", "You entre the door, you see a man");
+		eventData[2].setEvent("I do not entre", "End");
+		eventData[3].setEvent("Do you open the chest", "You open the chest a find 10 gold, after that you see a door");
+		eventData[4].setEvent("I kill the man", "He turns into a zombie!");
+		eventData[5].setEvent("I do not kill the man", "You leave");
+
+		options.push_back(&eventData[1]);
+		options.push_back(&eventData[2]);
+		eventData[0].setOptions(options);
+	}
 	public: static int dialogueEvent(int currentEvent) {
 			vector<string> eventDataPasser;
 			
-			eventDataPasser = {
-				eventData[currentEvent].prompt,
-				eventData[currentEvent].de[0].option,
-				eventData[currentEvent].de[1].option
-			};
+			eventDataPasser = { eventData[currentEvent].whatHappensText };
+			for (int i = 0; i < eventData[currentEvent].options.size(); i++) {
+				eventDataPasser.push_back(eventData[currentEvent].options[i]->promptText);
+			}
 
+			int input = utils::core::promptUserOptions(eventDataPasser);
 
-			int playerChoice = utils::core::promptUserOptions(eventDataPasser);
-			cout << eventData[currentEvent].de[playerChoice].result << endl << endl;
-
-			return eventData[currentEvent].de[playerChoice].result;
+			return input;
 	}
-	//public: static int combatEvent(vector<>) {
+	//public: static int combatEvent(int currentEvent) {
 
 	//}
 };
@@ -405,16 +407,18 @@ class zombie : public enemy {
 #pragma endregion
 
 int main() {
+	utils::eventSpecific::setEvents();
+
 	//cout << ReturnTitle() << endl;
 
-	playerTemp playersCharacter = playerTemp();
-	playersCharacter.characterDetails();
+	//playerTemp playersCharacter = playerTemp();
+	//playersCharacter.characterDetails();
 	
 	//utils::core::dialogueBox("Hey, you're finally awake", 1);
 	//utils::core::dialogueBox("You were trying to cross the border, right?", 2);
 	//utils::core::dialogueBox("Walked right into that Imperial ambush, same as me?", 3);
 
-	cout << utils::eventSpecific::dialogueEvent(1);
+	cout << utils::eventSpecific::dialogueEvent(0);
 
 	/*goblin gob;
 	zombie zom;
