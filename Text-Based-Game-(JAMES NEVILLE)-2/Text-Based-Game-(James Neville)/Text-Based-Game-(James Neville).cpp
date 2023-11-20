@@ -1,3 +1,4 @@
+//Built-in
 #include <iostream>
 #include <string>
 #include <vector>
@@ -12,6 +13,8 @@
 #include "npc.h"
 
 using namespace std;
+
+#pragma region Unsorted
 enum gameState {
 	exploring,
 	combat,
@@ -40,6 +43,7 @@ string ReturnTitle() {
 
 	return titleScreen;
 }
+#pragma endregion
 
 int main() {
 	setEvents();
