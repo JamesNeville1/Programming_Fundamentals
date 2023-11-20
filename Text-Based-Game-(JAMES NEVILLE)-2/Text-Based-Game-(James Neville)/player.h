@@ -114,7 +114,7 @@ int getPlayerTemps(bool getRace) {
 	vector<string> info;
 
 	while (!hasChosen) {
-		chosenTemp = utils::promptUserOptions(prompts);
+		chosenTemp = utils::promptUserOptions(prompts, false);
 
 		if (getRace) info = raceInfo(chosenTemp);
 		else info = classInfo(chosenTemp);

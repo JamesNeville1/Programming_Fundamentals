@@ -17,12 +17,14 @@ class utils {
 		if (rawValidated != "") return stoi(rawValidated);
 		else return -1;
 	}
-	static int promptUserOptions(vector<string> prompts) {
+	static int promptUserOptions(vector<string> prompts, bool isDialogue) {
 		bool valid = false;
 		int validInt = 0;
 
 		while (!valid) {
-			cout << prompts[0] << endl;
+			if (!isDialogue)cout << prompts[0] << endl;
+			else dialogueBox(prompts[0]);
+
 			for (int i = 1; i < prompts.size(); i++) {
 				cout << "> [" + to_string(i) + "] " << prompts[i] << endl;
 			}
@@ -103,7 +105,7 @@ class utils {
 		output += "************";
 		return output;
 	}
-	static void dialogueBox(string prompt, int colour) {
+	static void dialogueBox(string prompt) {
 		float waitFor = 0.02f;
 		slowPrint(dialogueboxBounds(prompt));
 		//cout << dialogueboxSpace(prompt) << endl;
