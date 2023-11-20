@@ -1,0 +1,4 @@
+﻿  Text-Based-Game-(James Neville).cpp
+C:\Users\n013403n.STUDENT.000\Documents\Text-Based-Game-(James Neville)\Text-Based-Game-(James Neville)\utility.h(85,18): warning C4244: 'argument': conversion from 'float' to 'DWORD', possible loss of data
+C:\Users\n013403n.STUDENT.000\Documents\Text-Based-Game-(James Neville)\Text-Based-Game-(James Neville)\utility.h(93,18): warning C4244: 'argument': conversion from 'float' to 'DWORD', possible loss of data
+  Text-Based-Game-(James Neville).vcxproj -> C:\Users\n013403n.STUDENT.000\Documents\Text-Based-Game-(James Neville)\x64\Debug\Text-Based-Game-(James Neville).exe

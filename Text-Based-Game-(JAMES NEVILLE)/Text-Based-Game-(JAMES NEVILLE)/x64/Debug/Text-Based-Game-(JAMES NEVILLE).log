@@ -1,4 +1,4 @@
 ﻿  Text-Based-Game-(JAMES NEVILLE).cpp
-C:\Users\n013403n.STUDENT.000\Documents\GitHub\Programming_Fundamentals\Text-Based-Game-(JAMES NEVILLE)\Text-Based-Game-(JAMES NEVILLE)\Text-Based-Game-(JAMES NEVILLE).cpp(196,17): warning C4244: 'argument': conversion from 'float' to 'DWORD', possible loss of data
-C:\Users\n013403n.STUDENT.000\Documents\GitHub\Programming_Fundamentals\Text-Based-Game-(JAMES NEVILLE)\Text-Based-Game-(JAMES NEVILLE)\Text-Based-Game-(JAMES NEVILLE).cpp(204,17): warning C4244: 'argument': conversion from 'float' to 'DWORD', possible loss of data
-  Text-Based-Game-(JAMES NEVILLE).vcxproj -> C:\Users\n013403n.STUDENT.000\Documents\GitHub\Programming_Fundamentals\Text-Based-Game-(JAMES NEVILLE)\x64\Debug\Text-Based-Game-(JAMES NEVILLE).exe
+C:\Users\n013403n.STUDENT.000\Documents\GitHub\Programming_Fundamentals\Text-Based-Game-(JAMES NEVILLE)\Text-Based-Game-(JAMES NEVILLE)\utility.h(87,18): warning C4244: 'argument': conversion from 'float' to 'DWORD', possible loss of data
+C:\Users\n013403n.STUDENT.000\Documents\GitHub\Programming_Fundamentals\Text-Based-Game-(JAMES NEVILLE)\Text-Based-Game-(JAMES NEVILLE)\utility.h(95,18): warning C4244: 'argument': conversion from 'float' to 'DWORD', possible loss of data
+LINK : fatal error LNK1168: cannot open C:\Users\n013403n.STUDENT.000\Documents\GitHub\Programming_Fundamentals\Text-Based-Game-(JAMES NEVILLE)\x64\Debug\Text-Based-Game-(JAMES NEVILLE).exe for writing

@@ -2,10 +2,12 @@
 #include <string>
 #include <vector>
 #include <map>
-#include <stdlib.h>
-#include <cstring>
-#include "header.h"
 #include <windows.h> 
+
+//Mine
+#include "utility.h"
+#include "event.h"
+#include "player_related.h"
 
 using namespace std;
 enum gameState {
@@ -14,71 +16,6 @@ enum gameState {
 	dialogue,
 	dead,
 };
-#pragma region Type
-//Damage types for both character and enemies
-enum damageType {
-	fire,
-	poison,
-	frost,
-	piercing,
-	slashing,
-	magic,
-	divine,
-	sneak,
-	evil
-};
-//Each type converted to a game ready string
-#pragma region typeToString
-map<damageType, string> typeToString {
-	{fire, "Fire"},
-	{ poison, "Poison" },
-	{ frost, "Frost" },
-	{ piercing, "Piercing" },
-	{ slashing, "Smiting" },
-	{ magic, "Magical" },
-	{ divine, "Divine" },
-	{ sneak, "Dark" },
-	{ evil, "Hell" }
-};
-#pragma endregion
-#pragma endregion
-#pragma region Race
-//The race object template
-struct raceTemp {
-	string displayName = "";
-	damageType raceDamageType = fire;
-	int raceHealth = 0;
-	float opinionModifier = 0.0f;
-	bool avaliableWhenOpened = true;
-};
-//The array to store the race's data
-raceTemp raceData[] = {
-	{"Dragonborn", fire, 20, 0.0f},
-	{"Snakeborn", poison, 30, -1.65f},
-	{"Ice Elemental", frost, 12, 2.0f}
-};
-#pragma endregion
-#pragma region Class
-//The class object template
-class classTemp {
-	public:
-	string displayName = "";
-	int classHealth = 0;
-	int maxDamageRoll = 0;
-	damageType classDamageType;
-	bool isRangedClass = false;
-	bool avaliableWhenOpened = true;
-};
-//The array to store the class's data
-classTemp classData[] = {
-	{"Knight", 25, 6, slashing, false, true},
-	{"Archer", 18, 8, piercing, true, true},
-	{"Wizard", 10, 12, magic, true, true},
-	{"Paladin", 32, 8, divine, false, true},
-	{"Thief", 22, 10, sneak, true, true},
-	{"Warlock", 7, 20, evil, true, true},
-};
-#pragma endregion
 #pragma region Npc
 //The npc object template
 struct npc {
@@ -92,233 +29,6 @@ struct npc {
 	};
 };
 #pragma endregion
-#pragma region Events
-//The event object template
-class eventTemp{
-	public:
-	string promptText;
-	string whatHappensText;
-	vector<eventTemp*> options;
-	//add item drop or something
-
-	void setEvent(string promptText, string whatHappensText) {
-		this->promptText = promptText;
-		this->whatHappensText = whatHappensText;
-	}
-	void setOptions(vector<eventTemp*> options) {
-		this->options = options;
-	}
-};
-//The array to store the event's data
-vector<eventTemp> eventData;
-#pragma endregion
-#pragma region Utils
-//My utils class, holding all important functions that I will reuse time and time again
-class utils {
-public: class core {
-public: static int validateInt(string raw) {
-	bool valid = false;
-	string rawValidated = "";
-
-	for (int i = 0; i < raw.length(); i++) {
-		if (isdigit(raw[i])) rawValidated += raw[i];
-	}
-
-	if (rawValidated != "") return stoi(rawValidated);
-	else return -1;
-}
-public: static int promptUserOptions(vector<string> prompts) {
-	bool valid = false;
-	int validInt = 0;
-
-	while (!valid) {
-		cout << prompts[0] << endl;
-		for (int i = 1; i < prompts.size(); i++) {
-			cout << "> [" + to_string(i) + "] " << prompts[i] << endl;
-		}
-
-		string rawInput = "";
-		getline(cin, rawInput);
-		cout << endl;
-
-		validInt = validateInt(rawInput) - 1;
-
-		if (validInt >= 0 && validInt < prompts.size() - 1) valid = true;
-		else cout << "Error: Please ensure you input is valid" << endl;
-	}
-	return validInt;
-}
-public: static string promptUserOptions(string prompt) {
-	while (true) {
-		cout << prompt << " ";
-
-		string input = "";
-		getline(cin, input);
-		
-		string validInput = "";
-		for (int i = 0; i < input.length(); i++) {
-			if (isalpha(input[i])) {
-				validInput += input[i];
-			}
-		}
-		
-		if (validInput.length() <= 0)
-			cout << "Error: The string must be comprised of letters, the input had none." << endl;
-		else return validInput;
-	}
-
-
-}
-public: static void promptNoInput(vector<string> prompts) {
-	for (int i = 0; i < prompts.size(); i++) {
-		cout << prompts[i] << endl;
-	}
-}
-public: static bool yesOrNoPrompt() {
-	//bool confirmed = false;
-	while (true) { //check if bad?
-		cout << endl;
-		string input = promptUserOptions("Confirm: (y/n)");
-
-		if (input == "y" || input == "Y") {
-			cout << endl;
-			return true;
-		}
-		else if (input == "n" || input == "N") {
-			cout << endl;
-			return false;
-		}
-	}
-}
-public: static void slowPrint(string rawText, float waitFor) {
-	for (int i = 0; i < rawText.length(); i++) {
-		cout << rawText[i];
-		Sleep(waitFor * 1000);
-	}
-	cout << endl;
-}
-public: static void slowPrint(string rawText) {
-	float waitFor = 0.01f;
-	for (int i = 0; i < rawText.length(); i++) {
-		cout << rawText[i];
-		Sleep(waitFor * 1000);
-	}
-	cout << endl;
-}
-private: static string dialogueboxBounds(string prompt) {
-	string output = "";
-	for (int i = 0; i < prompt.length(); i++) {
-		output += "*";
-	}
-	output += "************";
-	return output;
-}
-public: static void dialogueBox(string prompt, int colour) {
-	float waitFor = 0.02f;
-	slowPrint(dialogueboxBounds(prompt));
-	//cout << dialogueboxSpace(prompt) << endl;
-	slowPrint("*     " + prompt + "     *", waitFor);
-	//cout << dialogueboxSpace(prompt) << endl;
-	slowPrint(dialogueboxBounds(prompt));
-	cout << endl;
-}
-};
-public: class information {
-public:static vector<string> raceInfo(int chosenRaceInt) {
-	vector<string> info;
-	if (raceData[chosenRaceInt].opinionModifier > 0) {
-		info.push_back("> This race is viewed highly by most, you're kind are often view as protectors and worshipped as gods.");
-	}
-	else if (raceData[chosenRaceInt].opinionModifier < 0) {
-		info.push_back("> This race is disrespected by the masses, you're kind are often viewed as viel and are pushed to the fringe of society.");
-	}
-	else {
-		info.push_back("> This race is accepted by most. Most will be impartial to you");
-	}
-	info.push_back("> This race will add an additional " + to_string(raceData[chosenRaceInt].raceHealth) + " health");
-	return info;
-}
-public:static vector<string> classInfo(int chosenClassInt) {
-	vector<string> info;
-	if (classData[chosenClassInt].isRangedClass) info.push_back("> If you chose this class, you will be more effective at a distance.");
-	else info.push_back("> If you choose this class, you will be more effective in close quaters.");
-	info.push_back("> This class will add an additional " + to_string(classData[chosenClassInt].classHealth) + " health");
-	info.push_back("> You roll a d" + to_string(classData[chosenClassInt].maxDamageRoll) + " when rolling damage");
-	return info;
-}
-};
-public: class eventSpecific {
-	public: static void setEvents() {
-		vector<eventTemp*> options;
-
-		eventData.resize(6);
-		eventData[0].setEvent("Null", "You awaken in a strange place, you see a door");
-		eventData[1].setEvent("I entre", "You entre the door, you see a man");
-		eventData[2].setEvent("I do not entre", "End");
-		eventData[3].setEvent("Do you open the chest", "You open the chest a find 10 gold, after that you see a door");
-		eventData[4].setEvent("I kill the man", "He turns into a zombie!");
-		eventData[5].setEvent("I do not kill the man", "You leave");
-
-		options.push_back(&eventData[1]);
-		options.push_back(&eventData[2]);
-		eventData[0].setOptions(options);
-	}
-	public: static int dialogueEvent(int currentEvent) {
-			vector<string> eventDataPasser;
-			
-			eventDataPasser = { eventData[currentEvent].whatHappensText };
-			for (int i = 0; i < eventData[currentEvent].options.size(); i++) {
-				eventDataPasser.push_back(eventData[currentEvent].options[i]->promptText);
-			}
-
-			int input = utils::core::promptUserOptions(eventDataPasser);
-
-			return input;
-	}
-	//public: static int combatEvent(int currentEvent) {
-
-	//}
-};
-};
-#pragma endregion
-#pragma region Other
-int getPlayerTemps(bool getRace) {
-	vector<string> prompts = { "Select your " };
-	int loopFor = 0;
-
-	if (getRace) {
-		prompts[0] += "race";
-		loopFor = sizeof(raceData) / sizeof(raceData[0]);
-		for (int i = 0; i < loopFor; i++) {
-			string option = raceData[i].displayName;
-			prompts.push_back(option);
-		}
-	}
-	else {
-		prompts[0] += "class";
-		loopFor = sizeof(classData) / sizeof(classData[0]);
-		for (int i = 0; i < loopFor; i++) {
-			string option = classData[i].displayName;
-			prompts.push_back(option);
-		}
-	}
-
-	bool hasChosen = false;
-	int chosenTemp = 0;
-	vector<string> info;
-
-	while (!hasChosen) {
-		chosenTemp = utils::core::promptUserOptions(prompts);
-
-		if (getRace) info = utils::information::raceInfo(chosenTemp);
-		else info = utils::information::classInfo(chosenTemp);
-
-		utils::core::promptNoInput(info);
-		if (utils::core::yesOrNoPrompt()) hasChosen = true;
-	}
-
-	return chosenTemp;
-}
 string ReturnTitle() {
 	const char* titleScreen = R"(
 	BBBBBBBBBBBBBBBBB                     lllllll             d::::::d                                       '::::'                              GGGGGGGGGGGGG                           tttt                                          444444444  
@@ -341,38 +51,6 @@ string ReturnTitle() {
 
 	return titleScreen;
 }
-#pragma endregion
-#pragma region Player
-//The player class, holding all data relevant to the player, as well as functions that manipulate them
-class playerTemp {
-public:
-	string name;
-	int health;
-	int playerRaceID;
-	int playerClassID;
-	playerTemp() {
-		this->name = utils::core::promptUserOptions("Enter your characters name:");
-		this->playerRaceID = getPlayerTemps(true);
-		this->playerClassID = getPlayerTemps(false);
-		this->health = raceData[playerRaceID].raceHealth + classData[playerClassID].classHealth;
-	}
-	void characterDetails() {
-		cout << "Character Details:" << endl
-			<< this->name << endl
-			<< raceData[this->playerRaceID].displayName << endl
-			<< classData[this->playerClassID].displayName << endl
-			<< "Health: " << this->health << endl
-			<< "Types: "
-			<< typeToString.find(classData[this->playerClassID].classDamageType)->second << " "
-			<< typeToString.find(raceData[this->playerRaceID].raceDamageType)->second << endl << endl;
-	}
-	void takeDamage(int damage) {
-		this->health -= damage;
-		cout << "You took " << damage << " damage" << endl
-			<< "You now have " << health << " health" << endl;
-	}
-};
-#pragma endregion
 #pragma region Enemy
 class enemy {
 	public:
@@ -407,22 +85,16 @@ class zombie : public enemy {
 #pragma endregion
 
 int main() {
-	utils::eventSpecific::setEvents();
+	setEvents();
 
 	//cout << ReturnTitle() << endl;
 
-	//playerTemp playersCharacter = playerTemp();
-	//playersCharacter.characterDetails();
+	playerTemp playersCharacter = playerTemp();
+	playersCharacter.characterDetails();
 	
-	//utils::core::dialogueBox("Hey, you're finally awake", 1);
-	//utils::core::dialogueBox("You were trying to cross the border, right?", 2);
-	//utils::core::dialogueBox("Walked right into that Imperial ambush, same as me?", 3);
+	utils::dialogueBox("Hey, you're finally awake", 1);
+	//utils::dialogueBox("You were trying to cross the border, right?", 2);
+	//utils::dialogueBox("Walked right into that Imperial ambush, same as me?", 3);
 
-	cout << utils::eventSpecific::dialogueEvent(0);
-
-	/*goblin gob;
-	zombie zom;
-
-	gob.attack(playersCharacter);
-	zom.attack(playersCharacter);*/
+	cout << dialogueEvent(0);
 }
