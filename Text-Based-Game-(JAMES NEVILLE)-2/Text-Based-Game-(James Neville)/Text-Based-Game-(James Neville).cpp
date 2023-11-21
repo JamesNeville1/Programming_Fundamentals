@@ -56,5 +56,7 @@ int main() {
 	//utils::dialogueBox("You were trying to cross the border, right?");
 	//utils::dialogueBox("Walked right into that Imperial ambush, same as me?");
 
-	cout << eventFunc(6);
+	mainGame();
+
+	//credits();
 }
