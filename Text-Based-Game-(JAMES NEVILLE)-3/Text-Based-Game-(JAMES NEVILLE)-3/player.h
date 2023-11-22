@@ -23,6 +23,7 @@ public:
 	string name = "";
 	raceTemp* race = NULL;
 	int strikes = 0;
+	int currentStrikes = 0;
 	array<item*, 4> inventory;
 	
 	#pragma region Core

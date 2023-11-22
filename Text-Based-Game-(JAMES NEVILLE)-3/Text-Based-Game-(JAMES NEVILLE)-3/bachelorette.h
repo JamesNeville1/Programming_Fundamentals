@@ -22,13 +22,16 @@ public:
 	string promptText = "";
 	item* reward = NULL;
 	int heartEffect = 0;
+	int strikeEffect = 0;
 	vector<dialogue*> response;
 
-	void setDialogue(string whatHappensText, string promptText = "", int heartEffect = 0, item* reward = NULL) {
+	void setDialogue(string whatHappensText, string promptText = "", int heartEffect = 0, int strikeEffect = 0, item* reward = NULL) {
 		this->whatHappensText = whatHappensText;
 		this->promptText = promptText;
 
 		this->heartEffect = heartEffect;
+		this->strikeEffect = strikeEffect;
+
 		this->reward = reward;
 	}
 	void setResponses(vector<dialogue*> response) {
@@ -43,17 +46,17 @@ public:
 	raceTemp* likes = &raceData[1]; //The race this bachelorette likes
 	raceTemp* dislikes = &raceData[2]; //The race this bachelorette dislikes
 	int currentHearts = 0; //The player must get 3 heart points to continue to date this bachelorette
+	int maxHearts = 3;
 
-	string initialDescription = R"(
-You met sam on a forum talking about both of your favourite manga. You were in love at first sight, you loved everything about her.
+	string initialDescription = R"(You met Sam on a forum talking about both of your favourite manga. You were in love at first sight, you loved everything about her.
 Eventually you build up the courage to ask her out, and she says yes!
-You meet at a small cafe named Anteiku.
-	)";
+You meet at a small cafe named Anteiku.	)";
 
-	string endDescription;
+	string endDescriptionBad = "Sam seems uninterested in you, she leaves the table to go to the bathroom and doesn't come back";
+	string endDescriptionGood = "Sam seems really interested in you, she asks to meet again, same place, same time, tomorrow!";
 
 	map<int, dialogue> dialogueData;
-	#pragma region portrait
+#pragma region portrait
 	const char* portrait = R"(
 ################################%#########################**********#######################%%%%%%%%%
 ##############################%%#######################***************#########################%%%%%
@@ -131,7 +134,12 @@ You meet at a small cafe named Anteiku.
 @@@@%###**********##%@@@@@@@@@%@%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%@@@@@%###**********##@@@@@@@
 @@@%##***********##%@@@@@@@@@@@@@%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%@@@@@@#************##@@@@@@@
 	)";
-	#pragma endregion
+#pragma endregion
+
+	void adjustHearts(int increaseBy) {
+		this->currentHearts += increaseBy;
+		utils::slowPrint(this->name + " has " + to_string(this->currentHearts) + " (of 3) for you <3.", .06f);
+	}
 };
 
 bachelorette bachelorettes[1];
@@ -142,24 +150,36 @@ bachelorette* pickBachelorette() {
 
 void getDialogueData(bachelorette* bach) {
 	//TEST
-	bach->dialogueData[0].setDialogue("errr... ;-;... h-h-h... hows it going..");
-	bach->dialogueData[1].setDialogue("", "Good!", 1);
-	bach->dialogueData[2].setDialogue("", "Bad ;-;", -1);
-	bach->dialogueData[3].setDialogue("", "So so...!");
+	bach->dialogueData[0].setDialogue("errr... ;-;... h-h-h... hows it going..", "Go Back");
+	bach->dialogueData[1].setDialogue("Good Test", "Good!", 1);
+	bach->dialogueData[2].setDialogue("Bad Test", "Bad ;-;", 0, 1);
+	bach->dialogueData[3].setDialogue("End Test", "End");
 
 	vector<dialogue*> responsesTest;
+
 	responsesTest.push_back(&bach->dialogueData[1]);
 	responsesTest.push_back(&bach->dialogueData[2]);
 	responsesTest.push_back(&bach->dialogueData[3]);
 	bach->dialogueData[0].setResponses(responsesTest);
+	responsesTest.clear();
+
+	responsesTest.push_back(&bach->dialogueData[0]);
+	bach->dialogueData[1].setResponses(responsesTest);
+	responsesTest.clear();
+
+	responsesTest.push_back(&bach->dialogueData[0]);
+	bach->dialogueData[2].setResponses(responsesTest);
+	responsesTest.clear();
 }
 
-void doDialogue(dialogue* currentDialogue) {
+dialogue* doDialogue(dialogue* currentDialogue) {
 	vector<string> prompts = { currentDialogue->whatHappensText };
 
 	for (int i = 0; i < currentDialogue->response.size(); i++) {
 		prompts.push_back(currentDialogue->response[i]->promptText);
 	}
 
-	cout << utils::promptUserOptions(prompts, true);
+	int input = utils::promptUserOptions(prompts, true);
+
+	return currentDialogue->response[input];
 }

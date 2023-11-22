@@ -131,7 +131,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bachelorette.h" />
-    <ClInclude Include="event.h" />
     <ClInclude Include="items.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="utility.h" />
