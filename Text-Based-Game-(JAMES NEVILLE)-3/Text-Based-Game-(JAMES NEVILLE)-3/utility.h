@@ -101,6 +101,9 @@ public:
 		}
 		cout << endl;
 	}
+	static void waitForSecs(float waitFor) {
+		Sleep(waitFor * 1000);
+	}
 	static string dialogueboxBounds(string prompt) {
 		string output = "";
 		for (int i = 0; i < prompt.length(); i++) {

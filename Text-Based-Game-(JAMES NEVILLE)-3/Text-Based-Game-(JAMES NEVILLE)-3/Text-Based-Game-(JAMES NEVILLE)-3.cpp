@@ -4,6 +4,16 @@
 #include "player.h"
 #include "bachelorette.h"
 
+void mainGame(bachelorette* currentBachelorette) {
+
+	utils::slowPrint(currentBachelorette->initialDescription, .055f);
+	utils::waitForSecs(1);
+
+	cout << currentBachelorette->portrait << endl;
+
+	doDialogue(&currentBachelorette->dialogueData[0]);
+}
+
 int main() {
 	setRaceData();
 
@@ -12,8 +22,9 @@ int main() {
 	playerClass player = playerClass();
 	player.characterDetails();
 
-	bachelorette test;
-	cout << test.portrait << endl << endl;
+	bachelorette* currentBachelorette= pickBachelorette();
 
-	utils::dialogueBox(test.openningLine);
+	getDialogueData(currentBachelorette);
+
+	mainGame(currentBachelorette);
 }

@@ -16,14 +16,43 @@ map<interests, string> formatedInterests{
 	{art, "Art"},
 };
 
+class dialogue {
+public:
+	string whatHappensText = "";
+	string promptText = "";
+	item* reward = NULL;
+	int heartEffect = 0;
+	vector<dialogue*> response;
+
+	void setDialogue(string whatHappensText, string promptText = "", int heartEffect = 0, item* reward = NULL) {
+		this->whatHappensText = whatHappensText;
+		this->promptText = promptText;
+
+		this->heartEffect = heartEffect;
+		this->reward = reward;
+	}
+	void setResponses(vector<dialogue*> response) {
+		this->response = response;
+	}
+};
+
 class bachelorette {
 public:
-	string name = "Sam";
-	interests specialInterest = manga;
-	raceTemp* likes = &raceData[1];
-	raceTemp* dislikes = &raceData[2];
+	string name = "Sam"; //Name
+	interests specialInterest = manga; //Interest that the player needs to guess to proceed
+	raceTemp* likes = &raceData[1]; //The race this bachelorette likes
+	raceTemp* dislikes = &raceData[2]; //The race this bachelorette dislikes
+	int currentHearts = 0; //The player must get 3 heart points to continue to date this bachelorette
 
-	string openningLine = "errr... ;-;... h-h-h... hows it going..";
+	string initialDescription = R"(
+You met sam on a forum talking about both of your favourite manga. You were in love at first sight, you loved everything about her.
+Eventually you build up the courage to ask her out, and she says yes!
+You meet at a small cafe named Anteiku.
+	)";
+
+	string endDescription;
+
+	map<int, dialogue> dialogueData;
 	#pragma region portrait
 	const char* portrait = R"(
 ################################%#########################**********#######################%%%%%%%%%
@@ -104,3 +133,33 @@ public:
 	)";
 	#pragma endregion
 };
+
+bachelorette bachelorettes[1];
+
+bachelorette* pickBachelorette() {
+	return &bachelorettes[0];
+}
+
+void getDialogueData(bachelorette* bach) {
+	//TEST
+	bach->dialogueData[0].setDialogue("errr... ;-;... h-h-h... hows it going..");
+	bach->dialogueData[1].setDialogue("", "Good!", 1);
+	bach->dialogueData[2].setDialogue("", "Bad ;-;", -1);
+	bach->dialogueData[3].setDialogue("", "So so...!");
+
+	vector<dialogue*> responsesTest;
+	responsesTest.push_back(&bach->dialogueData[1]);
+	responsesTest.push_back(&bach->dialogueData[2]);
+	responsesTest.push_back(&bach->dialogueData[3]);
+	bach->dialogueData[0].setResponses(responsesTest);
+}
+
+void doDialogue(dialogue* currentDialogue) {
+	vector<string> prompts = { currentDialogue->whatHappensText };
+
+	for (int i = 0; i < currentDialogue->response.size(); i++) {
+		prompts.push_back(currentDialogue->response[i]->promptText);
+	}
+
+	cout << utils::promptUserOptions(prompts, true);
+}
