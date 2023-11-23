@@ -3,6 +3,7 @@
 #include "utility.h"
 #include "player.h"
 #include "bachelorette.h"
+#include "read.h"
 
 enum gameState {
 	playing,
@@ -62,17 +63,18 @@ void mainGame(bachelorette* currentBachelorette, playerClass* player) {
 
 int main() {
 	setRaceData();
+	
+	//cout << returnTitle();
+	readBachelorette(0);
 
-	//Game start screen
+	//playerClass player = playerClass();
+	//player.characterDetails();
+	//utils::waitForSecs(1.0f);
+	//system("CLS");
 
-	playerClass player = playerClass();
-	player.characterDetails();
-	utils::waitForSecs(1.0f);
-	system("CLS");
+	//bachelorette* currentBachelorette= pickBachelorette();
 
-	bachelorette* currentBachelorette= pickBachelorette();
+	//getDialogueData(currentBachelorette);
 
-	getDialogueData(currentBachelorette);
-
-	mainGame(currentBachelorette, &player);
+	//mainGame(currentBachelorette, &player);
 }

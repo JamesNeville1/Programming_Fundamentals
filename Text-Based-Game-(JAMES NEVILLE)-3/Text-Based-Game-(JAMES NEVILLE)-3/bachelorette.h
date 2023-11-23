@@ -43,17 +43,14 @@ class bachelorette {
 public:
 	string name = "Sam"; //Name
 	interests specialInterest = manga; //Interest that the player needs to guess to proceed
-	raceTemp* likes = &raceData[1]; //The race this bachelorette likes
-	raceTemp* dislikes = &raceData[2]; //The race this bachelorette dislikes
+	raceTemp* likes = NULL; //The race this bachelorette likes
+	raceTemp* dislikes = NULL; //The race this bachelorette dislikes
 	int currentHearts = 0; //The player must get 3 heart points to continue to date this bachelorette
 	int maxHearts = 3;
 
-	string initialDescription = R"(You met Sam on a forum talking about both of your favourite manga. You were in love at first sight, you loved everything about her.
-Eventually you build up the courage to ask her out, and she says yes!
-You meet at a small cafe named Anteiku.	)";
-
-	string endDescriptionBad = "Sam seems uninterested in you, she leaves the table to go to the bathroom and doesn't come back";
-	string endDescriptionGood = "Sam seems really interested in you, she asks to meet again, same place, same time, tomorrow!";
+	string initialDescription = "";
+	string endDescriptionBad = "";
+	string endDescriptionGood = "";
 
 	map<int, dialogue> dialogueData;
 #pragma region portrait
@@ -142,12 +139,15 @@ You meet at a small cafe named Anteiku.	)";
 	}
 };
 
-bachelorette bachelorettes[1];
+bachelorette bachelorettes[4];
 
 bachelorette* pickBachelorette() {
 	return &bachelorettes[0];
 }
 
+void getMainData() {
+	bachelorettes[0].name;
+}
 void getDialogueData(bachelorette* bach) {
 	//TEST
 	bach->dialogueData[0].setDialogue("errr... ;-;... h-h-h... hows it going..", "Go Back");

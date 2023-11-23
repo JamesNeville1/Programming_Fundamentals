@@ -132,7 +132,9 @@
   <ItemGroup>
     <ClInclude Include="bachelorette.h" />
     <ClInclude Include="items.h" />
+    <ClInclude Include="json.hpp" />
     <ClInclude Include="player.h" />
+    <ClInclude Include="read.h" />
     <ClInclude Include="utility.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
