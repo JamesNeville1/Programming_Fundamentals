@@ -55,9 +55,9 @@ public:
 	string endDescriptionBad = "Test";
 	string endDescriptionGood = "Test";
 
-	map<int, dialogue> dialogueData;
+	vector<dialogue> dialogueData;
 
-#pragma region portrait
+	#pragma region portrait
 	const char* portrait = R"(
 ################################%#########################**********#######################%%%%%%%%%
 ##############################%%#######################***************#########################%%%%%
@@ -135,86 +135,105 @@ public:
 @@@@%###**********##%@@@@@@@@@%@%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%@@@@@%###**********##@@@@@@@
 @@@%##***********##%@@@@@@@@@@@@@%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%@@@@@@#************##@@@@@@@
 	)";
-#pragma endregion
+	#pragma endregion
+
+	void setBachelorette(int posInJson) {
+		//cout << system("echo %cd%") << endl;
+
+		ifstream fileStream("./bachelorette-data.json");
+
+		string line;
+		string buf;
+
+		//Read file contents into buf
+		while (getline(fileStream, line))
+			buf += line;
+
+		if (fileStream.is_open())
+		{
+			//Parses buf, not the ifstream
+
+			//Core variables set here
+			json jsonData = json::parse(buf);
+			this->name = jsonData["name"];
+			int interestBeforeCast = jsonData["specialIntrest"];
+			this->specialInterest = static_cast<interests>(interestBeforeCast);
+			this->likes = &raceData[jsonData["likes"]];
+			this->dislikes = &raceData[jsonData["dislikes"]];
+			this->initialDescription = jsonData["initialDescription"];
+			this->endDescriptionBad = jsonData["endDescriptionBad"];
+			this->endDescriptionGood = jsonData["endDescriptionGood"];
+
+			//Dialogue set here
+			for (const auto& elem : jsonData["dialogue"]) {
+				dialogueData.push_back(dialogue());
+
+				//Fix
+				int heartEffect = 0;
+				int strikeEffect = 0;
+				if (elem["dialogue"].contains("heartEffect")) {
+					heartEffect = elem["heartEffect"];
+				}
+				else if (elem["dialogue"] .contains("strikeEffect")) {
+					strikeEffect = elem["strikeEffect"];
+				}
+				cout << heartEffect;
+				cout << strikeEffect;
+				//
+
+				dialogueData[dialogueData.size()-1].setDialogue(elem["whatHappensText"], elem["promptText"], heartEffect, strikeEffect);
+			}
+			//cout << dialogueData[0].whatHappensText << endl; //Ask tutor about this
+		}
+
+		fileStream.close();
+	}
+
+	void getDialogueData(int posInJson) {
+		//TEST
+		vector<dialogue*> responsesTest;
+
+		responsesTest.push_back(&this->dialogueData[1]);
+		responsesTest.push_back(&this->dialogueData[2]);
+		responsesTest.push_back(&this->dialogueData[3]);
+		this->dialogueData[0].setResponses(responsesTest);
+		responsesTest.clear();
+
+		responsesTest.push_back(&this->dialogueData[0]);
+		this->dialogueData[1].setResponses(responsesTest);
+		responsesTest.clear();
+
+		responsesTest.push_back(&this->dialogueData[0]);
+		this->dialogueData[2].setResponses(responsesTest);
+		responsesTest.clear();
+	}
 
 	void adjustHearts(int increaseBy) {
 		this->currentHearts += increaseBy;
-		utils::slowPrint(this->name + " has " + to_string(this->currentHearts) + " (of 3) for you <3.", .06f);
+		utils::slowPrint(this->name + " has " + to_string(this->currentHearts) + " (of 3) hearts for you <3.", .06f);
 	}
 };
 
 bachelorette bachelorettes[4];
 
-bachelorette readBachelorette(int posInFile) {
-	bachelorette bachToPass;
-
-	//cout << system("echo %cd%") << endl;
-
-	ifstream fileStream("./bachelorette-data.json");
-
-	string line;
-	string buf;
-
-	//Read file contents into buf
-	while (getline(fileStream, line))
-		buf += line;
-
-	if (fileStream.is_open())
-	{
-		//Parses buf, not the ifstream
-		json jsonData = json::parse(buf);
-		bachToPass.name = jsonData["name"];
-
-		int interestBeforeCast = jsonData["specialIntrest"];
-		bachToPass.specialInterest = static_cast<interests>(interestBeforeCast);
-
-		bachToPass.likes = &raceData[jsonData["likes"]];
-		bachToPass.dislikes = &raceData[jsonData["dislikes"]];
-		bachToPass.initialDescription = jsonData["initialDescription"];
-		bachToPass.endDescriptionBad = jsonData["endDescriptionBad"];
-		bachToPass.endDescriptionGood = jsonData["endDescriptionGood"];
-	}
-
-	fileStream.close();
-
-	return bachToPass;
-}
-
 void setBacheloretteData() {
 	for (int i = 0; i < sizeof(bachelorettes) / sizeof(bachelorettes[0]); i++) {
-		bachelorettes[i] = readBachelorette(i);
+		bachelorettes[i].setBachelorette(i);
+		bachelorettes[i].getDialogueData(i);
 	}
 }
 
 bachelorette* pickBachelorette() {
-	return &bachelorettes[0];
-}
+	vector<string> bacheloretteOptions = { "Select your bachelorette:" };
 
-void getMainData() {
-	bachelorettes[0].name;
-}
-void getDialogueData(bachelorette* bach) {
-	//TEST
-	bach->dialogueData[0].setDialogue("errr... ;-;... h-h-h... hows it going..", "Go Back");
-	bach->dialogueData[1].setDialogue("Good Test", "Good!", 1);
-	bach->dialogueData[2].setDialogue("Bad Test", "Bad ;-;", 0, 1);
-	bach->dialogueData[3].setDialogue("End Test", "End");
+	for (int i = 0; i < sizeof(bachelorettes)/sizeof(bachelorettes[0]); i++) {
+		bacheloretteOptions.push_back(bachelorettes[i].name);
+	}
 
-	vector<dialogue*> responsesTest;
+	int input = utils::promptUserOptions(bacheloretteOptions, false);
+	system("CLS");
 
-	responsesTest.push_back(&bach->dialogueData[1]);
-	responsesTest.push_back(&bach->dialogueData[2]);
-	responsesTest.push_back(&bach->dialogueData[3]);
-	bach->dialogueData[0].setResponses(responsesTest);
-	responsesTest.clear();
-
-	responsesTest.push_back(&bach->dialogueData[0]);
-	bach->dialogueData[1].setResponses(responsesTest);
-	responsesTest.clear();
-
-	responsesTest.push_back(&bach->dialogueData[0]);
-	bach->dialogueData[2].setResponses(responsesTest);
-	responsesTest.clear();
+	return &bachelorettes[input];
 }
 
 dialogue* doDialogue(dialogue* currentDialogue) {

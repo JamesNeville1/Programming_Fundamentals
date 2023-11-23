@@ -13,11 +13,12 @@ enum gameState {
 void mainGame(bachelorette* currentBachelorette, playerClass* player) {
 
 
-	utils::slowPrint(currentBachelorette->initialDescription, .055f);
-	utils::waitForSecs(2);
+	//utils::slowPrint(currentBachelorette->initialDescription, .055f);
+	//utils::waitForSecs(2);
 
 	gameState gameState = playing;
 	dialogue* currentDialogue = &currentBachelorette->dialogueData[0];
+
 	while (gameState == playing) {
 		if (currentDialogue->heartEffect != 0) {
 			currentBachelorette->adjustHearts(currentDialogue->heartEffect);
@@ -73,8 +74,6 @@ int main() {
 	system("CLS");
 
 	bachelorette* currentBachelorette = pickBachelorette();
-
-	getDialogueData(currentBachelorette);
 
 	mainGame(currentBachelorette, &player);
 }
