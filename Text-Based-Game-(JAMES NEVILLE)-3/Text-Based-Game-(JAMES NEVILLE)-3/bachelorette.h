@@ -1,6 +1,9 @@
 #pragma once
 #include "utility.h"
 #include "player.h"
+#include "json.hpp"
+#include <fstream>
+using json = nlohmann::json;
 
 enum interests {
 	manga,
@@ -48,11 +51,12 @@ public:
 	int currentHearts = 0; //The player must get 3 heart points to continue to date this bachelorette
 	int maxHearts = 3;
 
-	string initialDescription = "";
-	string endDescriptionBad = "";
-	string endDescriptionGood = "";
+	string initialDescription = "Test";
+	string endDescriptionBad = "Test";
+	string endDescriptionGood = "Test";
 
 	map<int, dialogue> dialogueData;
+
 #pragma region portrait
 	const char* portrait = R"(
 ################################%#########################**********#######################%%%%%%%%%
@@ -140,6 +144,47 @@ public:
 };
 
 bachelorette bachelorettes[4];
+
+bachelorette readBachelorette(int posInFile) {
+	bachelorette bachToPass;
+
+	//cout << system("echo %cd%") << endl;
+
+	ifstream fileStream("./bachelorette-data.json");
+
+	string line;
+	string buf;
+
+	//Read file contents into buf
+	while (getline(fileStream, line))
+		buf += line;
+
+	if (fileStream.is_open())
+	{
+		//Parses buf, not the ifstream
+		json jsonData = json::parse(buf);
+		bachToPass.name = jsonData["name"];
+
+		int interestBeforeCast = jsonData["specialIntrest"];
+		bachToPass.specialInterest = static_cast<interests>(interestBeforeCast);
+
+		bachToPass.likes = &raceData[jsonData["likes"]];
+		bachToPass.dislikes = &raceData[jsonData["dislikes"]];
+		bachToPass.initialDescription = jsonData["initialDescription"];
+		bachToPass.endDescriptionBad = jsonData["endDescriptionBad"];
+		bachToPass.endDescriptionGood = jsonData["endDescriptionGood"];
+	}
+
+	fileStream.close();
+
+	return bachToPass;
+}
+
+void setBacheloretteData() {
+	for (int i = 0; i < sizeof(bachelorettes) / sizeof(bachelorettes[0]); i++) {
+		bachelorettes[i] = readBachelorette(i);
+	}
+}
 
 bachelorette* pickBachelorette() {
 	return &bachelorettes[0];
