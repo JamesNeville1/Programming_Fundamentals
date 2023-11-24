@@ -23,19 +23,19 @@ class dialogue {
 public:
 	string whatHappensText = "";
 	string promptText = "";
-	item* reward = NULL;
+	//item* reward = NULL;
 	int heartEffect = 0;
 	int strikeEffect = 0;
 	vector<dialogue*> response;
 
-	void setDialogue(string whatHappensText, string promptText = "", int heartEffect = 0, int strikeEffect = 0, item* reward = NULL) {
+	void setDialogue(string whatHappensText, string promptText = "", int heartEffect = 0, int strikeEffect = 0/*, item* reward = NULL*/) {
 		this->whatHappensText = whatHappensText;
 		this->promptText = promptText;
 
 		this->heartEffect = heartEffect;
 		this->strikeEffect = strikeEffect;
 
-		this->reward = reward;
+		//this->reward = reward;
 	}
 	void setResponses(vector<dialogue*> response) {
 		this->response = response;
@@ -166,11 +166,15 @@ public:
 
 			//Dialogue set here
 			for (const auto elem : jsonData["dialogue"]) { //Understand how this works
+				//cout << "Test";
 				dialogueData.push_back(dialogue());
 
 				//Fix
 				int heartEffect = 0;
 				int strikeEffect = 0;
+
+				//jsonData.at("dialogue").get_to();
+
 				if (jsonData["dialogue"].find("heartEffect") != jsonData["dialogue"].end()) {
 					cout << "TEST1";
 					heartEffect = elem["heartEffect"];

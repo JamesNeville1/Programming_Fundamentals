@@ -1,6 +1,5 @@
 #pragma once
 #include "utility.h"
-#include "items.h"
 
 //The race object template
 struct raceTemp {
@@ -24,7 +23,7 @@ public:
 	raceTemp* race = NULL;
 	int strikes = 0;
 	int currentStrikes = 0;
-	array<item*, 4> inventory;
+	//array<item*, 4> inventory;
 	
 	#pragma region Core
 	//Constructor, used to set all variables via player input
@@ -60,4 +59,41 @@ public:
 			<< "Strikes: " << this->strikes << endl;
 	}
 	#pragma endregion
+	#pragma region ItemSpecific
+	void addItem() {
+
+	}
+	#pragma endregion
 };
+
+//class item {
+//public:
+//	string name = "";
+//	int modif = 0;
+//	virtual void useItem(playerClass* player) = 0;
+//	
+//	item(string name, int modif = 0, playerClass* player) {
+//		this->name = name;
+//		this->modif = modif;
+//		useItem(player);
+//	}
+//};
+//class potionOfGreg : public item {
+//public:
+//	void useItem(playerClass* player) override {
+//		player->name = "Greg";
+//		utils::slowPrint("Your name is now " + name, .5f);
+//		utils::slowPrint("It does literally nothing..." + name);
+//	}
+//};
+//class lovePotion : public item {
+//public:
+//	void useItem(playerClass* player) override {
+//		player->strikes += this->modif;
+//	}
+//};
+//
+//void setItemData(playerClass* player) {
+//	//static lovePotion potionOfLove = item("Love Potion", 1, player);
+//	//static potionOfGreg gregPotion = item("Greg Potion", player);
+//}

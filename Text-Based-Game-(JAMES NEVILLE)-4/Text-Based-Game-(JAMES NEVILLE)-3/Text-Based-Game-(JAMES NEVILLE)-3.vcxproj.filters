@@ -26,9 +26,6 @@
     <ClInclude Include="player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="items.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="bachelorette.h">
       <Filter>Header Files</Filter>
     </ClInclude>
