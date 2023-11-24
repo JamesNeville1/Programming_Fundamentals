@@ -3,6 +3,7 @@
 #include "utility.h"
 #include "player.h"
 #include "bachelorette.h"
+#include "read.h"
 
 enum gameState {
 	playing,
@@ -12,7 +13,10 @@ enum gameState {
 
 void mainGame(bachelorette* currentBachelorette, playerClass* player) {
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of ad8136a (json working)
 	//utils::slowPrint(currentBachelorette->initialDescription, .055f);
 	//utils::waitForSecs(2);
 
@@ -64,16 +68,22 @@ void mainGame(bachelorette* currentBachelorette, playerClass* player) {
 
 int main() {
 	setRaceData();
-	setBacheloretteData();
-
+	
 	//cout << returnTitle();
+	readBachelorette(0);
 
-	playerClass player = playerClass();
-	player.characterDetails();
-	utils::waitForSecs(1.0f);
-	system("CLS");
+	//playerClass player = playerClass();
+	//player.characterDetails();
+	//utils::waitForSecs(1.0f);
+	//system("CLS");
 
-	bachelorette* currentBachelorette = pickBachelorette();
+	//bachelorette* currentBachelorette= pickBachelorette();
 
+<<<<<<< HEAD
 	mainGame(currentBachelorette, &player);
+=======
+	//getDialogueData(currentBachelorette);
+
+	//mainGame(currentBachelorette, &player);
+>>>>>>> parent of ad8136a (json working)
 }

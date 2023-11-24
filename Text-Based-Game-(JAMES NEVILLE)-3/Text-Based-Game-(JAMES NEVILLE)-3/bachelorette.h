@@ -1,9 +1,6 @@
 #pragma once
 #include "utility.h"
 #include "player.h"
-#include "json.hpp"
-#include <fstream>
-using json = nlohmann::json;
 
 enum interests {
 	manga,
@@ -51,13 +48,18 @@ public:
 	int currentHearts = 0; //The player must get 3 heart points to continue to date this bachelorette
 	int maxHearts = 3;
 
-	string initialDescription = "Test";
-	string endDescriptionBad = "Test";
-	string endDescriptionGood = "Test";
+	string initialDescription = "";
+	string endDescriptionBad = "";
+	string endDescriptionGood = "";
 
+<<<<<<< HEAD
 	vector<dialogue> dialogueData;
 
 	#pragma region portrait
+=======
+	map<int, dialogue> dialogueData;
+#pragma region portrait
+>>>>>>> parent of ad8136a (json working)
 	const char* portrait = R"(
 ################################%#########################**********#######################%%%%%%%%%
 ##############################%%#######################***************#########################%%%%%
@@ -216,6 +218,7 @@ public:
 
 bachelorette bachelorettes[4];
 
+<<<<<<< HEAD
 void setBacheloretteData() {
 	for (int i = 0; i < sizeof(bachelorettes) / sizeof(bachelorettes[0]); i++) {
 		bachelorettes[i].setBachelorette(i);
@@ -223,6 +226,8 @@ void setBacheloretteData() {
 	}
 }
 
+=======
+>>>>>>> parent of ad8136a (json working)
 bachelorette* pickBachelorette() {
 	vector<string> bacheloretteOptions = { "Select your bachelorette:" };
 
