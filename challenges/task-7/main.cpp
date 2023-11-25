@@ -3,7 +3,7 @@
 
 using namespace std;
 
-struct classTemp {
+struct classTemp { //Class structure, simple data for a RPG
 	string className;
 	int health;
 	int damageMaxRoll;
@@ -18,10 +18,10 @@ classTemp characterClasses[3] = {
 
 struct player {
 	string name;
-	int playerClass;
+	classTemp* playerClass;
 };
 
-int input() {
+classTemp* input() {
 	string playerInputRaw = "";
 	int playerInput = -1;
 
@@ -52,7 +52,7 @@ int input() {
 		}
 	}
 
-	return playerInput;
+	return &characterClasses[playerInput];
 }
 string inputName() {
 	string name;
@@ -69,5 +69,5 @@ int main() {
 	ourPlayer.name = inputName();
 
 	cout << "\nName: " << ourPlayer.name << endl;
-	cout << "Class: " << characterClasses[ourPlayer.playerClass].className << endl;
+	cout << "Class: " << ourPlayer.playerClass->className << endl;
 }

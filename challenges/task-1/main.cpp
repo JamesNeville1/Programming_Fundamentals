@@ -1,10 +1,16 @@
 #include <iostream>
-using namespace std;
+std::string getTitleScreen() { //Return string, can be called in multiple areas
+    //Using "R" to create a "Raw String Literal", allowing all data to be formatted in a more approiate and readable manner
+    const char* title = R"( 
+    db   db d88888b db      db       .d88b.    db   d8b   db  .d88b.  d8888b. db      d8888b. 
+    88   88 88'     88      88      .8P  Y8.   88   I8I   88 .8P  Y8. 88  `8D 88      88  `8D 
+    88ooo88 88ooooo 88      88      88    88   88   I8I   88 88    88 88oobY' 88      88   88 
+    88~~~88 88~~~~~ 88      88      88    88   Y8   I8I   88 88    88 88`8b   88      88   88 
+    88   88 88.     88booo. 88booo. `8b  d8'   `8b d8'8b d8' `8b  d8' 88 `88. 88booo. 88  .8D 
+    YP   YP Y88888P Y88888P Y88888P  `Y88P'     `8b8' `8d8'   `Y88P'  88   YD Y88888P Y8888D' 
+    )";
+    return title;
+}
 int main() {
-    cout << " _____ _            _                     _   _____       _       _     _      \n";
-    cout << "|_   _| |          | |                   | | |  _  |     | |     (_)   | |     \n";
-    cout << "  | | | |__   ___  | |     __ _ _ __   __| | | | | |_   _| |_ ___ _  __| | ___ \n";
-    cout << "  | | | '_ \\ / _ \\ | |    / _` | '_ \\ / _` | | | | | | | | __/ __| |/ _` |/ _ \\\n";
-    cout << "  | | | | | |  __/ | |___| (_| | | | | (_| | \\ \\_/ / |_| | |_\\__ \\ | (_| |  __/\n";
-    cout << "  \\_/ |_| |_|\\___| \\_____/\\__,_|_| |_|\\__,_|  \\___/ \\__,_|\\__|___/_|\\__,_|\\___|\n";
+    std::cout << getTitleScreen(); //Print title 
 }

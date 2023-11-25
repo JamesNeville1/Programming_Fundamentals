@@ -17,17 +17,20 @@ string sentenceCaser(string userInput) {
                 cap = false;
             }
         }
+        else {
+            userInput.at(i) = tolower(userInput.at(i)); //Make sure any other letters are lower case
+        }
     }
     return userInput;
 }
 
 string lowercaser(string userInput) {
-    transform(userInput.begin(), userInput.end(), userInput.begin(), tolower);
+    transform(userInput.begin(), userInput.end(), userInput.begin(), tolower); //Make sentence lowercase
     return userInput;
 }
 
 string uppercaser(string userInput) {
-    transform(userInput.begin(), userInput.end(), userInput.begin(), toupper);
+    transform(userInput.begin(), userInput.end(), userInput.begin(), toupper); //Make setence uppercase
     return userInput;
 }
 

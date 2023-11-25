@@ -3,12 +3,12 @@
 
 using namespace std;
 
-string boxBoundIteration(string userInput) {
+string boxBoundIteration(const string userInput) { //Return box bounds, using "const" as userInput doesnt change 
     string output = "";
-    for (int i = 0; i < userInput.length(); i++) {
+    for (int i = 0; i < userInput.length(); i++) { //Loop through input to work out the bounds
         output += "*";
     }
-    output += "****";
+    output += "****"; //Add 4 for padding
     return output;
 }
 
@@ -19,10 +19,10 @@ void makeBox(string userInput) {
 }
 
 int main() {
-    string userInput = "";
+    string userInput = ""; 
 
     cout << "Please enter some text: ";
-    getline(cin, userInput);
+    getline(cin, userInput); //Take input
 
-    makeBox(userInput);
+    makeBox(userInput); //Make box
 }

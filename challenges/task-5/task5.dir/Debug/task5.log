@@ -1,2 +1,3 @@
 ﻿  main.cpp
-  task5.vcxproj -> C:\Users\n013403n\Documents\GitHub\Programming_Fundamentals\challenges\task-5\Debug\task5.exe
+.\main.cpp(28,5): error C3861: 'transform': identifier not found
+.\main.cpp(33,5): error C3861: 'transform': identifier not found
