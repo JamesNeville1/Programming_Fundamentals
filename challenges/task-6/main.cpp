@@ -7,26 +7,29 @@
 
 using namespace std;
 
-int userInput() {
-    string userGuess = "";
-    string validatedGuess = "";
+int validateInt(string raw) {
+    bool valid = false;
+    string rawValidated = "";
 
-    cout << "Enter a guess: ";
-    getline(cin, userGuess);
-    bool validated = false;
-    while (!validated) {
-        for (int i = 0; i < userGuess.length(); i++) {
-            if (isdigit(userGuess[i])) {
-                validatedGuess += userGuess[i];
-                validated = true;
-            }
-        }
-        if (!validated || validatedGuess.length() > 3) {
-            cout << "That is an invalid input, please input numbers, guess again: ";
-            getline(cin, userGuess);
-        }
+    for (int i = 0; i < raw.length(); i++) {
+        if (isdigit(raw[i])) rawValidated += raw[i];
     }
-    return stoi(validatedGuess);
+
+    if (rawValidated != "") return stoi(rawValidated);
+    else return -1;
+}
+
+int userInput() {
+    string userGuess = "";   
+    int validGuess = -1;
+
+    while (validGuess < 0 || validGuess > 100) {
+        cout << "Enter a guess: ";
+        getline(cin, userGuess);
+        validGuess = validateInt(userGuess);
+    }
+    
+    return validGuess;
 }
 
 void numGuesser() {

@@ -6,24 +6,24 @@
 using namespace std;
 
 vector<int> inventory;
-bool shouldLoop = true;
-int maxInvSize = 16;
 
-enum itemType {
+//ON OPEN, CLOSE REGIONS, easier to read
+
+enum itemType { //Define item types, used in combination with the attribute variable to set the 
 	healing,
 	rangedWeapon,
 	meleeWeapon,
 	food
 };
 
-struct item {
+struct item { //Item struct
 	string name;
 	itemType type;
 	int attribute;
 	int worth;
 };
 
-item items[]{
+item items[]{ //Item data (in an actual game itd be in a JSON file)
 	{"Potion of Healing", healing, 5, 10},
 	{"Standard Bow", rangedWeapon, 5, 20},
 	{"Epic Bow", rangedWeapon, 11, 40},
@@ -33,13 +33,13 @@ item items[]{
 	{"Cake", food, 5, 4}
 };
 
-struct commandTemp {
-	string keyword;
-	int identifier;
-	int manipulater;
+struct commandTemp { //Command is split into 3 segments, easier to work with and improves readability 
+	string keyword = "";
+	int identifier = 0;
+	int manipulater = 0;
 };
 
-int intValidator(string rawInt) {
+int intValidator(string rawInt) { //Validate Ints
 	string intRaw = "";
 	for (int i = 0; i < rawInt.length(); i++) {
 		if (isdigit(rawInt[i])) intRaw += rawInt[i];;
@@ -48,7 +48,7 @@ int intValidator(string rawInt) {
 	return stoi(intRaw);
 }
 
-commandTemp inputSplitter(string inputRaw) {
+commandTemp inputSplitter(string inputRaw) { //Split command into 3 (commandTemp)
 	commandTemp input;
 	
 	stringstream iss(inputRaw);
@@ -66,10 +66,8 @@ commandTemp inputSplitter(string inputRaw) {
 	return input;
 }
 
-void inputProcessor(commandTemp command) {
-	//MAKE INVENTORY SIZE AND ITEMS SIZE VARIABLES or *make functions to check*
-
-	if (command.keyword == "view" && command.identifier >= 0 && command.identifier < inventory.size()) {
+void inputProcessor(const commandTemp command, bool &shouldLoop) { //process input, exute commands here
+	if (command.keyword == "view" && command.identifier >= 0 && command.identifier < inventory.size()) { //View command
 		#pragma region view
 		
 		if (inventory[command.identifier] >= 0 && inventory[command.identifier] < sizeof(inventory) / sizeof(inventory[0])) {
@@ -101,7 +99,7 @@ void inputProcessor(commandTemp command) {
 
 		#pragma endregion
 	}
-	else if (command.keyword == "show_all") {
+	else if (command.keyword == "show_all") { //Show All command
 		#pragma region show_all
 
 		cout << "Showing Inventory: " << endl;
@@ -116,7 +114,10 @@ void inputProcessor(commandTemp command) {
 
 		#pragma endregion
 	}
-	else if (command.keyword == "set" && command.identifier >= 0 && command.identifier < inventory.size() && command.manipulater >= 0 && command.manipulater < sizeof(items) / sizeof(items[0])) {
+	else if (command.keyword == "set" 
+		&& command.identifier >= 0 && command.identifier < inventory.size() 
+		&& command.manipulater >= 0 
+		&& command.manipulater < sizeof(items) / sizeof(items[0])) { //Set command
 		#pragma region set
 		if(inventory[command.identifier] >= 0 && inventory[command.identifier] < sizeof(inventory) / sizeof(inventory[0])) {
 			cout << "> [" << command.identifier << "] was " << items[inventory[command.identifier]].name << " and is now " << items[command.manipulater].name << endl;
@@ -127,7 +128,7 @@ void inputProcessor(commandTemp command) {
 		inventory[command.identifier] = command.manipulater;
 		#pragma endregion
 	}
-	else if (command.keyword == "items") {
+	else if (command.keyword == "items") { //Items command
 		#pragma region items
 		cout << "List of all items currently avaliable:" << endl;
 		for (int i = 0; i < sizeof(items) / sizeof(items[0]); i++) {
@@ -135,12 +136,12 @@ void inputProcessor(commandTemp command) {
 		}
 		#pragma endregion
 	}
-	else if (command.keyword == "exit") {
+	else if (command.keyword == "exit") { //Exit command
 		#pragma region exit
 		shouldLoop = false;
 		#pragma endregion
 	}
-	else if (command.keyword == "help") {
+	else if (command.keyword == "help") { //Help command
 		#pragma region help
 		cout << "view (num): show the item in the inventory vector and gives information about the item" << endl
 			<< "show_all: show all slots with whatever they have in them" << endl
@@ -150,15 +151,13 @@ void inputProcessor(commandTemp command) {
 			<< "help: show information on all commands" << endl;
 		#pragma endregion
 	}
-	else {
+	else { //Anything else gives and error
 		cout << "*ERROR*: Invalid Command";
 	}
 }
 
-void main() {
+string createInventory(const int maxInvSize) { //Create Inventory
 	string inputRaw = "";
-	#pragma region Initialize Inventory
-
 	bool valid = false;
 	while (!valid) {
 		cout << "Welcome, please set the size of the inventory: ";
@@ -178,19 +177,15 @@ void main() {
 	for (int i = 0; i < inventory.size(); i++) {
 		inventory[i] = -1;
 	}
-	/*cout << "Inventory:" << endl;
-	for (int i = 0; i < inventory.size(); i++) {
-		inventory[i] = -1;
 
-		if (inventory[i] >= 0 && inventory[i] < sizeof(inventory) / sizeof(inventory[i])) {
-			cout << "> [" << i + 1 << "] " << items[inventory[i]].name << endl;
-		}
-		else {
-			cout << "> [" << i + 1 << "] " << "{Empty}" << endl;
-		}
-	}*/
-	#pragma endregion
+	return inputRaw;
+}
 
+void main() {
+	bool shouldLoop = true;
+	int maxInvSize = 16;
+	string inputRaw = createInventory(maxInvSize);
+	
 	while (shouldLoop) {
 		cout << endl << "Enter a command: ";
 		getline(cin, inputRaw);
@@ -202,6 +197,6 @@ void main() {
 			<< "Command manipulater: " << userCommand.manipulater << endl;*/
 		#pragma endregion
 
-		inputProcessor(userCommand);
+		inputProcessor(userCommand, shouldLoop);
 	}
 }

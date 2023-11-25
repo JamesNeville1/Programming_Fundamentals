@@ -4,6 +4,9 @@
 
 using namespace std;
 
+//Very simple program so little comments, takes input in one function (returns float)
+//Uses header to define the Vector2 struct and the GetDistanceBetweenPoints function
+
 float processInput(string inputRaw) {
 	string validFloat = "";
 	bool pointAdded = false;

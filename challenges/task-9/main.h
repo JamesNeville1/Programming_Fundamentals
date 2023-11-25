@@ -1,8 +1,8 @@
 #pragma once
 
 struct Vector2 {
-	float x;
-	float y;
+	float x = 0;
+	float y = 0;
 };
 
 float GetDistanceBetweenPoints(Vector2 startPos, Vector2 endPos) {
