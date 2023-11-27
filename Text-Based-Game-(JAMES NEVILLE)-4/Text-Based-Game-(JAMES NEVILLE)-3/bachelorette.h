@@ -5,6 +5,12 @@
 #include <fstream>
 using json = nlohmann::json;
 
+map<int, string> mappededJson{
+	{0, "bachelorette-data-1.json"},
+	{1, "bachelorette-data-2.json"},
+	{2, "bachelorette-data-3.json"}
+};
+
 enum interests {
 	manga,
 	videogames,
@@ -44,16 +50,16 @@ public:
 
 class bachelorette {
 public:
-	string name = "Sam"; //Name
+	string name = ""; //Name
 	interests specialInterest = manga; //Interest that the player needs to guess to proceed
 	raceTemp* likes = NULL; //The race this bachelorette likes
 	raceTemp* dislikes = NULL; //The race this bachelorette dislikes
 	int currentHearts = 0; //The player must get 3 heart points to continue to date this bachelorette
 	int maxHearts = 3;
 
-	string initialDescription = "Test";
-	string endDescriptionBad = "Test";
-	string endDescriptionGood = "Test";
+	string initialDescription = "";
+	string endDescriptionBad = "";
+	string endDescriptionGood = "";
 
 	vector<dialogue> dialogueData;
 
@@ -151,8 +157,6 @@ public:
 
 		if (fileStream.is_open())
 		{
-			//Parses buf, not the ifstream
-
 			//Core variables set here
 			json jsonData = json::parse(buf);
 			this->name = jsonData["name"];
@@ -165,30 +169,25 @@ public:
 			this->endDescriptionGood = jsonData["endDescriptionGood"];
 
 			//Dialogue set here
-			for (const auto elem : jsonData["dialogue"]) { //Understand how this works
-				//cout << "Test";
+			for (const json elem : jsonData["dialogue"]) { //loop through dialogue
 				dialogueData.push_back(dialogue());
 
-				//Fix
 				int heartEffect = 0;
 				int strikeEffect = 0;
 
-				//jsonData.at("dialogue").get_to();
-
-				if (jsonData["dialogue"].find("heartEffect") != jsonData["dialogue"].end()) {
-					cout << "TEST1";
-					heartEffect = elem["heartEffect"];
-				}
-				else if (jsonData["dialogue"].contains("strikeEffect")) {
-					cout << "TEST2";
+				if (elem.contains("strikeEffect"))
 					strikeEffect = elem["strikeEffect"];
-				}
-				//cout << heartEffect;
-				//cout << strikeEffect;
-				//
+				if (elem.contains("heartEffect"))
+					heartEffect = elem["heartEffect"];
 
 				dialogueData[dialogueData.size()-1].setDialogue(elem["whatHappensText"], elem["promptText"], heartEffect, strikeEffect);
-				//cout << dialogueData[dialogueData.size()-1].whatHappensText << endl; //Ask tutor about this
+			}
+
+			//Options set here
+			for (const json elem : jsonData["dialogue"]) {
+				if (elem.contains("options")) {
+					//dialogueData[0].response.push_back(&dialogueData[jsonData["options"].at(0)]);
+				}
 			}
 		}
 
@@ -225,7 +224,7 @@ bachelorette bachelorettes[4];
 void setBacheloretteData() {
 	for (int i = 0; i < sizeof(bachelorettes) / sizeof(bachelorettes[0]); i++) {
 		bachelorettes[i].setBachelorette(i);
-		bachelorettes[i].getDialogueData(i);
+		//bachelorettes[i].getDialogueData(i);
 	}
 }
 

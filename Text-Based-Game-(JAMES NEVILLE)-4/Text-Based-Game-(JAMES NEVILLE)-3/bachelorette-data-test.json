@@ -10,7 +10,7 @@
       {
         "whatHappensText": "errr... ;-;... h-h-h... hows it going..",
         "promptText": "Go Back",
-        "Options": [
+        "options": [
           1,
           2,
           3
@@ -19,7 +19,7 @@
       {
         "whatHappensText": "Good Test",
         "promptText": "Good!",
-        "Options": [
+        "options": [
           0
         ],
         "heartEffect": 1
@@ -27,7 +27,7 @@
       {
         "whatHappensText": "Bad Test",
         "promptText": "Bad ;-;",
-        "Options": [
+        "options": [
           0
         ],
         "strikeEffect": 1
