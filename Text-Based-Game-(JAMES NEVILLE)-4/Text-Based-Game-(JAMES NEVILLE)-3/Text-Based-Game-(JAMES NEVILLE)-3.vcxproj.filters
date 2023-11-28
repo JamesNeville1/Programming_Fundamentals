@@ -36,4 +36,10 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="bachelorette-data-1.json" />
+    <None Include="bachelorette-data-2.json" />
+    <None Include="bachelorette-data-3.json" />
+    <None Include="bachelorette-data-test.json" />
+  </ItemGroup>
 </Project>

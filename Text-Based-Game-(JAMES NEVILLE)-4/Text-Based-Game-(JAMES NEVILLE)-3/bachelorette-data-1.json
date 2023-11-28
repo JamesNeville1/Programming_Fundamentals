@@ -9,8 +9,8 @@
   "dialogue": [
     {
       "whatHappensText": "Errr... ;-;... h-h-h... hows it going.. (Sam sits at the table nervously)",
-      "promptText": "",
-      "Options": [
+      "promptText": "N/A",
+      "options": [
         1,
         2,
         3
@@ -20,7 +20,7 @@
     {
       "whatHappensText": "Goo.. good thanks.. (Samantha's nervousness fades slightly)",
       "promptText": "Good Thanks, how are you!",
-      "Options": [
+      "options": [
         4,
         5,
         6
@@ -31,7 +31,7 @@
     {
       "whatHappensText": "Hey... (THIS IS AWKWARD)",
       "promptText": "Hey... (You're just as nervous as her')",
-      "Options": [
+      "options": [
         4,
         5,
         6
@@ -42,7 +42,7 @@
     {
       "whatHappensText": ";-; (Samantha looks away and blushes)",
       "promptText": "Good, you look beautiful",
-      "Options": [
+      "options": [
         4,
         5,
         6
@@ -53,7 +53,7 @@
     {
       "whatHappensText": "Err... you know... just reading... I don't get up to much ;-;",
       "promptText": "What did you get up to this weekened?",
-      "Options": [
+      "options": [
         7,
         8,
         9
@@ -63,7 +63,7 @@
     {
       "whatHappensText": "I'm a student... I want to become and writer one day!",
       "promptText": "What do you do for a living",
-      "Options": [
+      "options": [
         7,
         8,
         9
@@ -74,7 +74,7 @@
     {
       "whatHappensText": "I don't really want to talk about that right now...'",
       "promptText": "Are you close with your family?",
-      "Options": [
+      "options": [
         7,
         8,
         9

@@ -144,10 +144,8 @@ public:
 	#pragma endregion
 
 	void setBachelorette(int posInJson) {
-		cout << mappededJson[0] << endl;
-
-		//ifstream fileStream(mappededJson[posInJson]);
-		ifstream fileStream("./bachelorette-data-test.json");
+		ifstream fileStream(mappededJson[posInJson]);
+		//ifstream fileStream("./bachelorette-data-test.json");
 
 		string line;
 		string buf;
@@ -192,7 +190,6 @@ public:
 			for (const json elem : jsonData["dialogue"]) {
 				if (elem.contains("options")) {
 					for (int i = 0; i < elem["options"].size(); i++) {
-						cout << elem["options"].at(i) << endl;
 						dialogueData[dialogueItTest].response.push_back(&dialogueData[elem["options"].at(i)]);
 					}
 				}
