@@ -6,9 +6,9 @@
 using json = nlohmann::json;
 
 map<int, string> mappededJson{
-	{0, "bachelorette-data-1.json"},
-	{1, "bachelorette-data-2.json"},
-	{2, "bachelorette-data-3.json"}
+	{0, "./bachelorette-data-1.json"},
+	{1, "./bachelorette-data-2.json"},
+	{2, "./bachelorette-data-3.json"}
 };
 
 enum interests {
@@ -144,8 +144,9 @@ public:
 	#pragma endregion
 
 	void setBachelorette(int posInJson) {
-		//cout << system("echo %cd%") << endl;
+		cout << mappededJson[0] << endl;
 
+		//ifstream fileStream(mappededJson[posInJson]);
 		ifstream fileStream("./bachelorette-data-test.json");
 
 		string line;
@@ -162,8 +163,11 @@ public:
 			this->name = jsonData["name"];
 			int interestBeforeCast = jsonData["specialIntrest"];
 			this->specialInterest = static_cast<interests>(interestBeforeCast);
-			this->likes = &raceData[jsonData["likes"]];
-			this->dislikes = &raceData[jsonData["dislikes"]];
+
+			if(jsonData["likes"] > -1)
+				this->likes = &raceData[jsonData["likes"]];
+			if(jsonData["dislikes"] > -1)
+				this->dislikes = &raceData[jsonData["dislikes"]];
 			this->initialDescription = jsonData["initialDescription"];
 			this->endDescriptionBad = jsonData["endDescriptionBad"];
 			this->endDescriptionGood = jsonData["endDescriptionGood"];
@@ -184,33 +188,19 @@ public:
 			}
 
 			//Options set here
+			int dialogueItTest = 0;
 			for (const json elem : jsonData["dialogue"]) {
 				if (elem.contains("options")) {
-					//dialogueData[0].response.push_back(&dialogueData[jsonData["options"].at(0)]);
+					for (int i = 0; i < elem["options"].size(); i++) {
+						cout << elem["options"].at(i) << endl;
+						dialogueData[dialogueItTest].response.push_back(&dialogueData[elem["options"].at(i)]);
+					}
 				}
+				dialogueItTest++;
 			}
 		}
 
 		fileStream.close();
-	}
-
-	void getDialogueData(int posInJson) {
-		//TEST
-		vector<dialogue*> responsesTest;
-
-		responsesTest.push_back(&this->dialogueData[1]);
-		responsesTest.push_back(&this->dialogueData[2]);
-		responsesTest.push_back(&this->dialogueData[3]);
-		this->dialogueData[0].setResponses(responsesTest);
-		responsesTest.clear();
-
-		responsesTest.push_back(&this->dialogueData[0]);
-		this->dialogueData[1].setResponses(responsesTest);
-		responsesTest.clear();
-
-		responsesTest.push_back(&this->dialogueData[0]);
-		this->dialogueData[2].setResponses(responsesTest);
-		responsesTest.clear();
 	}
 
 	void adjustHearts(int increaseBy) {
@@ -219,12 +209,11 @@ public:
 	}
 };
 
-bachelorette bachelorettes[4];
+bachelorette bachelorettes[3];
 
 void setBacheloretteData() {
 	for (int i = 0; i < sizeof(bachelorettes) / sizeof(bachelorettes[0]); i++) {
 		bachelorettes[i].setBachelorette(i);
-		//bachelorettes[i].getDialogueData(i);
 	}
 }
 
