@@ -204,6 +204,24 @@ public:
 		this->currentHearts += increaseBy;
 		utils::slowPrint(this->name + " has " + to_string(this->currentHearts) + " (of 3) hearts for you <3.", .06f);
 	}
+
+	bool finalTest() {
+		vector<string> lastDialogue = { this->name +
+			" asks you what you are interested in: (if you get guess the same as "
+			+ this->name
+			+ " you will win a date)" };
+		for (int i = 0; i < formatedInterests.size(); i++) {
+			lastDialogue.push_back(formatedInterests[static_cast<interests>(i)]);
+		}
+
+		int input = utils::promptUserOptions(lastDialogue, false);
+		
+		if (lastDialogue[input+1] == formatedInterests.find(specialInterest)->second) {
+			return true;
+		}
+
+		return false;
+	}
 };
 
 bachelorette bachelorettes[3];

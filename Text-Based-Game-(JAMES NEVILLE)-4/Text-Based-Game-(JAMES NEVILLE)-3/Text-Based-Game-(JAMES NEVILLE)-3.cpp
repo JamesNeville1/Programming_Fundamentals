@@ -12,8 +12,8 @@ enum gameState {
 
 void mainGame(bachelorette* currentBachelorette, playerClass* player) {
 
-	utils::slowPrint(currentBachelorette->initialDescription, .055f);
-	utils::waitForSecs(2);
+	//utils::slowPrint(currentBachelorette->initialDescription, .055f);
+	//utils::waitForSecs(4);
 
 	gameState gameState = playing;
 	dialogue* currentDialogue = &currentBachelorette->dialogueData[0];
@@ -23,6 +23,7 @@ void mainGame(bachelorette* currentBachelorette, playerClass* player) {
 			currentBachelorette->adjustHearts(currentDialogue->heartEffect);
 			utils::waitForSecs(1.0f);
 		}
+		
 		if (currentDialogue->strikeEffect != 0) {
 			player->currentStrikes += currentDialogue->strikeEffect;
 			if (player->currentStrikes >= player->strikes) {
@@ -53,12 +54,11 @@ void mainGame(bachelorette* currentBachelorette, playerClass* player) {
 		else currentDialogue = doDialogue(currentDialogue);
 	}
 
-	if (gameState == won) {
-		utils::slowPrint(currentBachelorette->endDescriptionGood, 0.06f);
-	}
-	else {
+	if (gameState == lost || !currentBachelorette->finalTest()) {
 		utils::slowPrint(currentBachelorette->endDescriptionBad, 0.06f);
 	}
+	else 
+		utils::slowPrint(currentBachelorette->endDescriptionGood, 0.06f);
 }
 
 int main() {
