@@ -133,7 +133,6 @@
     <ClInclude Include="bachelorette.h" />
     <ClInclude Include="json.hpp" />
     <ClInclude Include="player.h" />
-    <ClInclude Include="read.h" />
     <ClInclude Include="utility.h" />
   </ItemGroup>
   <ItemGroup>

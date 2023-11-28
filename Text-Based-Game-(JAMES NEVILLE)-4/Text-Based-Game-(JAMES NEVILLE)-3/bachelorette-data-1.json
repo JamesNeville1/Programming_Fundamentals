@@ -1,7 +1,7 @@
 {
   "name": "Samantha",
   "specialIntrest": 0,
-  "likes": -1,
+  "likes": 0,
   "dislikes": -1,
   "initialDescription": "it's laundry day... you hate, laundry day. You spend all day working, and then... more work! At 10pm you decide to finally bite the bullet and walk to the laundrette.\nAs you walk in few people are there, just you and a girl, who you presume to be roughly the same age as you.\nYou're single, very, very, very single, so you attempt to talk to her and with your stunning looks and signature charm ;).",
   "endDescriptionBad": "Sam seems uninterested in you, she hastily picks up here laundry and leaves",
@@ -79,7 +79,7 @@
         8,
         9
       ],
-      "strikeEffect": 1
+      "strikeEffect": 2
     },
     {
       "whatHappensText": "Ew...",

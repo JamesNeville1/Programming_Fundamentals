@@ -5,27 +5,27 @@
 #include <fstream>
 using json = nlohmann::json;
 
-map<int, string> mappededJson{
+map<int, string> mappededJson{ //Map directories to int
 	{0, "./bachelorette-data-1.json"},
 	{1, "./bachelorette-data-2.json"},
 	{2, "./bachelorette-data-3.json"}
 };
 
-enum interests {
+enum interests { //All interests of bachelorette
 	manga,
 	videogames,
 	exercise,
 	art,
 };
 
-map<interests, string> formatedInterests{
+map<interests, string> formatedInterests{ //Interest is string form, easier to print with
 	{manga, "Manga"},
 	{videogames, "Video Games"},
 	{exercise, "Exercise"},
 	{art, "Art"},
 };
 
-class dialogue {
+class dialogue { //Dialogue class, used to hold dialogue information
 public:
 	string whatHappensText = "";
 	string promptText = "";
@@ -48,7 +48,7 @@ public:
 	}
 };
 
-class bachelorette {
+class bachelorette { //Bachelorette class, stores important data pertaining to the bachelorette
 public:
 	string name = ""; //Name
 	interests specialInterest = manga; //Interest that the player needs to guess to proceed
@@ -143,8 +143,8 @@ public:
 	)";
 	#pragma endregion
 
-	void setBachelorette(int posInJson) {
-		ifstream fileStream(mappededJson[posInJson]);
+	void setBachelorette(int bacheloretteID) { //Read data from json file
+		ifstream fileStream(mappededJson[bacheloretteID]);
 		//ifstream fileStream("./bachelorette-data-test.json");
 
 		string line;
@@ -203,9 +203,10 @@ public:
 	void adjustHearts(int increaseBy) {
 		this->currentHearts += increaseBy;
 		utils::slowPrint(this->name + " has " + to_string(this->currentHearts) + " (of 3) hearts for you <3.", .06f);
+		utils::waitForSecs(1.0f);
 	}
 
-	bool finalTest() {
+	bool finalTest() { //Player guesses special interest, last test to see if they win
 		vector<string> lastDialogue = { this->name +
 			" asks you what you are interested in: (if you get guess the same as "
 			+ this->name
@@ -226,13 +227,13 @@ public:
 
 bachelorette bachelorettes[3];
 
-void setBacheloretteData() {
+void setBacheloretteData() { //Loop through bachelorette array to set data
 	for (int i = 0; i < sizeof(bachelorettes) / sizeof(bachelorettes[0]); i++) {
 		bachelorettes[i].setBachelorette(i);
 	}
 }
 
-bachelorette* pickBachelorette() {
+bachelorette* pickBachelorette() { //Prompt player to pick bachelorette
 	vector<string> bacheloretteOptions = { "Select your bachelorette:" };
 
 	for (int i = 0; i < sizeof(bachelorettes)/sizeof(bachelorettes[0]); i++) {

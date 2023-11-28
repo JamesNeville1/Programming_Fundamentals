@@ -29,9 +29,6 @@
     <ClInclude Include="bachelorette.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="read.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="json.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>

@@ -13,7 +13,7 @@ array<raceTemp, 3> raceData = array<raceTemp, 3>();
 void setRaceData() {
 	raceData[0] = { "Human", 3};
 	raceData[1] = { "Orc", 2};
-	raceData[2] = { "Lizardfolk",0};
+	raceData[2] = { "Lizardfolk",1};
 }
 
 //Player class, main player functionalitise are here
@@ -58,6 +58,23 @@ public:
 			<< "Race: " << this->race->displayName << endl
 			<< "Strikes: " << this->strikes << endl;
 	}
+	//Add strike
+	bool adjustStrikes(int increaseBy, string currentBachName) {
+		this->currentStrikes += increaseBy;
+		if (this->currentStrikes >= this->strikes) {
+			return false;
+		}
+		else {
+			utils::slowPrint(
+				"You have " + to_string(this->currentStrikes)
+				+ " (of " + to_string(this->strikes)
+				+ ") strikes before " + currentBachName
+				+ " walks out and this date is ruined!",
+				.06f);
+			utils::waitForSecs(1.0f);
+			return true;
+		}
+	}
 	#pragma endregion
 	#pragma region ItemSpecific
 	void addItem() {
@@ -65,6 +82,8 @@ public:
 	}
 	#pragma endregion
 };
+
+//Use friends
 
 //class item {
 //public:

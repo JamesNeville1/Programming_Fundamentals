@@ -4,75 +4,71 @@
 #include "player.h"
 #include "bachelorette.h"
 
-enum gameState {
-	playing,
-	won,
-	lost
-};
-
 void mainGame(bachelorette* currentBachelorette, playerClass* player) {
 
-	//utils::slowPrint(currentBachelorette->initialDescription, .055f);
-	//utils::waitForSecs(4);
+	utils::slowPrint(currentBachelorette->initialDescription, .055f);
+	utils::waitForSecs(4);
 
-	gameState gameState = playing;
-	dialogue* currentDialogue = &currentBachelorette->dialogueData[0];
+	dialogue* currentDialogue = &currentBachelorette->dialogueData[0]; //Set dialogue to first in vector
+	
+	bool loop = true;
 
-	while (gameState == playing) {
-		if (currentDialogue->heartEffect != 0) {
+	if (player->race == currentBachelorette->likes) { //Check if race is liked
+		utils::slowPrint("This bacholerett seems to already like you!", 0.05f);
+		currentBachelorette->adjustHearts(1);
+	}
+	else if (player->race == currentBachelorette->dislikes) { //Check if race is disliked
+		utils::slowPrint(currentBachelorette->name + " seems to not like the cut of your jib.", 0.05f);
+		loop = false;
+	}
+
+	while (loop) { //Loop if bool is true
+		if (currentDialogue->heartEffect != 0) { //Check if dialogue has effect on hearts 
 			currentBachelorette->adjustHearts(currentDialogue->heartEffect);
 			utils::waitForSecs(1.0f);
 		}
 		
-		if (currentDialogue->strikeEffect != 0) {
-			player->currentStrikes += currentDialogue->strikeEffect;
-			if (player->currentStrikes >= player->strikes) {
-				gameState = lost;
-			}
-			else {
-				utils::slowPrint(
-					"You have " + to_string(player->currentStrikes)
-					+ " (of " + to_string(player->strikes)
-					+ ") strikes before " + currentBachelorette->name
-					+ " walks out and this date is ruined!",
-					.06f);
-				utils::waitForSecs(1.0f);
-			}
+		if (currentDialogue->strikeEffect != 0) { //Checl if dialogue has effect on strikes
+			loop = player->adjustStrikes(currentDialogue->strikeEffect, currentBachelorette->name);
+			utils::waitForSecs(1.0f);
 		}
 		system("CLS");
 
-		cout << currentBachelorette->portrait << endl;
+		cout << currentBachelorette->portrait << endl; //Print bachelorette portrait
 
-		if (currentDialogue->response.size() <= 0) {
+		if (currentDialogue->response.size() <= 0) { //Check if the dialogue has any responses, if not, end
 			if (currentBachelorette->currentHearts >= currentBachelorette->maxHearts) {
-				gameState = won;
+				utils::slowPrint(currentBachelorette->endDescriptionGood, 0.06f);
 			}
 			else {
-				gameState = lost;
+				utils::slowPrint(currentBachelorette->endDescriptionBad, 0.06f);
 			}
+			loop = false;
 		}
-		else currentDialogue = doDialogue(currentDialogue);
+		else if (player->currentStrikes >= player->strikes) { //Check if strikes is at max or above, if so player loses
+			utils::slowPrint(currentBachelorette->endDescriptionBad, 0.06f);
+			loop = false;
+		}
+		else currentDialogue = doDialogue(currentDialogue); //Continue if other statements are false
 	}
-
-	if (gameState == lost || !currentBachelorette->finalTest()) {
-		utils::slowPrint(currentBachelorette->endDescriptionBad, 0.06f);
-	}
-	else 
-		utils::slowPrint(currentBachelorette->endDescriptionGood, 0.06f);
 }
 
 int main() {
+	#pragma region Set Data
 	setRaceData();
 	setBacheloretteData();
+	#pragma endregion
 
-	//cout << returnTitle();
+	cout << utils::returnTitle() << endl;
 
+	#pragma region Create Player
 	playerClass player = playerClass();
 	player.characterDetails();
 	utils::waitForSecs(1.0f);
 	system("CLS");
+	#pragma endregion
 
-	bachelorette* currentBachelorette = pickBachelorette();
-
-	mainGame(currentBachelorette, &player);
+	bachelorette* currentBachelorette = pickBachelorette(); //Player selects bachelorette
+	
+	mainGame(currentBachelorette, &player); //Main game here
 }

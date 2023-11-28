@@ -5,8 +5,11 @@
 #include <windows.h>
 #include <array>
 #include <map>
+#include <fstream>
 
 using namespace std;
+
+//This is my utils header, it holds a lot of utilities used in many functions across the game
 
 class utils {
 public:
@@ -120,5 +123,18 @@ public:
 		//cout << dialogueboxSpace(prompt) << endl;
 		slowPrint(dialogueboxBounds(prompt));
 		cout << endl;
+	}
+	static string returnTitle() {
+		fstream titleData;
+		titleData.open("title.txt", ios::in);
+
+		string line = "";
+		string title = "";
+		
+		int i = 0;
+		while (getline(titleData, line)) {
+			title += line + "\n";
+		}
+		return title;
 	}
 };
