@@ -52,11 +52,12 @@ void mainGame(bachelorette* currentBachelorette, playerClass* player) {
 
 int main() {
 	map<int, bacheloretteFiles> mappededData; //Map directories to int
+	array<raceTemp, 3> raceData = array<raceTemp, 3>(); //Store race data
 
 	#pragma region Set Data
-	setRaceData();
+	setRaceData(&raceData);
 	setMappedData(&mappededData);
-	setBacheloretteData(&mappededData);
+	setBacheloretteData(&mappededData, &raceData);
 	#pragma endregion
 
 	bool loop = true;
@@ -64,7 +65,7 @@ int main() {
 		cout << utils::returnFromTxt("title.txt") << endl;
 
 		#pragma region Create Player
-		playerClass player = playerClass();
+		playerClass player = playerClass(&raceData);
 		player.characterDetails();
 		utils::waitForSecs(1.0f);
 		system("CLS");

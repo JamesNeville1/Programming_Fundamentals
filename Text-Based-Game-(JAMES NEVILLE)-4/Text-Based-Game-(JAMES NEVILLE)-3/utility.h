@@ -92,20 +92,12 @@ public:
 	static void waitForSecs(float waitFor = 1) {
 		Sleep(waitFor * 1000);
 	}
-	static void slowPrint(string rawText, float waitFor) {
+	static void slowPrint(string rawText, float waitForBetween = .001f, float waitAfter = 0) {
 		for (int i = 0; i < rawText.length(); i++) {
 			cout << rawText[i];
-			utils::waitForSecs(waitFor);
+			utils::waitForSecs(waitForBetween);
 		}
-		utils::waitForSecs(2);
-		cout << endl;
-	}
-	static void slowPrint(string rawText) {
-		float waitFor = 0.01f;
-		for (int i = 0; i < rawText.length(); i++) {
-			cout << rawText[i];
-			Sleep(waitFor * 1000);
-		}
+		utils::waitForSecs(waitAfter);
 		cout << endl;
 	}
 	static string dialogueboxBounds(string prompt) {
@@ -119,23 +111,21 @@ public:
 	static void dialogueBox(string prompt) {
 		float waitFor = 0.02f;
 		slowPrint(dialogueboxBounds(prompt));
-		//cout << dialogueboxSpace(prompt) << endl;
-		slowPrint("*     " + prompt + "     *", waitFor);
-		//cout << dialogueboxSpace(prompt) << endl;
+		slowPrint("*     " + prompt + "     *", .05f);
 		slowPrint(dialogueboxBounds(prompt));
 		cout << endl;
 	}
 	static string returnFromTxt(string dir) {
-		fstream titleData;
-		titleData.open(dir, ios::in); //Open title.txt
+		fstream data;
+		data.open(dir, ios::in); //Open title.txt
 
 		string line = "";
-		string title = "";
+		string formatedString = "";
 		
-		while (getline(titleData, line)) {
-			title += line + "\n"; //Loop through lines, add to string with "\n"
+		while (getline(data, line)) {
+			formatedString += line + "\n"; //Loop through lines, add to string with "\n"
 		}
-		return title; //Return Title
+		return formatedString; //Return string
 	}
 };
 

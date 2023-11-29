@@ -14,14 +14,14 @@ enum interests { //All interests of bachelorette
 	manga,
 	videogames,
 	exercise,
-	art,
+	food,
 };
 
 map<interests, string> formatedInterests{ //Interest is string form, easier to print with
 	{manga, "Manga"},
 	{videogames, "Video Games"},
 	{exercise, "Exercise"},
-	{art, "Art"},
+	{food, "Food"},
 };
 
 void setMappedData (map<int, bacheloretteFiles>* bachFiles){
@@ -73,7 +73,7 @@ public:
 
 	string portrait = "";
 
-	void setBachelorette(int bacheloretteID, map<int, bacheloretteFiles>* fileRef) { //Read data from json file
+	void setBachelorette(int bacheloretteID, map<int, bacheloretteFiles>* fileRef, array<raceTemp, 3>* raceDataRef) { //Read data from json file
 		ifstream fileStream(fileRef->at(bacheloretteID).json);
 		
 		string line;
@@ -92,9 +92,9 @@ public:
 			this->specialInterest = static_cast<interests>(interestBeforeCast);
 
 			if(jsonData["likes"] > -1)
-				this->likes = &raceData[jsonData["likes"]];
+				this->likes = &raceDataRef->at(jsonData["likes"]);
 			if(jsonData["dislikes"] > -1)
-				this->dislikes = &raceData[jsonData["dislikes"]];
+				this->dislikes = &raceDataRef->at(jsonData["dislikes"]);
 			this->initialDescription = jsonData["initialDescription"];
 			this->endDescriptionBad = jsonData["endDescriptionBad"];
 			this->endDescriptionGood = jsonData["endDescriptionGood"];
@@ -132,7 +132,7 @@ public:
 
 	void adjustHearts(int increaseBy) {
 		this->currentHearts += increaseBy;
-		utils::slowPrint(this->name + " has " + to_string(this->currentHearts) + " (of 3) hearts for you <3.", .06f);
+		utils::slowPrint(this->name + " has " + to_string(this->currentHearts) + " (of 3) hearts for you <3.", .06f, 1);
 	}
 
 	bool finalTest() { //Player guesses special interest, last test to see if they win
@@ -156,9 +156,9 @@ public:
 
 bachelorette bachelorettes[3];
 
-void setBacheloretteData(map<int, bacheloretteFiles>* fileRef) { //Loop through bachelorette array to set data
+void setBacheloretteData(map<int, bacheloretteFiles>* fileRef, array<raceTemp, 3>* raceDataRef) { //Loop through bachelorette array to set data
 	for (int i = 0; i < sizeof(bachelorettes) / sizeof(bachelorettes[0]); i++) {
-		bachelorettes[i].setBachelorette(i, fileRef);
+		bachelorettes[i].setBachelorette(i, fileRef, raceDataRef);
 	}
 }
 

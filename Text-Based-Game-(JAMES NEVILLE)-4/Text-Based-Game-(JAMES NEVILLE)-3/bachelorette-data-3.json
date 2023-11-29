@@ -1,40 +1,28 @@
 {
   "name": "Mr. Marmite",
-  "specialIntrest": 0,
+  "specialIntrest": 3,
   "likes": 2,
   "dislikes": 0,
-  "initialDescription": "After leaving the laundrette",
-  "endDescriptionBad": "",
-  "endDescriptionGood": "",
+  "initialDescription": "You look at him from across the street, you are utterly fixated by him, his curves have captured your eye and won't let go. He catches your gaze and smiles",
+  "endDescriptionBad": "You are not worthy of Mr. Marmites powers",
+  "endDescriptionGood": "Mr. Marmite absorbs your soul, you are one, he is you, and you... are him",
   "dialogue": [
     {
-      "whatHappensText": "errr... ;-;... h-h-h... hows it going..",
-      "promptText": "Go Back",
-      "Options": [
+      "whatHappensText": "Hello there my sweet",
+      "promptText": "N/A",
+      "options": [
         1,
-        2,
-        3
+        2
       ]
     },
     {
-      "whatHappensText": "Good Test",
-      "promptText": "Good!",
-      "Options": [
-        0
-      ],
-      "heartEffect": 1
+      "whatHappensText": "",
+      "promptText": "Offer your soul.",
+      "heartEffect": 2
     },
     {
-      "whatHappensText": "Bad Test",
-      "promptText": "Bad ;-;",
-      "Options": [
-        0
-      ],
-      "strikeEffect": 1
-    },
-    {
-      "whatHappensText": "EndTest",
-      "promptText": "End"
+      "whatHappensText": "",
+      "promptText": "Step away from him."
     }
   ]
 }

@@ -7,13 +7,11 @@ struct raceTemp {
 	int stikes = 0;
 };
 
-array<raceTemp, 3> raceData = array<raceTemp, 3>();
-
 //The array to store the race's data
-void setRaceData() {
-	raceData[0] = { "Human", 3};
-	raceData[1] = { "Orc", 2};
-	raceData[2] = { "Lizardfolk",1};
+void setRaceData(array<raceTemp, 3>* raceDataRef) {
+	raceDataRef->at(0) = { "Human", 3};
+	raceDataRef->at(1) = { "Orc", 2};
+	raceDataRef->at(2) = { "The Chosen One",1};
 }
 
 //Player class, main player functionalitise are here
@@ -26,11 +24,11 @@ public:
 	
 	#pragma region Core
 	//Constructor, used to set all variables via player input
-	playerClass() {
+	playerClass(array<raceTemp, 3>* raceDataRef) {
 		bool confirmed = false;
 		while (!confirmed) {
 			this->name = utils::promptUserOptions("Enter your character's name: ");
-			this->race = getPlayerRace();
+			this->race = getPlayerRace(raceDataRef);
 			this->strikes = this->race->stikes;
 
 			string confirmationPrompt = "Are you sure this is the character you wish to play! \nyou'll have "
@@ -40,15 +38,15 @@ public:
 		}
 	}
 	//Get race specific details
-	raceTemp* getPlayerRace() {
+	raceTemp* getPlayerRace(array<raceTemp, 3>* raceDataRef) {
 		vector<string> prompts = { "Select your race: " };
-		for (int i = 0; i < raceData.size(); i++) {
-			prompts.push_back(raceData[i].displayName);
+		for (int i = 0; i < raceDataRef->size(); i++) {
+			prompts.push_back(raceDataRef->at(i).displayName);
 		}
 
 		int input = utils::promptUserOptions(prompts, false);
 
-		return &raceData[input];
+		return &raceDataRef->at(input);
 	}
 	//Output player details
 	void characterDetails() {
@@ -69,7 +67,7 @@ public:
 				+ " (of " + to_string(this->strikes)
 				+ ") strikes before " + currentBachName
 				+ " walks out and your chances are ruined!",
-				.06f);
+				.06f, 1);
 			return true;
 		}
 	}
