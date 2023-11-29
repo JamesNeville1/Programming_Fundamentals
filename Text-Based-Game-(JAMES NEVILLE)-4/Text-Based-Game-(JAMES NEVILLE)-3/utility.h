@@ -124,17 +124,19 @@ public:
 		slowPrint(dialogueboxBounds(prompt));
 		cout << endl;
 	}
-	static string returnTitle() {
+	static string returnFromTxt(string dir) {
 		fstream titleData;
-		titleData.open("title.txt", ios::in);
+		titleData.open(dir, ios::in); //Open title.txt
 
 		string line = "";
 		string title = "";
 		
-		int i = 0;
 		while (getline(titleData, line)) {
-			title += line + "\n";
+			title += line + "\n"; //Loop through lines, add to string with "\n"
 		}
-		return title;
+		return title; //Return Title
 	}
 };
+
+//Note for marker: I typically like to return variables when I can rather than using voids and printing directly.
+//It gives more options for manipulating the data without having to change that function

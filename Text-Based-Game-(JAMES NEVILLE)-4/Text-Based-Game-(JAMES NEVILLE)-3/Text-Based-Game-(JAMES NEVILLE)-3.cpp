@@ -36,8 +36,12 @@ void mainGame(bachelorette* currentBachelorette, playerClass* player) {
 
 		cout << currentBachelorette->portrait << endl; //Print bachelorette portrait
 
-		if (currentDialogue->response.size() <= 0) { //Check if the dialogue has any responses, if not, end
-			if (currentBachelorette->currentHearts >= currentBachelorette->maxHearts) {
+		if (player->currentStrikes >= player->strikes) { //Check if strikes is at max or above, if so player loses
+			utils::slowPrint(currentBachelorette->endDescriptionBad, 0.06f);
+			loop = false;
+		}
+		else if (currentDialogue->response.size() <= 0) { //Check if the dialogue has any responses, if not, end
+			if (currentBachelorette->currentHearts >= currentBachelorette->maxHearts && currentBachelorette->finalTest()) {
 				utils::slowPrint(currentBachelorette->endDescriptionGood, 0.06f);
 			}
 			else {
@@ -45,30 +49,38 @@ void mainGame(bachelorette* currentBachelorette, playerClass* player) {
 			}
 			loop = false;
 		}
-		else if (player->currentStrikes >= player->strikes) { //Check if strikes is at max or above, if so player loses
-			utils::slowPrint(currentBachelorette->endDescriptionBad, 0.06f);
-			loop = false;
-		}
 		else currentDialogue = doDialogue(currentDialogue); //Continue if other statements are false
 	}
 }
 
 int main() {
+	map<int, bacheloretteFiles> mappededData; //Map directories to int
+
 	#pragma region Set Data
 	setRaceData();
-	setBacheloretteData();
+	setMappedData(&mappededData);
+	setBacheloretteData(&mappededData);
 	#pragma endregion
 
-	cout << utils::returnTitle() << endl;
+	bool loop = true;
+	while (loop) {
+		cout << utils::returnFromTxt("title.txt") << endl;
 
-	#pragma region Create Player
-	playerClass player = playerClass();
-	player.characterDetails();
-	utils::waitForSecs(1.0f);
-	system("CLS");
-	#pragma endregion
-
-	bachelorette* currentBachelorette = pickBachelorette(); //Player selects bachelorette
+		#pragma region Create Player
+		playerClass player = playerClass();
+		player.characterDetails();
+		utils::waitForSecs(1.0f);
+		system("CLS");
+		#pragma endregion
 	
-	mainGame(currentBachelorette, &player); //Main game here
+		bachelorette* currentBachelorette = pickBachelorette(); //Player selects bachelorette
+		currentBachelorette->currentHearts = 0;
+
+		mainGame(currentBachelorette, &player); //Main game here
+
+		loop = utils::yesOrNoPrompt("Play Again:");
+
+		system("CLS");
+	}
+	cout << "Good Bye ;-;";
 }

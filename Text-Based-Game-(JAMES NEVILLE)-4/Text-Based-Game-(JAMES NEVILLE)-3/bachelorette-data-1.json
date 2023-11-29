@@ -1,9 +1,9 @@
 {
   "name": "Samantha",
   "specialIntrest": 0,
-  "likes": 0,
+  "likes": -1,
   "dislikes": -1,
-  "initialDescription": "it's laundry day... you hate, laundry day. You spend all day working, and then... more work! At 10pm you decide to finally bite the bullet and walk to the laundrette.\nAs you walk in few people are there, just you and a girl, who you presume to be roughly the same age as you.\nYou're single, very, very, very single, so you attempt to talk to her and with your stunning looks and signature charm ;).",
+  "initialDescription": "it's laundry day... you hate, laundry day. You spend all day working, and then... more work! At 10pm you decide to finally bite the bullet and walk to the laundrette.\nAs you walk in few people are there, just you and a girl, who you presume to be roughly the same age as you.\nYou're single, very, very, very single, so you attempt to talk to her, and with your stunning looks and signature charm what could go wrong!",
   "endDescriptionBad": "Sam seems uninterested in you, she hastily picks up here laundry and leaves",
   "endDescriptionGood": "Sam seems really interested in you, she asks to meet again, tomorrow!",
   "dialogue": [
@@ -82,17 +82,17 @@
       "strikeEffect": 2
     },
     {
-      "whatHappensText": "Ew...",
+      "whatHappensText": "",
       "promptText": "You're pretty..., you say as you slur your words",
       "strikeEffect": 3
     },
     {
-      "whatHappensText": "Hmmmm...",
+      "whatHappensText": "",
       "promptText": "There's a festival going on right now, maybe we could go together?",
       "heartEffect": 2
     },
     {
-      "whatHappensText": "Sorry... ?",
+      "whatHappensText": "",
       "promptText": "I'mmmmmm.... BORED",
       "strikeEffect": 1
     }

@@ -1,14 +1,14 @@
 {
   "name": "Jace",
-  "specialIntrest": 0,
-  "likes": -1,
-  "dislikes": -1,
-  "initialDescription": "You met Sam on a forum talking about both of your favourite manga. You were in love at first sight, you loved everything about her.\nEventually you build up the courage to ask her out, and she says yes!\nYou meet at a small cafe named Anteiku.",
-  "endDescriptionBad": "Sam seems uninterested in you, she leaves the table to go to the bathroom and doesn't come back",
-  "endDescriptionGood": "Sam seems really interested in you, she asks to meet again, same place, same time, tomorrow!",
+  "specialIntrest": 2,
+  "likes": 0,
+  "dislikes": 1,
+  "initialDescription": "You meet Jace while on a walk past the laundrette, he has the appearance of a nobel gentleman.\nHe's currently walking his dog, as he walks past you, you realise now is your chance!",
+  "endDescriptionBad": "Jace's dog doesn't like you one bit! It bites your leg!",
+  "endDescriptionGood": "Jace asks if you want to join him tomorrow while he walks his dog, tomorrow!",
   "dialogue": [
     {
-      "whatHappensText": "Errr... ;-;... h-h-h... hows it going.. (Sam sits at the table nervously)",
+      "whatHappensText": "Hello, how do you do",
       "promptText": "N/A",
       "options": [
         1,
@@ -18,41 +18,35 @@
     },
 
     {
-      "whatHappensText": "Goo.. good thanks.. (Samantha's nervousness fades slightly)",
-      "promptText": "Good Thanks, how are you!",
+      "whatHappensText": "Jace smiles (The dog likes you)",
+      "promptText": "Good Thanks, pet the dog!",
       "options": [
         4,
         5,
         6
       ],
-      "heartEffect": 1
+      "heartEffect": 10
     },
 
     {
-      "whatHappensText": "Hey... (THIS IS AWKWARD)",
-      "promptText": "Hey... (You're just as nervous as her')",
+      "whatHappensText": "HEY",
+      "promptText": "Kick the dog, it looked at you funny",
+      "strikeEffect": 3
+    },
+
+    {
+      "whatHappensText": "..., so?",
+      "promptText": "Good Thanks, don't pet the dog",
       "options": [
         4,
         5,
         6
-      ],
-      "strikeEffect": 1
+      ]
     },
 
     {
-      "whatHappensText": ";-; (Samantha looks away and blushes)",
-      "promptText": "Good, you look beautiful",
-      "options": [
-        4,
-        5,
-        6
-      ],
-      "heartEffect": 1
-    },
-
-    {
-      "whatHappensText": "Err... you know... just reading... I don't get up to much ;-;",
-      "promptText": "What did you get up to this weekened?",
+      "whatHappensText": "What does it look like... I'm walking my dog",
+      "promptText": "What are you up to?",
       "options": [
         7,
         8,
@@ -61,40 +55,40 @@
     },
 
     {
-      "whatHappensText": "I'm a student... I want to become and writer one day!",
+      "whatHappensText": "What? How's that any of your business",
       "promptText": "What do you do for a living",
       "options": [
         7,
         8,
         9
       ],
-      "heartEffect": 1
+      "strikeEffect": 1
     },
 
     {
-      "whatHappensText": "I don't really want to talk about that right now...'",
-      "promptText": "Are you close with your family?",
+      "whatHappensText": ":), (The dog likes you, and so does Jace)",
+      "promptText": "Pet the dog some more",
       "options": [
         7,
         8,
         9
       ],
-      "strikeEffect": 1
+      "heartEffect": 2
     },
     {
-      "whatHappensText": "Ew...",
-      "promptText": "You're pretty..., you say as you slur your words",
-      "strikeEffect": 3
+      "whatHappensText": "",
+      "promptText": "Roundhouse kick the dog",
+      "strikeEffect": 200
     },
     {
-      "whatHappensText": "Hmmmm...",
+      "whatHappensText": "",
       "promptText": "There's a festival going on right now, maybe we could go together?",
       "heartEffect": 1
     },
     {
-      "whatHappensText": "Sorry... ?",
+      "whatHappensText": "",
       "promptText": "I'mmmmmm.... BORED",
-      "strikeEffect": 1
+      "strikeEffect": 2
     }
   ]
 }
