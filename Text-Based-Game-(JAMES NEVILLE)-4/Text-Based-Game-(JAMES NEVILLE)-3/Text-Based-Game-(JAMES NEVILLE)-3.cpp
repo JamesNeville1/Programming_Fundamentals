@@ -6,6 +6,7 @@
 
 void mainGame(bachelorette* currentBachelorette, playerClass* player) {
 
+	
 	utils::slowPrint(currentBachelorette->initialDescription, .055f);
 
 	dialogue* currentDialogue = &currentBachelorette->dialogueData[0]; //Set dialogue to first in vector

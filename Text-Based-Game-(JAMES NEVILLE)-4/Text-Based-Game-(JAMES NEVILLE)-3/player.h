@@ -28,6 +28,7 @@ public:
 		bool confirmed = false;
 		while (!confirmed) {
 			this->name = utils::promptUserOptions("Enter your character's name: ");
+			name[0] = utils::returnCapitalised(name[0]);
 			this->race = getPlayerRace(raceDataRef);
 			this->strikes = this->race->stikes;
 

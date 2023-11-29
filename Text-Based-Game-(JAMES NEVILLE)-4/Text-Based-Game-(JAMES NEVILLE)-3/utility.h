@@ -127,6 +127,9 @@ public:
 		}
 		return formatedString; //Return string
 	}
+	static char returnCapitalised(char raw) {
+		return toupper(raw);
+	}
 };
 
 //Note for marker: I typically like to return variables when I can rather than using voids and printing directly.
