@@ -58,7 +58,7 @@ public:
 			<< "Strikes: " << this->strikes << endl;
 	}
 	//Add strike
-	bool adjustStrikes(int increaseBy, string currentBachName) {
+	bool adjustStrikes(int increaseBy, string currentBachName) { //Adjust strikes, also return false if the game should continue
 		this->currentStrikes += increaseBy;
 		if (this->currentStrikes >= this->strikes) {
 			return false;
@@ -70,7 +70,6 @@ public:
 				+ ") strikes before " + currentBachName
 				+ " walks out and your chances are ruined!",
 				.06f);
-			utils::waitForSecs(1.0f);
 			return true;
 		}
 	}

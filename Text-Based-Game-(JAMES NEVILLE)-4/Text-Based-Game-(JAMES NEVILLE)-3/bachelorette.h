@@ -133,7 +133,6 @@ public:
 	void adjustHearts(int increaseBy) {
 		this->currentHearts += increaseBy;
 		utils::slowPrint(this->name + " has " + to_string(this->currentHearts) + " (of 3) hearts for you <3.", .06f);
-		utils::waitForSecs(1.0f);
 	}
 
 	bool finalTest() { //Player guesses special interest, last test to see if they win

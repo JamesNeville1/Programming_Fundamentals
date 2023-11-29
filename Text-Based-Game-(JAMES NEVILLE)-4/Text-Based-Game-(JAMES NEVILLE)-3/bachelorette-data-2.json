@@ -18,7 +18,7 @@
     },
 
     {
-      "whatHappensText": "Jace smiles (The dog likes you)",
+      "whatHappensText": "He likes you, I see (The dog does in fact like you)",
       "promptText": "Good Thanks, pet the dog!",
       "options": [
         4,
@@ -66,7 +66,7 @@
     },
 
     {
-      "whatHappensText": ":), (The dog likes you, and so does Jace)",
+      "whatHappensText": "(Jace's only grows)",
       "promptText": "Pet the dog some more",
       "options": [
         7,

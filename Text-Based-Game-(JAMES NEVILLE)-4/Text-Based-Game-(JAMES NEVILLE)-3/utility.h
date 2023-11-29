@@ -89,11 +89,15 @@ public:
 			}
 		}
 	}
+	static void waitForSecs(float waitFor = 1) {
+		Sleep(waitFor * 1000);
+	}
 	static void slowPrint(string rawText, float waitFor) {
 		for (int i = 0; i < rawText.length(); i++) {
 			cout << rawText[i];
-			Sleep(waitFor * 1000);
+			utils::waitForSecs(waitFor);
 		}
+		utils::waitForSecs(2);
 		cout << endl;
 	}
 	static void slowPrint(string rawText) {
@@ -103,9 +107,6 @@ public:
 			Sleep(waitFor * 1000);
 		}
 		cout << endl;
-	}
-	static void waitForSecs(float waitFor) {
-		Sleep(waitFor * 1000);
 	}
 	static string dialogueboxBounds(string prompt) {
 		string output = "";

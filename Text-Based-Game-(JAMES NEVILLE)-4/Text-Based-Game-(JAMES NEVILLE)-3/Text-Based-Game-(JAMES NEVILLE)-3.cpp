@@ -7,7 +7,6 @@
 void mainGame(bachelorette* currentBachelorette, playerClass* player) {
 
 	utils::slowPrint(currentBachelorette->initialDescription, .055f);
-	utils::waitForSecs(4);
 
 	dialogue* currentDialogue = &currentBachelorette->dialogueData[0]; //Set dialogue to first in vector
 	
@@ -25,12 +24,10 @@ void mainGame(bachelorette* currentBachelorette, playerClass* player) {
 	while (loop) { //Loop if bool is true
 		if (currentDialogue->heartEffect != 0) { //Check if dialogue has effect on hearts 
 			currentBachelorette->adjustHearts(currentDialogue->heartEffect);
-			utils::waitForSecs(1.0f);
 		}
 		
 		if (currentDialogue->strikeEffect != 0) { //Checl if dialogue has effect on strikes
 			loop = player->adjustStrikes(currentDialogue->strikeEffect, currentBachelorette->name);
-			utils::waitForSecs(1.0f);
 		}
 		system("CLS");
 
