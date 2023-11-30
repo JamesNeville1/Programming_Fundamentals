@@ -1,13 +1,13 @@
 #include "bachelorette.h"
 
-map<interests, string> formatedInterests{
+map<interests, string> bachelorette::formatedInterests{ //Bachelorettes interests in string form
 	{ manga, "Manga"},
 	{ videogames, "Video Games" },
 	{ exercise, "Exercise" },
 	{ food, "Food" },
 };
 
-void setMappedData(map<int, bacheloretteFiles>* bachFiles) {
+void setMappedData(map<int, bacheloretteFiles>* bachFiles) { //Set map bachelorette json and portrait to one location
 	bacheloretteFiles toPassStruct = { "./bachelorette-data-1.json", "samantha-portrait.txt" };
 	bachFiles->insert(pair<int, bacheloretteFiles>(0, toPassStruct));
 	toPassStruct = { "./bachelorette-data-2.json", "jace-portrait.txt" };
@@ -16,17 +16,17 @@ void setMappedData(map<int, bacheloretteFiles>* bachFiles) {
 	bachFiles->insert(pair<int, bacheloretteFiles>(2, toPassStruct));
 }
 
-void dialogue::setDialogue(string whatHappensText, string promptText, int heartEffect, int strikeEffect) {
+void dialogue::setDialogue(string whatHappensText, string promptText, int heartEffect, int strikeEffect) { //Set specific dialogue
 	this->whatHappensText = whatHappensText;
 	this->promptText = promptText;
 
 	this->heartEffect = heartEffect;
 	this->strikeEffect = strikeEffect;
 }
-void dialogue::setResponses(vector<dialogue*> response) {
+void dialogue::setResponses(vector<dialogue*> response) { //Set specific dialogues reponse
 	this->response = response;
 }
-void bachelorette::setBachelorette(int bacheloretteID, map<int, bacheloretteFiles>* fileRef, array<raceTemp, 3>* raceDataRef) {
+void bachelorette::setBachelorette(int bacheloretteID, map<int, bacheloretteFiles>* fileRef, array<raceTemp, 3>* raceDataRef) { //Set specific bachelorette via JSON
 	ifstream fileStream(fileRef->at(bacheloretteID).json);
 
 	string line;
@@ -82,7 +82,7 @@ void bachelorette::setBachelorette(int bacheloretteID, map<int, bacheloretteFile
 
 	fileStream.close();
 }
-void bachelorette::adjustHearts(int increaseBy) {
+void bachelorette::adjustHearts(int increaseBy) { //Adjust bachelorettes hearts
 	this->currentHearts += increaseBy;
 	utils::slowPrint(this->name + " has " + to_string(this->currentHearts) + " (of 3) hearts for you <3.", .06f, 1);
 }
@@ -95,13 +95,25 @@ bool bachelorette::finalTest() {
 		lastDialogue.push_back(formatedInterests[static_cast<interests>(i)]);
 	}
 
-	int input = utils::promptUserOptions(lastDialogue, false);
+	int input = utils::promptUser(lastDialogue, false);
 
 	if (lastDialogue[input + 1] == formatedInterests.find(specialInterest)->second) {
 		return true;
 	}
 
 	return false;
+}
+
+dialogue* bachelorette::doDialogue(dialogue* currentDialogue) { //Take current dialogue return next
+	vector<string> prompts = { currentDialogue->whatHappensText };
+
+	for (int i = 0; i < currentDialogue->response.size(); i++) {
+		prompts.push_back(currentDialogue->response[i]->promptText);
+	}
+
+	int input = utils::promptUser(prompts, true);
+
+	return currentDialogue->response[input];
 }
 
 void setBacheloretteData(array<bachelorette, 3>* bachelorettes ,map<int, bacheloretteFiles>* fileRef, array<raceTemp, 3>* raceDataRef) { //Loop through bachelorette array to set data
@@ -117,20 +129,8 @@ bachelorette* pickBachelorette(array<bachelorette, 3>* bachelorettes) { //Prompt
 		bacheloretteOptions.push_back(bachelorettes->at(i).name);
 	}
 
-	int input = utils::promptUserOptions(bacheloretteOptions, false);
+	int input = utils::promptUser(bacheloretteOptions, false);
 	system("CLS");
 
 	return &bachelorettes->at(input);
-}
-
-dialogue* doDialogue(dialogue* currentDialogue) { //Take current dialogue return next
-	vector<string> prompts = { currentDialogue->whatHappensText };
-
-	for (int i = 0; i < currentDialogue->response.size(); i++) {
-		prompts.push_back(currentDialogue->response[i]->promptText);
-	}
-
-	int input = utils::promptUserOptions(prompts, true);
-
-	return currentDialogue->response[input];
 }

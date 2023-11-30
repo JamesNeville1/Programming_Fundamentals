@@ -1,5 +1,5 @@
 #include "utils.h"
-int utils::validateInt(string raw) {
+int utils::validateInt(const string raw) { //Used to validate ints by passing in a raw string
 	bool valid = false;
 	string rawValidated = "";
 
@@ -10,7 +10,7 @@ int utils::validateInt(string raw) {
 	if (rawValidated != "") return stoi(rawValidated);
 	else return -1;
 }
-int utils::promptUserOptions(vector<string> prompts, bool isDialogue) {
+int utils::promptUser(const vector<string> prompts, const bool isDialogue) { //prompt user with options, only takes int
 	bool valid = false;
 	int validInt = 0;
 
@@ -29,18 +29,21 @@ int utils::promptUserOptions(vector<string> prompts, bool isDialogue) {
 		validInt = validateInt(rawInput) - 1;
 
 		if (validInt >= 0 && validInt < prompts.size() - 1) valid = true;
-		else cout << "Error: Please ensure you input is valid" << endl;
+		else {
+			cout << "Error: Please ensure your input is valid" << endl;
+		}
 	}
 	return validInt;
 }
-string utils::promptUserOptions(string prompt) {
-	while (true) {
+string utils::promptUser(const string prompt) { //prompt user, only take string
+	bool valid = false;
+	string validInput = "";
+	while (!valid) {
 		cout << prompt << " ";
 
 		string input = "";
 		getline(cin, input);
 
-		string validInput = "";
 		for (int i = 0; i < input.length(); i++) {
 			if (isalpha(input[i])) {
 				validInput += input[i];
@@ -49,19 +52,18 @@ string utils::promptUserOptions(string prompt) {
 
 		if (validInput.length() <= 0)
 			cout << "Error: The string must be comprised of letters, the input had none." << endl;
-		else return validInput;
+		else valid = true;
 	}
+	return validInput;
 }
-void utils::promptNoInput(vector<string> prompts) {
+void utils::promptNoInput(const vector<string> prompts) { //Output list, takes no input
 	for (int i = 0; i < prompts.size(); i++) {
 		cout << prompts[i] << endl;
 	}
 }
-bool utils::yesOrNoPrompt(string prompt) {
-	//bool confirmed = false;
-	while (true) { //check if bad?
-		cout << endl;
-		string input = promptUserOptions(prompt + " (y/n)");
+bool utils::yesOrNoPrompt(const string prompt) { //Take input in yes or not format, return true or false
+	while (true) {
+		string input = promptUser(prompt + " (y/n)");
 
 		if (input == "y" || input == "Y") {
 			cout << endl;
@@ -73,10 +75,10 @@ bool utils::yesOrNoPrompt(string prompt) {
 		}
 	}
 }
-void utils::waitForSecs(float waitFor) {
+void utils::waitForSecs(const float waitFor) { //Wait for seconds
 	Sleep(waitFor * 1000);
 }
-void utils::slowPrint(string rawText, float waitForBetween, float waitAfter) {
+void utils::slowPrint(const string rawText, const float waitForBetween, const float waitAfter) { //Loop through string, wait between printing, wait after
 	for (int i = 0; i < rawText.length(); i++) {
 		cout << rawText[i];
 		utils::waitForSecs(waitForBetween);
@@ -84,7 +86,7 @@ void utils::slowPrint(string rawText, float waitForBetween, float waitAfter) {
 	utils::waitForSecs(waitAfter);
 	cout << endl;
 }
-string utils::dialogueboxBounds(string prompt) {
+string utils::dialogueboxBounds(const string prompt) {
 	string output = "";
 	for (int i = 0; i < prompt.length(); i++) {
 		output += "*";
@@ -92,14 +94,14 @@ string utils::dialogueboxBounds(string prompt) {
 	output += "************";
 	return output;
 }
-void utils::dialogueBox(string prompt) {
+void utils::dialogueBox(const string prompt) { //CreateTextBox, used by bachelorettes
 	float waitFor = 0.02f;
 	slowPrint(dialogueboxBounds(prompt));
 	slowPrint("*     " + prompt + "     *", .05f);
 	slowPrint(dialogueboxBounds(prompt));
 	cout << endl;
 }
-string utils::returnFromTxt(string dir) {
+string utils::returnFromTxt(const string dir) { //open text file, return contents
 	fstream data;
 	data.open(dir, ios::in); //Open title.txt
 
@@ -111,6 +113,6 @@ string utils::returnFromTxt(string dir) {
 	}
 	return formatedString; //Return string
 }
-char utils::returnCapitalised(char raw) {
+char utils::returnCapitalised(const char raw) { //return capital, used for players name
 	return toupper(raw);
 }

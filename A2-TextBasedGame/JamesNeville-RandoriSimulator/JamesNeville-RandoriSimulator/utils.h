@@ -9,16 +9,16 @@ using namespace std;
 
 class utils{
 public:
-	static int validateInt(string raw);
-	static int promptUserOptions(vector<string> prompts, bool isDialogue);
-	static string promptUserOptions(string prompt);
-	static void promptNoInput(vector<string> prompts);
-	static bool yesOrNoPrompt(string prompt = "Confirm:");
-	static void waitForSecs(float waitFor = 1);
-	static void slowPrint(string rawText, float waitForBetween = .001f, float waitAfter = 0);
-	static string dialogueboxBounds(string prompt);
-	static void dialogueBox(string prompt);
-	static string returnFromTxt(string dir);
-	static char returnCapitalised(char raw);
+	static int validateInt(const string raw);
+	static int promptUser(const vector<string> prompts, const bool isDialogue);
+	static string promptUser(const string prompt);
+	static void promptNoInput(const vector<string> prompts);
+	static bool yesOrNoPrompt(const string prompt = "Confirm:");
+	static void waitForSecs(const float waitFor = 1);
+	static void slowPrint(const string rawText, const float waitForBetween = .001f, const float waitAfter = 0);
+	static string dialogueboxBounds(const string prompt);
+	static void dialogueBox(const string prompt);
+	static string returnFromTxt(const string dir);
+	static char returnCapitalised(const char raw);
 };
 

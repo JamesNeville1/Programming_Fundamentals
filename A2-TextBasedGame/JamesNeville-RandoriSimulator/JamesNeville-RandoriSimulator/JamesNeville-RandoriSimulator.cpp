@@ -3,6 +3,13 @@
 
 using namespace std;
 
+void tutorial() {
+	if (utils::yesOrNoPrompt("Do you wish to read the tutorial")) {
+		utils::slowPrint(utils::returnFromTxt("README.txt"), .05f, 3);
+		system("CLS");
+	}
+}
+
 void mainGame(bachelorette* currentBachelorette, playerClass* player) {
 
 	utils::slowPrint(currentBachelorette->initialDescription, .055f, 3);
@@ -37,15 +44,16 @@ void mainGame(bachelorette* currentBachelorette, playerClass* player) {
 			loop = false;
 		}
 		else if (currentDialogue->response.size() <= 0) { //Check if the dialogue has any responses, if not, end
-			if (currentBachelorette->currentHearts >= currentBachelorette->maxHearts && currentBachelorette->finalTest()) {
+			if (currentBachelorette->currentHearts >= currentBachelorette->maxHearts && currentBachelorette->finalTest()) { //only do final test if it is possible for the player to win
 				utils::slowPrint(currentBachelorette->endDescriptionGood, 0.06f);
+				utils::slowPrint(player->name + " and " + currentBachelorette->name + " lived happily ever after.");
 			}
 			else {
 				utils::slowPrint(currentBachelorette->endDescriptionBad, 0.06f);
 			}
 			loop = false;
 		}
-		else currentDialogue = doDialogue(currentDialogue); //Continue if other statements are false
+		else currentDialogue = currentBachelorette->doDialogue(currentDialogue); //Continue if other statements are false
 	}
 }
 
@@ -62,6 +70,8 @@ int main() {
 	setMappedData(&mappededData);
 	setBacheloretteData(&bachelorettes ,&mappededData, &raceData);
 	#pragma endregion
+
+	tutorial();
 
 	bool loop = true;
 	while (loop) {

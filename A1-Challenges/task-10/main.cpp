@@ -97,7 +97,6 @@ string floatToString(const float rawFloat, const int amountOfChars = 3) {
 	}
 
 	if (validFloatToOutput[validFloatToOutput.size() - 1] == '.') {
-		cout << "test";
 		validFloatToOutput.pop_back();
 	}
 
@@ -192,5 +191,5 @@ void main() {
 	overallScore += outputAssessment(&user, 0); //Output data for assessment 1
 	overallScore += outputAssessment(&user, 1); //Output data for assessment 2
 
-	cout << "Overall you got: " << floatToString(overallScore / 2) << "%" << endl; //Output overall score
+	cout << "After weighing, overall you got: " << floatToString(overallScore / 2) << "%" << endl; //Output overall score
 }

@@ -1,7 +1,7 @@
 #pragma once
 #include "utils.h"
 #include "player.h"
-#include "json.hpp"
+#include "json.hpp" //I TAKE ZERO CREDIT FOR THIS, I wrote all the code but this hpp
 
 using json = nlohmann::json;
 
@@ -48,13 +48,14 @@ public:
 
 	string portrait = "";
 
+	static map<interests, string> formatedInterests;
+
 	void setBachelorette(int bacheloretteID, map<int, bacheloretteFiles>* fileRef, array<raceTemp, 3>* raceDataRef);
 	void adjustHearts(int increaseBy);
 	bool finalTest();
+	dialogue* doDialogue(dialogue* currentDialogue);
 };
 
 void setBacheloretteData(array<bachelorette, 3>* bachelorettes, map<int, bacheloretteFiles>* fileRef, array<raceTemp, 3>* raceDataRef);
 
 bachelorette* pickBachelorette(array<bachelorette, 3>* bachelorettes);
-
-dialogue* doDialogue(dialogue* currentDialogue);
