@@ -1,0 +1,28 @@
+{
+  "name": "Mr. Marmite",
+  "specialIntrest": 3,
+  "likes": 2,
+  "dislikes": 0,
+  "initialDescription": "You look at him from across the street, you are utterly fixated by him, his curves have captured your eye and won't let go. He catches your gaze and smiles",
+  "endDescriptionBad": "You are not worthy of Mr. Marmites powers",
+  "endDescriptionGood": "Mr. Marmite absorbs your soul, you are one, he is you, and you... are him",
+  "dialogue": [
+    {
+      "whatHappensText": "Hello there my sweet",
+      "promptText": "N/A",
+      "options": [
+        1,
+        2
+      ]
+    },
+    {
+      "whatHappensText": "",
+      "promptText": "Offer your soul.",
+      "heartEffect": 2
+    },
+    {
+      "whatHappensText": "",
+      "promptText": "Step away from him."
+    }
+  ]
+}
