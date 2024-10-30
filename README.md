@@ -1,4 +1,0 @@
-#Hello
-##E
-###EE
-acnand
