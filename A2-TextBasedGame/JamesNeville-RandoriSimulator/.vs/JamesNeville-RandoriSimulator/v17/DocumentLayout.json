@@ -1,0 +1,119 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\n013403n\\Documents\\GitHub\\Programming_Fundamentals\\A2-TextBasedGame\\JamesNeville-RandoriSimulator\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{97C6354C-7F62-40C0-A935-5999A15E2A6A}|JamesNeville-RandoriSimulator\\JamesNeville-RandoriSimulator.vcxproj|C:\\Users\\n013403n\\Documents\\GitHub\\Programming_Fundamentals\\A2-TextBasedGame\\JamesNeville-RandoriSimulator\\JamesNeville-RandoriSimulator\\bachelorette.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{97C6354C-7F62-40C0-A935-5999A15E2A6A}|JamesNeville-RandoriSimulator\\JamesNeville-RandoriSimulator.vcxproj|solutionrelative:JamesNeville-RandoriSimulator\\bachelorette.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97C6354C-7F62-40C0-A935-5999A15E2A6A}|JamesNeville-RandoriSimulator\\JamesNeville-RandoriSimulator.vcxproj|C:\\Users\\n013403n\\Documents\\GitHub\\Programming_Fundamentals\\A2-TextBasedGame\\JamesNeville-RandoriSimulator\\JamesNeville-RandoriSimulator\\player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{97C6354C-7F62-40C0-A935-5999A15E2A6A}|JamesNeville-RandoriSimulator\\JamesNeville-RandoriSimulator.vcxproj|solutionrelative:JamesNeville-RandoriSimulator\\player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97C6354C-7F62-40C0-A935-5999A15E2A6A}|JamesNeville-RandoriSimulator\\JamesNeville-RandoriSimulator.vcxproj|C:\\Users\\n013403n\\Documents\\GitHub\\Programming_Fundamentals\\A2-TextBasedGame\\JamesNeville-RandoriSimulator\\JamesNeville-RandoriSimulator\\player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{97C6354C-7F62-40C0-A935-5999A15E2A6A}|JamesNeville-RandoriSimulator\\JamesNeville-RandoriSimulator.vcxproj|solutionrelative:JamesNeville-RandoriSimulator\\player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97C6354C-7F62-40C0-A935-5999A15E2A6A}|JamesNeville-RandoriSimulator\\JamesNeville-RandoriSimulator.vcxproj|C:\\Users\\n013403n\\Documents\\GitHub\\Programming_Fundamentals\\A2-TextBasedGame\\JamesNeville-RandoriSimulator\\JamesNeville-RandoriSimulator\\utils.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{97C6354C-7F62-40C0-A935-5999A15E2A6A}|JamesNeville-RandoriSimulator\\JamesNeville-RandoriSimulator.vcxproj|solutionrelative:JamesNeville-RandoriSimulator\\utils.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97C6354C-7F62-40C0-A935-5999A15E2A6A}|JamesNeville-RandoriSimulator\\JamesNeville-RandoriSimulator.vcxproj|C:\\Users\\n013403n\\Documents\\GitHub\\Programming_Fundamentals\\A2-TextBasedGame\\JamesNeville-RandoriSimulator\\JamesNeville-RandoriSimulator\\JamesNeville-RandoriSimulator.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{97C6354C-7F62-40C0-A935-5999A15E2A6A}|JamesNeville-RandoriSimulator\\JamesNeville-RandoriSimulator.vcxproj|solutionrelative:JamesNeville-RandoriSimulator\\JamesNeville-RandoriSimulator.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97C6354C-7F62-40C0-A935-5999A15E2A6A}|JamesNeville-RandoriSimulator\\JamesNeville-RandoriSimulator.vcxproj|C:\\Users\\n013403n\\Documents\\GitHub\\Programming_Fundamentals\\A2-TextBasedGame\\JamesNeville-RandoriSimulator\\JamesNeville-RandoriSimulator\\utils.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{97C6354C-7F62-40C0-A935-5999A15E2A6A}|JamesNeville-RandoriSimulator\\JamesNeville-RandoriSimulator.vcxproj|solutionrelative:JamesNeville-RandoriSimulator\\utils.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "player.h",
+              "DocumentMoniker": "C:\\Users\\n013403n\\Documents\\GitHub\\Programming_Fundamentals\\A2-TextBasedGame\\JamesNeville-RandoriSimulator\\JamesNeville-RandoriSimulator\\player.h",
+              "RelativeDocumentMoniker": "JamesNeville-RandoriSimulator\\player.h",
+              "ToolTip": "C:\\Users\\n013403n\\Documents\\GitHub\\Programming_Fundamentals\\A2-TextBasedGame\\JamesNeville-RandoriSimulator\\JamesNeville-RandoriSimulator\\player.h",
+              "RelativeToolTip": "JamesNeville-RandoriSimulator\\player.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-10-30T09:34:34.438Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "player.cpp",
+              "DocumentMoniker": "C:\\Users\\n013403n\\Documents\\GitHub\\Programming_Fundamentals\\A2-TextBasedGame\\JamesNeville-RandoriSimulator\\JamesNeville-RandoriSimulator\\player.cpp",
+              "RelativeDocumentMoniker": "JamesNeville-RandoriSimulator\\player.cpp",
+              "ToolTip": "C:\\Users\\n013403n\\Documents\\GitHub\\Programming_Fundamentals\\A2-TextBasedGame\\JamesNeville-RandoriSimulator\\JamesNeville-RandoriSimulator\\player.cpp",
+              "RelativeToolTip": "JamesNeville-RandoriSimulator\\player.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAQAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2023-11-30T13:22:42.483Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "bachelorette.cpp",
+              "DocumentMoniker": "C:\\Users\\n013403n\\Documents\\GitHub\\Programming_Fundamentals\\A2-TextBasedGame\\JamesNeville-RandoriSimulator\\JamesNeville-RandoriSimulator\\bachelorette.cpp",
+              "RelativeDocumentMoniker": "JamesNeville-RandoriSimulator\\bachelorette.cpp",
+              "ToolTip": "C:\\Users\\n013403n\\Documents\\GitHub\\Programming_Fundamentals\\A2-TextBasedGame\\JamesNeville-RandoriSimulator\\JamesNeville-RandoriSimulator\\bachelorette.cpp",
+              "RelativeToolTip": "JamesNeville-RandoriSimulator\\bachelorette.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABUAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2023-11-30T13:22:42.533Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "utils.cpp",
+              "DocumentMoniker": "C:\\Users\\n013403n\\Documents\\GitHub\\Programming_Fundamentals\\A2-TextBasedGame\\JamesNeville-RandoriSimulator\\JamesNeville-RandoriSimulator\\utils.cpp",
+              "RelativeDocumentMoniker": "JamesNeville-RandoriSimulator\\utils.cpp",
+              "ToolTip": "C:\\Users\\n013403n\\Documents\\GitHub\\Programming_Fundamentals\\A2-TextBasedGame\\JamesNeville-RandoriSimulator\\JamesNeville-RandoriSimulator\\utils.cpp",
+              "RelativeToolTip": "JamesNeville-RandoriSimulator\\utils.cpp",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAAEAAAAAPAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2023-11-30T13:22:42.601Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "JamesNeville-RandoriSimulator.cpp",
+              "DocumentMoniker": "C:\\Users\\n013403n\\Documents\\GitHub\\Programming_Fundamentals\\A2-TextBasedGame\\JamesNeville-RandoriSimulator\\JamesNeville-RandoriSimulator\\JamesNeville-RandoriSimulator.cpp",
+              "RelativeDocumentMoniker": "JamesNeville-RandoriSimulator\\JamesNeville-RandoriSimulator.cpp",
+              "ToolTip": "C:\\Users\\n013403n\\Documents\\GitHub\\Programming_Fundamentals\\A2-TextBasedGame\\JamesNeville-RandoriSimulator\\JamesNeville-RandoriSimulator\\JamesNeville-RandoriSimulator.cpp",
+              "RelativeToolTip": "JamesNeville-RandoriSimulator\\JamesNeville-RandoriSimulator.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAFoAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2023-11-30T13:22:42.602Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "utils.h",
+              "DocumentMoniker": "C:\\Users\\n013403n\\Documents\\GitHub\\Programming_Fundamentals\\A2-TextBasedGame\\JamesNeville-RandoriSimulator\\JamesNeville-RandoriSimulator\\utils.h",
+              "RelativeDocumentMoniker": "JamesNeville-RandoriSimulator\\utils.h",
+              "ToolTip": "C:\\Users\\n013403n\\Documents\\GitHub\\Programming_Fundamentals\\A2-TextBasedGame\\JamesNeville-RandoriSimulator\\JamesNeville-RandoriSimulator\\utils.h",
+              "RelativeToolTip": "JamesNeville-RandoriSimulator\\utils.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABUAAAAkAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2023-11-30T14:25:08.243Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
